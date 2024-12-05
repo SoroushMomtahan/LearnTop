@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Users.Domain\LearnTop.Modules.Users.Domain.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Users.Presentation\LearnTop.Modules.Users.Presentation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\ReadDb\" />
+    <Folder Include="Database\WriteDb\Configurations\" />
+    <Folder Include="Database\WriteDb\Migrations\" />
+  </ItemGroup>
+</Project>

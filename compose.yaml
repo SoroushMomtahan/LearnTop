@@ -1,0 +1,38 @@
+﻿services:
+  learntop.bootstrapper.api:
+    image: learntop.bootstrapper.api
+    container_name: LearnTop.Api
+    build:
+      context: .
+      dockerfile: src/bootstrapper/LearnTop.Bootstrapper.Api/Dockerfile
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+  learntop.sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: LearnTop.Sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "1234@abcd"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+  learntop.seq:
+    image: datalust/seq:latest
+    container_name: LearnTop.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5341:5341"
+      - "8081:80"
+  
+  learntop.redis:
+    image: redis:latest
+    container_name: LearnTop.Redis
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  sqlserver-data:
