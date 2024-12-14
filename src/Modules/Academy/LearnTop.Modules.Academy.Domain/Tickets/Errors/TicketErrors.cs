@@ -4,9 +4,13 @@ namespace LearnTop.Modules.Academy.Domain.Tickets.Errors;
 
 public static class TicketErrors
 {
-    public static Error NotFound(Guid eventId)
+    public static Error NotFound(Guid ticketId)
     {
-        return Error.NotFound("Tickets.NotFound", $"The event with the identifier {eventId} was not found");
+        return Error.NotFound("Tickets.NotFound", $"The ticket with the identifier {ticketId} was not found");
+    }
+    public static Error UserNotFound(Guid userId)
+    {
+        return Error.NotFound("Tickets.UserNotFound", $"The user with the identifier {userId} was not found");
     }
 
     public static readonly Error TitleLessThan3Character = Error.Validation(

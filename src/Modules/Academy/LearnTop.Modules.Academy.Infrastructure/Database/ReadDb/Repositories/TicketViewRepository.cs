@@ -21,6 +21,10 @@ public class TicketViewRepository(
     {
         await academyViewDbContext.TicketViews.AddAsync(ticketView);
     }
+    public async Task AddReplyTicketViewAsync(ReplyTicketView replyTicketView)
+    {
+        await academyViewDbContext.ReplyTicketViews.AddAsync(replyTicketView);
+    }
 
     public Task UpdateAsync(TicketView ticketView)
     {

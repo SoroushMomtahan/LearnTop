@@ -1,7 +1,7 @@
-﻿using LearnTop.Modules.Users.Domain.Users.Models;
+﻿using LearnTop.Modules.Users.Application.Abstractions.Data;
+using LearnTop.Modules.Users.Domain.Users.Models;
 using LearnTop.Modules.Users.Domain.Users.Repositories;
 using LearnTop.Shared.Application.Cqrs;
-using LearnTop.Shared.Application.Data;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Users.Application.Users.Commands;
@@ -13,7 +13,7 @@ public class CreateUserCommandHandler
 
     public async Task<Result<CreateUserCommandResponse>> Handle(CreateUserCommand request, CancellationToken cancellationToken)
     {
-        Result<User> result = User.Register(
+        Result<User> result = User.Create(
             request.Firstname,
             request.Lastname,
             request.Email,

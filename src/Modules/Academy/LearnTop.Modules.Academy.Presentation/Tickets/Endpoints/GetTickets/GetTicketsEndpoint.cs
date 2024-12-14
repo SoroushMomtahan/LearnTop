@@ -38,6 +38,6 @@ public class GetTicketsEndpoint : IEndpoint
 
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .WithTags(Tags.Ticket);
+            .WithTags(Tags.Tickets);
     }
 }

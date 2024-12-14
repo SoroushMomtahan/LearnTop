@@ -1,4 +1,4 @@
-﻿namespace LearnTop.Shared.Application.Data;
+﻿namespace LearnTop.Modules.Academy.Application.Abstractions.Data;
 
 public interface IUnitOfWork
 {

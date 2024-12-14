@@ -17,9 +17,9 @@ public class CreateTicketEndpoint : IEndpoint
         app.MapPost("tickets", static async (CreateTicketRequest request, ISender sender) =>
             {
                 CreateTicketCommand command = request.Adapt<CreateTicketCommand>();
-                Result<CreateTicketResult> result = await sender.Send(command);
+                Result<CreateTicketResponse> result = await sender.Send(command);
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .WithTags(Tags.Ticket);
+            .WithTags(Tags.Tickets);
     }
 }

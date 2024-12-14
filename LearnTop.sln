@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Users.Pres
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Users.Infrastructure", "src\Modules\Users\LearnTop.Modules.Users.Infrastructure\LearnTop.Modules.Users.Infrastructure.csproj", "{9DD77A64-C80C-44DA-BEC0-EE9229D80273}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Users.PublicApi", "src\Modules\Users\LearnTop.Modules.Users.PublicApi\LearnTop.Modules.Users.PublicApi.csproj", "{5BE2D744-73DF-4C76-AA8E-96AB8BAD703E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,7 @@ Global
 		{DF2FADCC-7C4B-43A9-9F2F-B49CDB00EB3C} = {4ACDCB04-6823-470F-880D-B3B3538E872A}
 		{456D561A-D970-454E-8FF4-8CE0F89826BE} = {4ACDCB04-6823-470F-880D-B3B3538E872A}
 		{9DD77A64-C80C-44DA-BEC0-EE9229D80273} = {4ACDCB04-6823-470F-880D-B3B3538E872A}
+		{5BE2D744-73DF-4C76-AA8E-96AB8BAD703E} = {4ACDCB04-6823-470F-880D-B3B3538E872A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{038BBE57-BF63-409A-8C75-AC49A45D74B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -123,5 +126,9 @@ Global
 		{9DD77A64-C80C-44DA-BEC0-EE9229D80273}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD77A64-C80C-44DA-BEC0-EE9229D80273}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD77A64-C80C-44DA-BEC0-EE9229D80273}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE2D744-73DF-4C76-AA8E-96AB8BAD703E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE2D744-73DF-4C76-AA8E-96AB8BAD703E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE2D744-73DF-4C76-AA8E-96AB8BAD703E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE2D744-73DF-4C76-AA8E-96AB8BAD703E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

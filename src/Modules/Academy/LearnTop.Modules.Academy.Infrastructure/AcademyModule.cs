@@ -1,10 +1,10 @@
-﻿using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+﻿using LearnTop.Modules.Academy.Application.Abstractions.Data;
+using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
 using LearnTop.Modules.Academy.Infrastructure.Database.ReadDb;
 using LearnTop.Modules.Academy.Infrastructure.Database.ReadDb.Repositories;
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb;
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories;
 using LearnTop.Modules.Academy.Presentation;
-using LearnTop.Shared.Application.Data;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using LearnTop.Shared.Presentation.Endpoints;
 using Microsoft.EntityFrameworkCore;

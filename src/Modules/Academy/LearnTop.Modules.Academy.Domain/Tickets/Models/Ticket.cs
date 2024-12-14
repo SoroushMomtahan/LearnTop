@@ -15,7 +15,9 @@ public class Ticket : Aggregate
     public TicketSection Section { get; private set; }
 
     private readonly List<ReplyTicket> _replyTickets = [];
-    public IReadOnlyList<ReplyTicket> ReplyTickets => _replyTickets.AsReadOnly();
+    public IReadOnlyCollection<ReplyTicket> ReplyTickets => [.. _replyTickets];
+
+    public byte[] Version { get; private set; }
 
     private Ticket() { }
 
@@ -72,7 +74,7 @@ public class Ticket : Aggregate
         Priority = priority;
         Section = section;
         UpdatedAt = DateTime.Now;
-
+        AddDomainEvent(new TicketEditedEvent(this));
         return Result.Success();
     }
 
@@ -83,6 +85,7 @@ public class Ticket : Aggregate
             Status = TicketStatus.Answered;
         }
         _replyTickets.Add(replyTicket);
+        AddDomainEvent(new ReplyTicketCreatedEvent(replyTicket));
     }
 
     public void ChangeStatus(TicketStatus status)

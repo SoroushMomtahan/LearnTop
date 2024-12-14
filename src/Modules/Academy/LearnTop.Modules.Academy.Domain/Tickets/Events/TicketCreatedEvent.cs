@@ -5,5 +5,5 @@ namespace LearnTop.Modules.Academy.Domain.Tickets.Events;
 
 public class TicketCreatedEvent(Ticket ticket) : DomainEvent
 {
-    public Ticket Ticket { get; set; } = ticket;
+    public Ticket Ticket { get; } = ticket;
 }

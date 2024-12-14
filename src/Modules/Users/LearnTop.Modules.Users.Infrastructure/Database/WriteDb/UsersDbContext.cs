@@ -1,5 +1,5 @@
-﻿using LearnTop.Modules.Users.Domain.Users.Models;
-using LearnTop.Shared.Application.Data;
+﻿using LearnTop.Modules.Users.Application.Abstractions.Data;
+using LearnTop.Modules.Users.Domain.Users.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LearnTop.Modules.Users.Infrastructure.Database.WriteDb;

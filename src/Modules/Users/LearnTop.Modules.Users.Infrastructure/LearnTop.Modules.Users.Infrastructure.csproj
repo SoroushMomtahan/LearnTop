@@ -4,9 +4,10 @@
     <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
     <ProjectReference Include="..\LearnTop.Modules.Users.Domain\LearnTop.Modules.Users.Domain.csproj" />
     <ProjectReference Include="..\LearnTop.Modules.Users.Presentation\LearnTop.Modules.Users.Presentation.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Users.PublicApi\LearnTop.Modules.Users.PublicApi.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database\ReadDb\" />
+    <Folder Include="Database\ReadDb\Migrations\" />
     <Folder Include="Database\WriteDb\Configurations\" />
     <Folder Include="Database\WriteDb\Migrations\" />
   </ItemGroup>

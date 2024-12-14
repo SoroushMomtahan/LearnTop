@@ -1,4 +1,5 @@
 ﻿using LearnTop.Modules.Users.Domain.Users.Errors;
+using LearnTop.Modules.Users.Domain.Users.Events;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Users.Domain.Users.Models;
@@ -12,7 +13,7 @@ public class User : Aggregate
 
     public User() { }
 
-    public static Result<User> Register(string firstname, string lastname, string email, string password)
+    public static Result<User> Create(string firstname, string lastname, string email, string password)
     {
         if (firstname.Length < 3)
         {
@@ -25,6 +26,7 @@ public class User : Aggregate
             Email = email,
             Password = password
         };
+        user.AddDomainEvent(new UserCreatedEvent(user));
         return user;
     }
 }

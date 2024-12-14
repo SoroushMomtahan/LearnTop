@@ -4,6 +4,8 @@ namespace LearnTop.Modules.Academy.Domain.Tickets.Repositories;
 
 public interface ITicketRepository
 {
+    Task<Ticket?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task AddAsync(Ticket ticket);
-    Task<Guid> UpdateAsync(Ticket ticket);
+    Task AddReplyTicketAsync(ReplyTicket replyTicket);
+    void Update(Ticket ticket);
 }

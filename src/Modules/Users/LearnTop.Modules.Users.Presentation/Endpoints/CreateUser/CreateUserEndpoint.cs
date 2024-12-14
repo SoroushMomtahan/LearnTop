@@ -18,6 +18,6 @@ public class CreateUserEndpoint : IEndpoint
             Result<CreateUserCommandResponse> result = await sender.Send(createUserCommand);
             return result.Match(Results.Ok, ApiResults.Problem);
         })
-        .WithTags(Tags.User);
+        .WithTags(Tags.Users);
     }
 }
