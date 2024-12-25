@@ -6,10 +6,10 @@
 
     <ItemGroup>
       <PackageReference Include="Mapster" Version="7.4.1-pre01" />
+        <PackageReference Include="MassTransit.Abstractions" Version="8.3.4-develop.2154" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\LearnTop.Shared.Domain\LearnTop.Shared.Domain.csproj" />
     </ItemGroup>
-
 </Project>

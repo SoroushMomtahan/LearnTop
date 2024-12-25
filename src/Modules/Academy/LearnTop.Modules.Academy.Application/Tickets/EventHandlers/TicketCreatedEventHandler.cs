@@ -1,6 +1,6 @@
 ﻿using LearnTop.Modules.Academy.Domain.Tickets.Events;
 using LearnTop.Modules.Academy.Domain.Tickets.Models;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+using LearnTop.Modules.Academy.Domain.Tickets.Repositories.Views;
 using LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
 using LearnTop.Shared.Application.Messaging;
 

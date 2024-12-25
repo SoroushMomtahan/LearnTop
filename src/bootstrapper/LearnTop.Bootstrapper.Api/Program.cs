@@ -23,7 +23,9 @@ builder.Services
     .AddApplicationConfiguration
         (LearnTop.Modules.Academy.Application.AssemblyReference.AcademyAssembly,
         LearnTop.Modules.Users.Application.AssemblyReference.UsersAssembly)
-    .AddInfrastructureConfiguration(builder.Configuration.GetConnectionString("Cache")!);
+    .AddInfrastructureConfiguration(
+        [AcademyModule.ConfigureConsumers],
+        builder.Configuration.GetConnectionString("Cache")!);
 
 builder.Services
     .AddAcademyModule(builder.Configuration)
@@ -42,8 +44,12 @@ app.UseHttpsRedirection();
 
 app.MapEndpoints();
 
+app.UseSerilogRequestLogging();
+
 app.UseExceptionHandler();
 
-app.UseSerilogRequestLogging();
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.Run();

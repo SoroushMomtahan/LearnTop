@@ -1,6 +1,6 @@
 ﻿using LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
 
-namespace LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+namespace LearnTop.Modules.Academy.Domain.Tickets.Repositories.Views;
 
 public interface ITicketViewRepository
 {

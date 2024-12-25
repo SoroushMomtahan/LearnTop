@@ -2,6 +2,10 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
       <ProjectReference Include="..\LearnTop.Modules.Users.Domain\LearnTop.Modules.Users.Domain.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Users.IntegrationEvents\LearnTop.Modules.Users.IntegrationEvents.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Abstractions\Identity\" />
     </ItemGroup>
 
 </Project>

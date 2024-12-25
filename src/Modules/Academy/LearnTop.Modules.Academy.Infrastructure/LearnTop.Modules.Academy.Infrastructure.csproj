@@ -4,4 +4,7 @@
     <ProjectReference Include="..\LearnTop.Modules.Academy.Application\LearnTop.Modules.Academy.Application.csproj" />
     <ProjectReference Include="..\LearnTop.Modules.Academy.Presentation\LearnTop.Modules.Academy.Presentation.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database\WriteDb\Migrations\" />
+  </ItemGroup>
 </Project>

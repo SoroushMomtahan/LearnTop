@@ -10,6 +10,7 @@ namespace LearnTop.Modules.Academy.Application.CourseProposals.Commands.CreateCo
 
 public class CreateCourseProposalCommandHandler(
     ICourseProposalRepository courseProposalRepository,
+    ISkillRepository skillRepository,
     IUnitOfWork unitOfWork,
     IUsersApi usersApi
     )
@@ -30,7 +31,7 @@ public class CreateCourseProposalCommandHandler(
             request.TitleOfCourse,
             request.Skills);
 
-        await courseProposalRepository.AddSkillsAsync(request.Skills, cancellationToken);
+        await skillRepository.AddAsync(request.Skills, cancellationToken);
         await courseProposalRepository.AddAsync(courseProposal, cancellationToken);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -1,8 +1,9 @@
-﻿namespace LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
+﻿using LearnTop.Shared.Domain;
 
-public class TicketView
+namespace LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
+
+public class TicketView : EntityView
 {
-    public Guid Id { get; set; }
     public Guid UserId { get; set; }
     public string Title { get; set; }
     public string Content { get; set; }

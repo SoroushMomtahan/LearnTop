@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Configurations;
+namespace LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Configurations.Tickets;
 
 public class ReplyTicketConfiguration : IEntityTypeConfiguration<ReplyTicket>
 {

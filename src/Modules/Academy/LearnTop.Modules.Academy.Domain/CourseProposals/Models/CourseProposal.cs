@@ -1,4 +1,5 @@
-﻿using LearnTop.Shared.Domain;
+﻿using LearnTop.Modules.Academy.Domain.CourseProposals.Events;
+using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Academy.Domain.CourseProposals.Models;
 
@@ -23,6 +24,7 @@ public class CourseProposal : Aggregate
             TitleOfCourse = titleOfCourse
         };
         skills.ForEach(courseProposal.AddSkill);
+        courseProposal.AddDomainEvent(new CourseProposalCreatedEvent(courseProposal));
         return courseProposal;
     }
     private void AddSkill(Skill skill)

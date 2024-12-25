@@ -1,6 +1,9 @@
 ﻿using LearnTop.Shared.Application.Caching;
+using LearnTop.Shared.Application.EventBus;
+using LearnTop.Shared.Infrastructure.Authentication;
 using LearnTop.Shared.Infrastructure.Caching;
 using LearnTop.Shared.Infrastructure.Interceptors;
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using StackExchange.Redis;
@@ -11,8 +14,10 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructureConfiguration(
         this IServiceCollection services,
+        Action<IRegistrationConfigurator>[] registrationConfigurators,
         string redisConnectionString)
     {
+        services.AddAuthenticationInternal();
         services.TryAddSingleton<ICacheService, CacheService>();
 
         services.TryAddSingleton<PublishDomainEventsInterceptor>();
@@ -22,6 +27,19 @@ public static class InfrastructureConfiguration
 
         services.AddStackExchangeRedisCache(
             options => options.ConnectionMultiplexerFactory = () => Task.FromResult(connectionMultiplexer));
+
+        services.TryAddSingleton<IEventBus, EventBus.EventBus>();
+        services.AddMassTransit((configure) =>
+        {
+            foreach (Action<IRegistrationConfigurator> registrationConfigurator in registrationConfigurators)
+            {
+                registrationConfigurator(configure);
+            }
+            configure.UsingInMemory((context, configurator) =>
+            {
+                configurator.ConfigureEndpoints(context);
+            });
+        });
         return services;
     }
 }

@@ -2,7 +2,7 @@
 using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories;
+namespace LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.Tickets;
 
 public class TicketRepository(
     AcademyDbContext dbContext

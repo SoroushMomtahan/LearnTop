@@ -1,8 +1,8 @@
-﻿using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+﻿using LearnTop.Modules.Academy.Domain.Tickets.Repositories.Views;
 using LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnTop.Modules.Academy.Infrastructure.Database.ReadDb.Repositories;
+namespace LearnTop.Modules.Academy.Infrastructure.Database.ReadDb.Repositories.Tickets;
 
 public class TicketViewRepository(
     AcademyViewDbContext academyViewDbContext) : ITicketViewRepository

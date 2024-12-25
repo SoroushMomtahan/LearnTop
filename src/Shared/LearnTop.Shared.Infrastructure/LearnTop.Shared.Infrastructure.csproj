@@ -1,6 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+        <PackageReference Include="MassTransit" Version="8.3.4-develop.2154" />
         <PackageReference Include="MediatR" Version="12.4.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
         <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="9.0.0"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0"/>
     </ItemGroup>

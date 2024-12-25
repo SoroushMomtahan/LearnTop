@@ -1,5 +1,5 @@
 ﻿using LearnTop.Modules.Academy.Application.Tickets.Dtos;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+using LearnTop.Modules.Academy.Domain.Tickets.Repositories.Views;
 using LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;

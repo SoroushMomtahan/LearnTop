@@ -1,15 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-    </PropertyGroup>
-
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Domain\LearnTop.Shared.Domain.csproj" />
       <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
+      <ProjectReference Include="..\..\Users\LearnTop.Modules.Users.IntegrationEvents\LearnTop.Modules.Users.IntegrationEvents.csproj" />
       <ProjectReference Include="..\LearnTop.Modules.Academy.Application\LearnTop.Modules.Academy.Application.csproj" />
     </ItemGroup>
-
 </Project>

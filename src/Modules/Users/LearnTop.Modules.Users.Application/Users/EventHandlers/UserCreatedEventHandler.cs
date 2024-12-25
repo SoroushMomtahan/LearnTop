@@ -1,16 +1,21 @@
 ﻿using LearnTop.Modules.Users.Domain.Users.Events;
 using LearnTop.Modules.Users.Domain.Users.Repositories;
 using LearnTop.Modules.Users.Domain.Users.ViewModels;
+using LearnTop.Modules.Users.IntegrationEvents;
+using LearnTop.Shared.Application.EventBus;
 using LearnTop.Shared.Application.Messaging;
 
 namespace LearnTop.Modules.Users.Application.Users.EventHandlers;
 
 public class UserCreatedEventHandler
-    (IUserViewRepository userViewRepository)
+    (IUserViewRepository userViewRepository,
+    IEventBus eventBus)
     : IDomainEventHandler<UserCreatedEvent>
 {
 
-    public async Task Handle(UserCreatedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(
+        UserCreatedEvent notification,
+        CancellationToken cancellationToken)
     {
         UserView userView = new()
         {
@@ -21,5 +26,14 @@ public class UserCreatedEventHandler
         };
         await userViewRepository.AddAsync(userView);
         await userViewRepository.SaveChangesAsync(cancellationToken);
+
+        await eventBus.PublishAsync(new UserCreatedIntegrationEvent(Guid.NewGuid(), DateTime.Now)
+        {
+            UserId = notification.User.Id,
+            Firstname = userView.Firstname,
+            Lastname = userView.Lastname,
+            Email = userView.Email,
+            Password = userView.Password
+        }, cancellationToken);
     }
 }
