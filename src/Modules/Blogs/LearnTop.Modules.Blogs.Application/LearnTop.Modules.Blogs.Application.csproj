@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-      <Folder Include="Blogs\Features\Queries\" />
-    </ItemGroup>
-    <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
       <ProjectReference Include="..\LearnTop.Modules.Blogs.Domain\LearnTop.Modules.Blogs.Domain.csproj" />
     </ItemGroup>
