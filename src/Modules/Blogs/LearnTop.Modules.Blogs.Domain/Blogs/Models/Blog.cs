@@ -13,19 +13,18 @@ public class Blog : Aggregate
     public Title Title { get; private set; }
     public Content Content { get; private set; }
     public Status Status { get; private set; }
-    public bool IsDelete { get; private set; }
+    public bool IsDeleted { get; private set; }
     private readonly List<Tag> _tags = [];
     public IReadOnlyList<Tag> Tags => [.. _tags];
-    private readonly List<Comment> _comments = [];
-    public IReadOnlyList<Comment> Comments => [.. _comments];
     
     private Blog() { }
 
-    public static Result<Blog> Create(Guid authorId, string title, string content)
+    public static Result<Blog> Create(Guid authorId, Guid categoryId, string title, string content)
     {
         Blog blog = new()
         {
             AuthorId = authorId,
+            CategoryId = categoryId,
             Title = title,
             Content = content,
             Status = Status.Confirming
@@ -39,15 +38,26 @@ public class Blog : Aggregate
         Content = content;
         AddDomainEvent(new BlogUpdatedEvent(this));
     }
-    public void ChangeStatus(Status status)
+    public void ChangeCategory(Guid categoryId)
     {
+        CategoryId = categoryId;
+        AddDomainEvent(new BlogUpdatedEvent(this));
+    }
+    public Result ChangeStatus(Status status)
+    {
+        bool isDefined = Enum.IsDefined(status);
+        if (!isDefined)
+        {
+            return Result.Failure(BlogErrors.StatusIsNotInRange());
+        }
         Status = status;
-        AddDomainEvent(new BlogCreatedEvent(this));
+        AddDomainEvent(new BlogUpdatedEvent(this));
+        return Result.Success();
     }
     public void Delete()
     {
         DeletedAt = DateTime.UtcNow;
-        IsDelete = true;
+        IsDeleted = true;
         AddDomainEvent(new BlogUpdatedEvent(this));
     }
     public void AddTag(Tag tag)
@@ -69,27 +79,6 @@ public class Blog : Aggregate
         }
         _tags.Remove(tag);
         AddDomainEvent(new TagRemovedEvent(tag));
-        return Result.Success();
-    }
-    public void AddComment(Comment comment)
-    {
-        bool isExist = _comments.Exists(c => c.CommentId == comment.CommentId);
-        if (isExist)
-        {
-            return;
-        }
-        _comments.Add(comment);
-        AddDomainEvent(new CommentAddedEvent(comment));
-    }
-    public Result RemoveComment(Comment comment)
-    {
-        bool isExist = _comments.Exists(c => c.CommentId == comment.CommentId);
-        if (!isExist)
-        {
-            Result.Failure(BlogErrors.TagNotFound(comment.CommentId));
-        }
-        _comments.Remove(comment);
-        AddDomainEvent(new CommentRemovedEvent(comment));
         return Result.Success();
     }
 }

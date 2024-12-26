@@ -8,6 +8,6 @@ public interface IBlogRepository
     Task UpdateAsync(Blog blog);
     Task DeleteAsync(Blog blog);
     Task<Blog?> GetByIdAsync(Guid id);
-    Task UpdateTagsAsync(IEnumerable<Tag> tags);
-    Task UpdateCommentsAsync(IEnumerable<Comment> comments);
+    Task UpdateTagsAsync(Blog blog);
+    Task DeleteTagAsync(Tag tag);
 }

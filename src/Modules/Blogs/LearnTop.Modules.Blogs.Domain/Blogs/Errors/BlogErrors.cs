@@ -4,6 +4,22 @@ namespace LearnTop.Modules.Blogs.Domain.Blogs.Errors;
 
 public static class BlogErrors
 {
+    public static Error Empty(string name)
+    {
+        return new(
+            "Blogs.NotEmpty",
+            $"فیلد {name} نمی تواند خلی باشد.",
+            ErrorType.Validation
+            );
+    }
+    public static Error NotFound(Guid blogId)
+    {
+        return new(
+            "Blogs.NotFound",
+            $"مقاله ای با شناسه {blogId} یافت نشد.",
+            ErrorType.NotFound
+            );
+    }
     public static Error TitleIsLessThan3Characters()
     {
         return new(
@@ -32,5 +48,13 @@ public static class BlogErrors
     public static Error CoomentNotFound(Guid commentId)
     {
         return new("Blogs.TagNotFound", $"نظری با شناسه {commentId} یافت نشد.", ErrorType.NotFound);
+    }
+    public static Error StatusIsNotInRange()
+    {
+        return new(
+            "Blogs.StatusIsNotInRange",
+            "وضعیت وارد شده نادرست است.",
+            ErrorType.Validation
+            );
     }
 }
