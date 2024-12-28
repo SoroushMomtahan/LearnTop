@@ -2,9 +2,9 @@
 
 namespace LearnTop.Modules.Blogs.Domain.Articles.Views;
 
-public class TagView : EntityView
+public class ArticleTagView : EntityView
 {
-    public Guid TagId { get; private set; }
-    public Guid ArticleId { get; private set; }
+    public Guid TagId { get; set; }
+    public Guid ArticleId { get; set; }
     public ArticleView ArticleView { get; set; }
 }

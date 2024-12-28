@@ -7,6 +7,7 @@ namespace LearnTop.Modules.Blogs.Infrastructure.ReadDb;
 public sealed class BlogViewsDbContext(DbContextOptions<BlogViewsDbContext> options) : DbContext(options)
 {
     internal DbSet<ArticleView> ArticleViews => Set<ArticleView>();
+    internal DbSet<ArticleTagView> ArticleTagViews => Set<ArticleTagView>();
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

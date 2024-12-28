@@ -44,6 +44,7 @@ public static class BlogsModule
     private static void AddReadDb(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IArticleViewRepository, ArticleViewRepository>();
+        services.AddScoped<IArticleTagViewRepository, ArticleTagViewRepository>();
         services.AddDbContext<BlogViewsDbContext>(option =>
         {
             string connectionString = configuration.GetConnectionString("ReadDb");
