@@ -3,7 +3,7 @@ using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Domain.Articles.Events;
 
-public class TagAddedEvent(Tag tag) : DomainEvent
+public class TagAddedEvent(ArticleTag articleTag) : DomainEvent
 {
-    public Tag Tag { get; } = tag;
+    public ArticleTag ArticleTag { get; } = articleTag;
 }

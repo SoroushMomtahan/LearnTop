@@ -21,7 +21,7 @@ internal sealed class UpdateArticleValidation : AbstractValidator<UpdateArticleC
             .MinimumLength(3)
             .WithMessage(ArticleErrors.ContentIsLessThan3Characters().Description);
 
-        RuleFor(x => x.BlogId)
+        RuleFor(x => x.ArticleId)
             .NotEmpty()
             .WithMessage(ArticleErrors.Empty("شناسه بلاگ").Description);
     }

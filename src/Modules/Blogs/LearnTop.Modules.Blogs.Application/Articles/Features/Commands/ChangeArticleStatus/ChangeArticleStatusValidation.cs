@@ -12,7 +12,7 @@ public class ChangeArticleStatusValidation : AbstractValidator<ChangeArticleStat
             .IsInEnum()
             .WithMessage(ArticleErrors.StatusIsNotInRange().Description);
 
-        RuleFor(x => x.BlogId)
+        RuleFor(x => x.ArticleId)
             .NotEmpty()
             .WithMessage(ArticleErrors.Empty("شناسه بلاگ").Description);
     }

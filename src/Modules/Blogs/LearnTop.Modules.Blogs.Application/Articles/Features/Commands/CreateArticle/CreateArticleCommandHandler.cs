@@ -1,11 +1,14 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Models;
+﻿using LearnTop.Modules.Blogs.Application.Abstractions.Data;
+using LearnTop.Modules.Blogs.Domain.Articles.Models;
 using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Commands.CreateArticle;
 
-internal sealed class CreateArticleCommandHandler(IArticleRepository articleRepository) 
+internal sealed class CreateArticleCommandHandler
+    (IArticleRepository articleRepository,
+    IUnitOfWork unitOfWork) 
     : ICommandHandler<CreateArticleCommand, CreateArticleResponse>
 {
 
@@ -25,6 +28,7 @@ internal sealed class CreateArticleCommandHandler(IArticleRepository articleRepo
             return Result.Failure<CreateArticleResponse>(blog.Error);
         }
         await articleRepository.CreateAsync(blog.Value);
+        await unitOfWork.SaveChangesAsync(cancellationToken);
         return new CreateArticleResponse(blog.Value.Id);
     }
 }

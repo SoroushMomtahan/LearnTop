@@ -11,4 +11,8 @@ public interface IArticleViewRepository
     Task<List<ArticleView>> GetByAuthorIdAsync(Guid authorId, int pageIndex, int pageSize, bool containDeleted = false);
     Task<List<ArticleView>> GetBySearchAsync(string search, int pageIndex, int pageSize, bool containDeleted = false);
     Task<long> GetTotalCountAsync();
+    Task AddAsync(ArticleView articleView);
+    void Update(ArticleView articleView);
+    void Delete(ArticleView articleView);
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

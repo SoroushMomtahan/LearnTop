@@ -7,7 +7,7 @@ public class DeleteArticleValidation : AbstractValidator<DeleteArticleCommand>
 {
     public DeleteArticleValidation()
     {
-        RuleFor(x => x.BlogId)
+        RuleFor(x => x.ArticleId)
             .NotEmpty()
             .WithMessage(ArticleErrors.Empty("شناسه بلاگ").Description);
     }

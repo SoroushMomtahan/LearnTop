@@ -2,9 +2,9 @@
 
 namespace LearnTop.Modules.Blogs.Domain.Articles.Models;
 
-public class Tag(Guid tagId, Guid blogId) : Entity
+public class ArticleTag(Guid tagId, Guid articleId) : Entity
 {
     public Guid TagId { get; private set; } = tagId;
-    public Guid BlogId { get; private set; } = blogId;
+    public Guid ArticleId { get; private set; } = articleId;
     public Article Article { get; private set; }
 }

@@ -14,8 +14,8 @@ public class Article : Aggregate
     public Content Content { get; private set; }
     public Status Status { get; private set; }
     public bool IsDeleted { get; private set; }
-    private readonly List<Tag> _tags = [];
-    public IReadOnlyList<Tag> Tags => [.. _tags];
+    private readonly List<ArticleTag> _tags = [];
+    public IReadOnlyList<ArticleTag> Tags => [.. _tags];
     
     private Article() { }
 
@@ -60,25 +60,25 @@ public class Article : Aggregate
         IsDeleted = true;
         AddDomainEvent(new ArticleUpdatedEvent(this));
     }
-    public void AddTag(Tag tag)
+    public void AddTag(ArticleTag articleTag)
     {
-        bool isExist = _tags.Exists(t=>t.TagId == tag.TagId);
+        bool isExist = _tags.Exists(t=>t.TagId == articleTag.TagId && t.ArticleId == articleTag.ArticleId);
         if (isExist)
         {
             return;
         }
-        _tags.Add(tag);
-        AddDomainEvent(new TagAddedEvent(tag));
+        _tags.Add(articleTag);
+        AddDomainEvent(new TagAddedEvent(articleTag));
     }
-    public Result RemoveTag(Tag tag)
+    public Result RemoveTag(ArticleTag articleTag)
     {
-        bool isExist = _tags.Exists(t=>t.TagId == tag.TagId);
+        bool isExist = _tags.Exists(t=>t.TagId == articleTag.TagId && t.ArticleId == articleTag.ArticleId);
         if (!isExist)
         {
-            return Result.Failure(ArticleErrors.TagNotFound(tag.TagId));
+            return Result.Failure(ArticleErrors.TagNotFound(articleTag.TagId));
         }
-        _tags.Remove(tag);
-        AddDomainEvent(new TagRemovedEvent(tag));
+        _tags.Remove(articleTag);
+        AddDomainEvent(new TagRemovedEvent(articleTag));
         return Result.Success();
     }
 }
