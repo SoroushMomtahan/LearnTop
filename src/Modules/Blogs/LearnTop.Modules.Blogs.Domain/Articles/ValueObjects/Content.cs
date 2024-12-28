@@ -13,5 +13,4 @@ public record Content : ValueObject<string>
         }
     }
     public static implicit operator Content(string value) => new(value);
-    public static implicit operator string(Content content) => content.Value;
 }

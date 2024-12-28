@@ -1,21 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LearnTop.Modules.Blogs.Domain.Articles.Models;
+using LearnTop.Modules.Blogs.Domain.Articles.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LearnTop.Modules.Blogs.Infrastructure.Articles;
 
-internal sealed class ArticleConfiguration : IEntityTypeConfiguration<Domain.Articles.Models.Article>
+internal sealed class ArticleConfiguration : IEntityTypeConfiguration<Article>
 {
 
-    public void Configure(EntityTypeBuilder<Domain.Articles.Models.Article> builder)
+    public void Configure(EntityTypeBuilder<Article> builder)
     {
         builder.Property(a => a.AuthorId)
             .IsRequired();
         builder.Property(a => a.CategoryId)
             .IsRequired();
-        builder.Property(a => a.Title)
+        builder.OwnsOne(a=>a.Title)
+            .Property(t => t.Value)
+            .HasColumnName(nameof(Title))
             .IsRequired()
             .HasMaxLength(100);
-        builder.Property(a => a.Content)
+        builder.OwnsOne(a=>a.Content)
+            .Property(a => a.Value)
+            .HasColumnName(nameof(Content))
             .IsRequired();
         builder.Property(a => a.Status)
             .IsRequired()

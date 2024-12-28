@@ -14,7 +14,6 @@ public static class InfrastructureConfiguration
 {
     public static IServiceCollection AddInfrastructureConfiguration(
         this IServiceCollection services,
-        Action<IRegistrationConfigurator>[] registrationConfigurators,
         string redisConnectionString)
     {
         services.AddAuthenticationInternal();
@@ -27,19 +26,6 @@ public static class InfrastructureConfiguration
 
         services.AddStackExchangeRedisCache(
             options => options.ConnectionMultiplexerFactory = () => Task.FromResult(connectionMultiplexer));
-
-        services.TryAddSingleton<IEventBus, EventBus.EventBus>();
-        services.AddMassTransit((configure) =>
-        {
-            foreach (Action<IRegistrationConfigurator> registrationConfigurator in registrationConfigurators)
-            {
-                registrationConfigurator(configure);
-            }
-            configure.UsingInMemory((context, configurator) =>
-            {
-                configurator.ConfigureEndpoints(context);
-            });
-        });
         return services;
     }
 }

@@ -1,13 +1,16 @@
-﻿using LearnTop.Modules.Blogs.Application.Abstractions.Data;
+﻿using LearnTop.Modules.Blogs.Application;
+using LearnTop.Modules.Blogs.Application.Abstractions.Data;
 using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
 using LearnTop.Modules.Blogs.Infrastructure.Articles;
 using LearnTop.Modules.Blogs.Infrastructure.ArticleViews;
 using LearnTop.Modules.Blogs.Infrastructure.ReadDb;
 using LearnTop.Modules.Blogs.Infrastructure.WriteDb;
 using LearnTop.Shared.Infrastructure.Interceptors;
+using LearnTop.Shared.Presentation.Endpoints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using AssemblyReference = LearnTop.Modules.Blogs.Presentation.AssemblyReference;
 
 namespace LearnTop.Modules.Blogs.Infrastructure;
 
@@ -18,6 +21,7 @@ public static class BlogsModule
         IConfiguration configuration)
     {
         services.AddInfrastructure(configuration);
+        services.AddEndpoints(AssemblyReference.BlogsEndpointsAssembly);
         return services;
     }
     private static void AddInfrastructure(

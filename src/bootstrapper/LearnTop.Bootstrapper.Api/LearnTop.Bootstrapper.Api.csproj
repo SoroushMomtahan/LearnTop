@@ -34,6 +34,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Modules\Academy\LearnTop.Modules.Academy.Infrastructure\LearnTop.Modules.Academy.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Blogs\LearnTop.Modules.Blogs.Application\LearnTop.Modules.Blogs.Application.csproj" />
+      <ProjectReference Include="..\..\Modules\Blogs\LearnTop.Modules.Blogs.Infrastructure\LearnTop.Modules.Blogs.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Modules\Users\LearnTop.Modules.Users.Infrastructure\LearnTop.Modules.Users.Infrastructure.csproj" />
       <ProjectReference Include="..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
     </ItemGroup>

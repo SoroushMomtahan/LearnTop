@@ -8,8 +8,7 @@ using LearnTop.Shared.Application.Messaging;
 namespace LearnTop.Modules.Users.Application.Users.EventHandlers;
 
 public class UserCreatedEventHandler
-    (IUserViewRepository userViewRepository,
-    IEventBus eventBus)
+    (IUserViewRepository userViewRepository)
     : IDomainEventHandler<UserCreatedEvent>
 {
 
@@ -26,14 +25,5 @@ public class UserCreatedEventHandler
         };
         await userViewRepository.AddAsync(userView);
         await userViewRepository.SaveChangesAsync(cancellationToken);
-
-        await eventBus.PublishAsync(new UserCreatedIntegrationEvent(Guid.NewGuid(), DateTime.Now)
-        {
-            UserId = notification.User.Id,
-            Firstname = userView.Firstname,
-            Lastname = userView.Lastname,
-            Email = userView.Email,
-            Password = userView.Password
-        }, cancellationToken);
     }
 }

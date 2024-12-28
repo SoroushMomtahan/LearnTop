@@ -1,6 +1,7 @@
 using LearnTop.Bootstrapper.Api.Extensions;
 using LearnTop.Bootstrapper.Api.Middlewares;
 using LearnTop.Modules.Academy.Infrastructure;
+using LearnTop.Modules.Blogs.Infrastructure;
 using LearnTop.Modules.Users.Infrastructure;
 using LearnTop.Shared.Application;
 using LearnTop.Shared.Infrastructure;
@@ -22,14 +23,15 @@ builder.Configuration.AddConfigurationFiles("academy", "Users");
 builder.Services
     .AddApplicationConfiguration
         (LearnTop.Modules.Academy.Application.AssemblyReference.AcademyAssembly,
-        LearnTop.Modules.Users.Application.AssemblyReference.UsersAssembly)
+        LearnTop.Modules.Users.Application.AssemblyReference.UsersAssembly,
+        LearnTop.Modules.Blogs.Application.AssemblyReference.BlogsAssembly)
     .AddInfrastructureConfiguration(
-        [AcademyModule.ConfigureConsumers],
         builder.Configuration.GetConnectionString("Cache")!);
 
 builder.Services
     .AddAcademyModule(builder.Configuration)
-    .AddUsersModule(builder.Configuration);
+    .AddUsersModule(builder.Configuration)
+    .AddBlogsModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 

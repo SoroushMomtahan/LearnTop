@@ -65,6 +65,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Blogs.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Blogs.Infrastructure", "src\Modules\Blogs\LearnTop.Modules.Blogs.Infrastructure\LearnTop.Modules.Blogs.Infrastructure.csproj", "{891EA8D7-2957-4DFF-8B5F-9535C7C1341C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Blogs.Presentation", "src\Modules\Blogs\LearnTop.Modules.Blogs.Presentation\LearnTop.Modules.Blogs.Presentation.csproj", "{7AC4F259-D6C9-495A-BAEA-476188B3C6E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,7 @@ Global
 		{51DC7773-2E72-45CD-9D4D-A85D7133D5B4} = {ED2C68EB-C62D-4B18-AF8A-4F0B54E9FDF4}
 		{C53EE480-3B6E-488A-9479-2E4B3E51E00E} = {ED2C68EB-C62D-4B18-AF8A-4F0B54E9FDF4}
 		{891EA8D7-2957-4DFF-8B5F-9535C7C1341C} = {ED2C68EB-C62D-4B18-AF8A-4F0B54E9FDF4}
+		{7AC4F259-D6C9-495A-BAEA-476188B3C6E3} = {ED2C68EB-C62D-4B18-AF8A-4F0B54E9FDF4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{038BBE57-BF63-409A-8C75-AC49A45D74B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -181,5 +184,9 @@ Global
 		{891EA8D7-2957-4DFF-8B5F-9535C7C1341C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{891EA8D7-2957-4DFF-8B5F-9535C7C1341C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{891EA8D7-2957-4DFF-8B5F-9535C7C1341C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AC4F259-D6C9-495A-BAEA-476188B3C6E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AC4F259-D6C9-495A-BAEA-476188B3C6E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AC4F259-D6C9-495A-BAEA-476188B3C6E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AC4F259-D6C9-495A-BAEA-476188B3C6E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

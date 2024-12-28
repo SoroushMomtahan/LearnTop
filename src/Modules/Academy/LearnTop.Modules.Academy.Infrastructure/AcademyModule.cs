@@ -11,7 +11,6 @@ using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.Acad
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.CourseProposals;
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.Tickets;
 using LearnTop.Modules.Academy.Presentation;
-using LearnTop.Modules.Academy.Presentation.Tickets.IntegrationEventConsumer;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using LearnTop.Shared.Presentation.Endpoints;
 using MassTransit;
@@ -32,11 +31,6 @@ public static class AcademyModule
         services.AddEndpoints(AssemblyReference.AcademyAssembly);
 
         return services;
-    }
-
-    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
-    {
-        registrationConfigurator.AddConsumer<UserCreatedIntegrationEventConsumer>();
     }
 
     private static void AddInfrastructure(
