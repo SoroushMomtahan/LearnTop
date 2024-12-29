@@ -17,18 +17,18 @@ internal sealed class CreateArticleCommandHandler
         // TODO: Find Author With AuthorId
         // TODO: Find Category With CategoryId
         
-        Result<Article> blog = Article.Create(
+        Result<Article> result = Article.Create(
             request.AuthorId,
             request.CategoryId,
             request.Title,
             request.Content
             );
-        if (blog.IsFailure)
+        if (result.IsFailure)
         {
-            return Result.Failure<CreateArticleResponse>(blog.Error);
+            return Result.Failure<CreateArticleResponse>(result.Error);
         }
-        await articleRepository.CreateAsync(blog.Value);
+        await articleRepository.CreateAsync(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return new CreateArticleResponse(blog.Value.Id);
+        return new CreateArticleResponse(result.Value.Id);
     }
 }

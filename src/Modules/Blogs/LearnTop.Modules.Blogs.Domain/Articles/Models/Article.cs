@@ -54,11 +54,17 @@ public class Article : Aggregate
         AddDomainEvent(new ArticleUpdatedEvent(this));
         return Result.Success();
     }
-    public void Delete()
+    public void SoftDelete()
     {
-        DeletedAt = DateTime.UtcNow;
+        DeletedAt = DateTime.Now;
         IsDeleted = true;
         AddDomainEvent(new ArticleUpdatedEvent(this));
+    }
+    public void Delete()
+    {
+        IsDeleted = true;
+        DeletedAt = DateTime.Now;
+        AddDomainEvent(new ArticleDeletedEvent(this));
     }
     public void AddTag(ArticleTag articleTag)
     {

@@ -14,15 +14,20 @@ internal sealed class ArticleConfiguration : IEntityTypeConfiguration<Article>
             .IsRequired();
         builder.Property(a => a.CategoryId)
             .IsRequired();
-        builder.OwnsOne(a=>a.Title)
-            .Property(t => t.Value)
-            .HasColumnName(nameof(Title))
-            .IsRequired()
-            .HasMaxLength(100);
-        builder.OwnsOne(a=>a.Content)
-            .Property(a => a.Value)
-            .HasColumnName(nameof(Content))
-            .IsRequired();
+        builder.OwnsOne(a => a.Title, title =>
+        {
+            title.Property(t => t.Value)
+                .HasColumnName(nameof(Title))
+                .IsRequired()
+                .HasMaxLength(100);
+        });
+
+        builder.OwnsOne(a => a.Content, content =>
+        {
+            content.Property(a => a.Value)
+                .HasColumnName(nameof(Content))
+                .IsRequired();
+        });
         builder.Property(a => a.Status)
             .IsRequired()
             .HasConversion<string>();

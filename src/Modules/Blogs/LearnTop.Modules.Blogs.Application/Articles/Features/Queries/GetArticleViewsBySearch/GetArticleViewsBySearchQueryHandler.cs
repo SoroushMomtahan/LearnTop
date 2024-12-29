@@ -13,14 +13,16 @@ internal sealed class GetArticleViewsBySearchQueryHandler(IArticleViewRepository
 
     public async Task<Result<GetArticleViewsBySearchResponse>> Handle(GetArticleViewsBySearchQuery request, CancellationToken cancellationToken)
     {
-        int pageIndex = request.Request.PageIndex;
-        int pageSize = request.Request.PageSize;
+        int pageIndex = request.PaginationRequest.PageIndex;
+        int pageSize = request.PaginationRequest.PageSize;
+        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await articleViewRepository.GetTotalCountAsync();
         List<ArticleView> articleViews = 
             await articleViewRepository.GetBySearchAsync(
                 request.SearchString,
                 pageIndex,
-                pageSize);
+                pageSize,
+                includeDeletedRows);
         
         PaginatedResult<ArticleView> paginatedArticles =
             new(pageIndex, pageSize, totalCount, articleViews);

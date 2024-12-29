@@ -14,17 +14,17 @@ internal sealed class ArticleUpdatedEventHandler
     {
         ArticleView articleView = new()
         {
+            Id = notification.Article.Id,
             CreatedAt = notification.Article.CreatedAt,
             AuthorId = notification.Article.AuthorId,
             CategoryId = notification.Article.CategoryId,
             Content = notification.Article.Content,
             DeletedAt = notification.Article.DeletedAt,
-            Id = notification.Article.Id,
             IsDeleted = notification.Article.IsDeleted,
             Status = notification.Article.Status.ToString(),
             Title = notification.Article.Title
         };
-        await articleViewRepository.AddAsync(articleView);
+        articleViewRepository.Update(articleView);
         await articleViewRepository.SaveChangesAsync(cancellationToken);
     }
 }

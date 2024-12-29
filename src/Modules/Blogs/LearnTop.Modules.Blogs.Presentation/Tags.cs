@@ -2,5 +2,5 @@
 
 public static class Tags
 {
-    internal const string Articles = "articles"; 
+    internal const string Articles = "Articles";
 }

@@ -10,16 +10,16 @@ internal sealed class GetArticleViewsByTagIdsEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("/Articles/ByTagId", async (
-            [AsParameters] PaginationRequest paginationRequest,
-            string tagIds,
-            ISender sender) =>
-        {
-            var tagIdList = tagIds.Split(',').ToList();
-            Result<GetArticleViewsByTagIdsResponse> result = await sender.Send(
-                new GetArticleViewsByTagIdsQuery(paginationRequest, tagIdList)
-                );
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .WithTags(Tags.Articles);
+                [AsParameters] PaginationRequest paginationRequest,
+                [FromQuery] string[] tagIds,
+                ISender sender) =>
+            {
+                var guids = tagIds.Select(Guid.Parse).ToList();
+                Result<GetArticleViewsByTagIdsResponse> result = await sender.Send(
+                    new GetArticleViewsByTagIdsQuery(paginationRequest, guids)
+                    );
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .WithTags(Tags.Articles);
     }
 }

@@ -1,4 +1,6 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Views;
+﻿using LearnTop.Modules.Blogs.Domain.Articles.Models;
+using LearnTop.Modules.Blogs.Domain.Articles.ValueObjects;
+using LearnTop.Modules.Blogs.Domain.Articles.Views;
 using LearnTop.Modules.Blogs.Infrastructure.ArticleViews;
 using Microsoft.EntityFrameworkCore;
 

@@ -12,14 +12,16 @@ internal sealed class GetArticleViewsByCategoryIdQueryHandler(IArticleViewReposi
 
     public async Task<Result<GetArticleViewsByCategoryIdResponse>> Handle(GetArticleViewsByCategoryIdQuery request, CancellationToken cancellationToken)
     {
-        int pageIndex = request.Request.PageIndex;
-        int pageSize = request.Request.PageSize;
+        int pageIndex = request.PaginationRequest.PageIndex;
+        int pageSize = request.PaginationRequest.PageSize;
+        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await articleViewRepository.GetTotalCountAsync();
         List<ArticleView> articleViews = await articleViewRepository
             .GetByCategoryIdAsync(
                 request.CategoryId,
                 pageIndex,
-                pageSize);
+                pageSize,
+                includeDeletedRows);
         PaginatedResult<ArticleView> paginatedArticleViews = 
             new(pageIndex, pageSize, totalCount, articleViews);
         return new GetArticleViewsByCategoryIdResponse(paginatedArticleViews);

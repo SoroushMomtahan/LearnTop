@@ -15,21 +15,21 @@ public class DeleteArticleCommandHandler
 
     public async Task<Result<DeleteArticleResponse>> Handle(DeleteArticleCommand request, CancellationToken cancellationToken)
     {
-        Article? blog = await articleRepository.GetByIdAsync(request.ArticleId);
-        if (blog is null)
+        Article? article = await articleRepository.GetByIdAsync(request.ArticleId);
+        if (article is null)
         {
             return Result.Failure<DeleteArticleResponse>(ArticleErrors.NotFound(request.ArticleId));
         }
-        if (request.IsLogicDelete)
+        if (request.IsSoftDelete)
         {
-            blog.Delete();
-            articleRepository.Update(blog);
+            article.SoftDelete();
         }
         else
         {
-            articleRepository.Delete(blog);
+            article.Delete();
         }
+        articleRepository.Update(article);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return new DeleteArticleResponse(blog.Id);
+        return new DeleteArticleResponse(article.Id);
     }
 }

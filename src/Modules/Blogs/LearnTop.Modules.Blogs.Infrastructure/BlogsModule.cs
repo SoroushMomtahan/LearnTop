@@ -1,6 +1,7 @@
 ﻿using LearnTop.Modules.Blogs.Application;
 using LearnTop.Modules.Blogs.Application.Abstractions.Data;
 using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
+using LearnTop.Modules.Blogs.Domain.Articles.Views;
 using LearnTop.Modules.Blogs.Infrastructure.Articles;
 using LearnTop.Modules.Blogs.Infrastructure.ArticleViews;
 using LearnTop.Modules.Blogs.Infrastructure.ReadDb;
@@ -34,7 +35,6 @@ public static class BlogsModule
     private static void AddWriteDb(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IArticleRepository, ArticleRepository>();
-        services.AddScoped<IArticleViewRepository, ArticleViewRepository>();
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<BlogsDbContext>());
         services.AddDbContext<BlogsDbContext>((sp, option) =>
         {

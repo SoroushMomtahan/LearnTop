@@ -12,15 +12,15 @@ internal sealed class ArticleCreatedEventHandler(IArticleViewRepository articleV
     {
         ArticleView articleView = new()
         {
-            CreatedAt = notification.Article.CreatedAt,
+            Id = notification.Article.Id,
             AuthorId = notification.Article.AuthorId,
             CategoryId = notification.Article.CategoryId,
+            Title = notification.Article.Title,
             Content = notification.Article.Content,
-            DeletedAt = notification.Article.DeletedAt,
-            Id = notification.Article.Id,
-            IsDeleted = notification.Article.IsDeleted,
             Status = notification.Article.Status.ToString(),
-            Title = notification.Article.Title
+            IsDeleted = notification.Article.IsDeleted,
+            CreatedAt = notification.Article.CreatedAt,
+            DeletedAt = notification.Article.DeletedAt,
         };
         await articleViewRepository.AddAsync(articleView);
         await articleViewRepository.SaveChangesAsync(cancellationToken);

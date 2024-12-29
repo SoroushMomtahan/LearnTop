@@ -35,7 +35,6 @@ public class PublishDomainEventsInterceptor(IServiceScopeFactory serviceScopeFac
                 return domainEvents;
             })
             .ToList();
-        Console.WriteLine(domainEvents);
         using IServiceScope scope = serviceScopeFactory.CreateScope();
 
         IPublisher publisher = scope.ServiceProvider.GetRequiredService<IPublisher>();

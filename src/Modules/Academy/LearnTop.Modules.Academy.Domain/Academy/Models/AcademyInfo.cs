@@ -34,11 +34,11 @@ public class AcademyInfo : Entity
         Address = address;
         Phone = phone;
         Email = email;
-        UpdatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.Now;
         return Result.Success();
     }
     public void Delete()
     {
-        DeletedAt = DateTime.UtcNow;
+        DeletedAt = DateTime.Now;
     }
 }

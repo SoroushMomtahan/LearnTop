@@ -10,7 +10,7 @@ internal sealed class CreateArticleEndpoint : IEndpoint
         app.MapPost("/Articles", async (CreateArticleCommand command, ISender sender) =>
         {
             Result<CreateArticleResponse> result = await sender.Send(command);
-            return result.Match(Results.Created, ApiResults.Problem);
+            return result.Match(Results.Ok, ApiResults.Problem);
         })
         .WithTags(Tags.Articles);
     }

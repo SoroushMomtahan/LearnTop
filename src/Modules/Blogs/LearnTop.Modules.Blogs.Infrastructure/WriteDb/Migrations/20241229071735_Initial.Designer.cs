@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnTop.Modules.Blogs.Infrastructure.WriteDb.Migrations
 {
     [DbContext(typeof(BlogsDbContext))]
-    [Migration("20241228132516_Initial")]
+    [Migration("20241229071735_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

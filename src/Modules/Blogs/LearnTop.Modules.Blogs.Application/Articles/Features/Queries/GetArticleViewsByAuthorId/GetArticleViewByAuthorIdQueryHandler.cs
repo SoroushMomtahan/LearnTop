@@ -12,13 +12,13 @@ internal sealed class GetArticleViewByAuthorIdQueryHandler(IArticleViewRepositor
 
     public async Task<Result<GetArticleViewByAuthorIdResponse>> Handle(GetArticleViewByAuthorIdQuery request, CancellationToken cancellationToken)
     {
-        int pageIndex = request.Request.PageIndex;
-        int pageSize = request.Request.PageSize;
-        
+        int pageIndex = request.PaginationRequest.PageIndex;
+        int pageSize = request.PaginationRequest.PageSize;
+        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await articleViewRepository.GetTotalCountAsync();
 
         List<ArticleView> articleViews = await articleViewRepository
-            .GetByAuthorIdAsync(request.AuthorId, pageIndex, pageSize);
+            .GetByAuthorIdAsync(request.AuthorId, pageIndex, pageSize, includeDeletedRows);
         
         PaginatedResult<ArticleView> paginatedViews = 
             new(pageIndex, pageSize, totalCount, articleViews);

@@ -1,2 +1,2 @@
 ﻿namespace LearnTop.Shared.Application.Pagination;
-public record PaginationRequest(int PageIndex = 0, int PageSize = 10);
+public record PaginationRequest(int PageIndex = 0, int PageSize = 10, bool IncludeDeletedRows = false);

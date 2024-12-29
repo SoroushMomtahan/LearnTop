@@ -1,6 +1,4 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Views;
-
-namespace LearnTop.Modules.Blogs.Domain.Articles.Repositories;
+﻿namespace LearnTop.Modules.Blogs.Domain.Articles.Views;
 
 public interface IArticleTagViewRepository
 {

@@ -3,5 +3,5 @@ using LearnTop.Shared.Application.Pagination;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewsByTagIds;
 
-public record GetArticleViewsByTagIdsQuery(PaginationRequest Request, List<Guid> TagIds)
+public record GetArticleViewsByTagIdsQuery(PaginationRequest PaginationRequest, List<Guid> TagIds)
     : IQuery<GetArticleViewsByTagIdsResponse>;
