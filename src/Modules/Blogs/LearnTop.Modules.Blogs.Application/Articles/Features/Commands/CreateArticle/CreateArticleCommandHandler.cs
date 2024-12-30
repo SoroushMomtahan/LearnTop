@@ -27,6 +27,7 @@ internal sealed class CreateArticleCommandHandler
         {
             return Result.Failure<CreateArticleResponse>(result.Error);
         }
+        
         await articleRepository.CreateAsync(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return new CreateArticleResponse(result.Value.Id);

@@ -23,7 +23,6 @@ public class ChangeArticleCategoryCommandHandler
             return Result.Failure<ChangeArticleCategoryResponse>(ArticleErrors.NotFound(request.ArticleId));
         }
         article.ChangeCategory(request.CategoryId);
-        articleRepository.Update(article);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return new ChangeArticleCategoryResponse(article.Id);
     }

@@ -15,19 +15,20 @@ internal sealed class RemoveArticleTagCommandHandler
 
     public async Task<Result<RemoveArticleTagResponse>> Handle(RemoveArticleTagCommand request, CancellationToken cancellationToken)
     {
-        Article? blog = await articleRepository.GetByIdAsync(request.ArticleId);
+        Article? article = await articleRepository.GetByIdAsync(request.ArticleId);
         
-        if (blog is null)
+        if (article is null)
         {
             return Result.Failure<RemoveArticleTagResponse>(ArticleErrors.NotFound(request.ArticleId));
         }
         
-        Result result = blog.RemoveTag(new(request.TagId, request.ArticleId));
+        Result result = article.RemoveTag(request.TagId);
+
         if (result.IsFailure)
         {
             return Result.Failure<RemoveArticleTagResponse>(result.Error);
         }
-        articleRepository.DeleteTag(new(request.TagId, request.ArticleId));
+        
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return new RemoveArticleTagResponse(request.ArticleId);
     }

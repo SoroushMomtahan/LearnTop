@@ -5,8 +5,6 @@ namespace LearnTop.Modules.Blogs.Domain.Articles.Repositories;
 public interface IArticleRepository
 {
     Task CreateAsync(Article article);
-    void Update(Article article);
     void Delete(Article article);
     Task<Article?> GetByIdAsync(Guid id);
-    void DeleteTag(ArticleTag articleTag);
 }

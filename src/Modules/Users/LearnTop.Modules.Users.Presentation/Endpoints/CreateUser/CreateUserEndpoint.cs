@@ -1,4 +1,4 @@
-﻿using LearnTop.Modules.Users.Application.Users.Commands;
+﻿using LearnTop.Modules.Users.Application.Users.Features.Commands;
 using LearnTop.Shared.Domain;
 using LearnTop.Shared.Presentation.ApiResults;
 using LearnTop.Shared.Presentation.Endpoints;

@@ -4,7 +4,7 @@ using LearnTop.Modules.Users.Domain.Users.Repositories;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;
 
-namespace LearnTop.Modules.Users.Application.Users.Commands;
+namespace LearnTop.Modules.Users.Application.Users.Features.Commands;
 
 public class CreateUserCommandHandler
     (IUserRepository userRepository, IUnitOfWork unitOfWork)
@@ -15,9 +15,7 @@ public class CreateUserCommandHandler
     {
         Result<User> result = User.Create(
             request.Firstname,
-            request.Lastname,
-            request.Email,
-            request.Password);
+            request.Lastname);
 
         if (!result.IsSuccess)
         {

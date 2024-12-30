@@ -32,7 +32,7 @@ internal sealed class ArticleConfiguration : IEntityTypeConfiguration<Article>
             .IsRequired()
             .HasConversion<string>();
         builder.HasMany(a => a.Tags)
-            .WithOne(t => t.Article)
+            .WithOne()
             .HasForeignKey(t => t.ArticleId);
     }
 }

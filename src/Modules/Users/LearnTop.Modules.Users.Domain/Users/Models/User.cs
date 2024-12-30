@@ -8,12 +8,10 @@ public class User : Aggregate
 {
     public string Firstname { get; private set; }
     public string Lastname { get; private set; }
-    public string Email { get; private set; }
-    public string Password { get; private set; }
 
-    public User() { }
+    private User() { }
 
-    public static Result<User> Create(string firstname, string lastname, string email, string password)
+    public static Result<User> Create(string firstname, string lastname)
     {
         if (firstname.Length < 3)
         {
@@ -23,8 +21,6 @@ public class User : Aggregate
         {
             Firstname = firstname,
             Lastname = lastname,
-            Email = email,
-            Password = password
         };
         user.AddDomainEvent(new UserCreatedEvent(user));
         return user;

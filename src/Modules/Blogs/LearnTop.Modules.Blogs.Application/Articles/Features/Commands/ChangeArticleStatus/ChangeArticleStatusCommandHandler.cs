@@ -15,15 +15,15 @@ public class ChangeArticleStatusCommandHandler
 
     public async Task<Result<ChangeArticleStatusResponse>> Handle(ChangeArticleStatusCommand request, CancellationToken cancellationToken)
     {
-        Article? blog = await articleRepository.GetByIdAsync(request.ArticleId);
-        if (blog is null)
+        Article? article = await articleRepository.GetByIdAsync(request.ArticleId);
+        if (article is null)
         {
             return Result.Failure<ChangeArticleStatusResponse>(ArticleErrors.NotFound(request.ArticleId));
         }
-        Result result = blog.ChangeStatus(request.Status);
+        Result result = article.ChangeStatus(request.Status);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return result.IsFailure 
             ? Result.Failure<ChangeArticleStatusResponse>(result.Error)
-            : new ChangeArticleStatusResponse(blog.Id);
+            : new ChangeArticleStatusResponse(article.Id);
     }
 }

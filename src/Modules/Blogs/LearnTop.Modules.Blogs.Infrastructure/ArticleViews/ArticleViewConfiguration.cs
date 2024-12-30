@@ -9,8 +9,8 @@ public class ArticleViewConfiguration : IEntityTypeConfiguration<ArticleView>
 
     public void Configure(EntityTypeBuilder<ArticleView> builder)
     {
-        builder.HasMany(av => av.Tags)
-            .WithOne(at => at.ArticleView)
+        builder.HasMany(av => av.TagViews)
+            .WithOne()
             .HasForeignKey(tv => tv.ArticleId);
     }
 }

@@ -12,26 +12,15 @@ internal sealed class ArticleRepository(BlogsDbContext blogsDbContext) : IArticl
     {
         await blogsDbContext.Articles.AddAsync(article);
     }
-    public void Update(Article article)
-    {
-        blogsDbContext.Articles.Update(article);
-        foreach (ArticleTag articleTag in article.Tags)
-        {
-            blogsDbContext.Tags.Add(articleTag);
-        }
-    }
     public void Delete(Article article)
     {
-        blogsDbContext.Articles.Remove(article);
+        blogsDbContext.Entry(article).State = EntityState.Deleted;
     }
     public async Task<Article?> GetByIdAsync(Guid id)
     {
         Article? article = await blogsDbContext.Articles
+            .Include(a=>a.Tags)
             .FirstOrDefaultAsync(a => a.Id == id);
         return article;
-    }
-    public void DeleteTag(ArticleTag articleTag)
-    {
-        blogsDbContext.Tags.Remove(articleTag);
     }
 }

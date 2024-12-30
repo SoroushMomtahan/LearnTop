@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace LearnTop.Modules.Users.Application.Users.Commands;
+namespace LearnTop.Modules.Users.Application.Users.Features.Commands;
 
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {

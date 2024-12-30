@@ -16,18 +16,17 @@ internal sealed class AddArticleTagCommandHandler
     public async Task<Result<AddArticleTagResponse>> Handle(AddArticleTagCommand request, CancellationToken cancellationToken)
     {
         
-        Article? blog = await articleRepository.GetByIdAsync(request.ArticleId);
-        if (blog is null)
+        Article? article = await articleRepository.GetByIdAsync(request.ArticleId);
+        if (article is null)
         {
             return Result.Failure<AddArticleTagResponse>(ArticleErrors.NotFound(request.ArticleId));
         }
         
-        // TODO: Find Tags With TagIds
+        // TODO: Find Tag With TagId
         
-        blog.AddTag(new(request.TagId, request.ArticleId));
-
-        articleRepository.Update(blog);
+        request.TagIds.ForEach(article.AddTag);
+        
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return new AddArticleTagResponse(blog.Id);
+        return new AddArticleTagResponse(article.Id);
     }
 }

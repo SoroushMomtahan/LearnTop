@@ -6,5 +6,4 @@ public class ArticleTagView : EntityView
 {
     public Guid TagId { get; set; }
     public Guid ArticleId { get; set; }
-    public ArticleView ArticleView { get; set; }
 }

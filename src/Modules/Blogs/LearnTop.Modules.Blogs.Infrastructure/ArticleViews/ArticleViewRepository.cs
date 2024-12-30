@@ -8,66 +8,71 @@ namespace LearnTop.Modules.Blogs.Infrastructure.ArticleViews;
 public class ArticleViewRepository(BlogViewsDbContext viewsDbContext) : IArticleViewRepository
 {
 
-    public async Task<ArticleView?> GetByIdAsync(Guid blogId)
+    public async Task<ArticleView?> GetByIdAsync(Guid articleId)
     {
         return await viewsDbContext.ArticleViews
-            .AsNoTracking()
-            .Include(x => x.Tags)
-            .FirstOrDefaultAsync(x => x.Id == blogId);
+            .Include(x => x.TagViews)
+            .FirstOrDefaultAsync(x => x.Id == articleId);
     }
     public async Task<List<ArticleView>> GetAllAsync(int pageIndex, int pageSize, bool includeDeletedRows = false)
     {
+        List<ArticleView> articleViews = await viewsDbContext.ArticleViews
+            .AsNoTracking()
+            .Include(x => x.TagViews)
+            .AsNoTracking()
+            .Where(x => x.IsDeleted == includeDeletedRows)
+            .OrderByDescending(x => x.CreatedAt)
+            .Skip(pageIndex)
+            .Take(pageSize)
+            .ToListAsync();
+        return articleViews;
+    }
+    public async Task<List<ArticleView>> GetByCategoryIdAsync(Guid categoryId, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
+    {
         return await viewsDbContext.ArticleViews
             .AsNoTracking()
-            .Include(x => x.Tags)
+            .Include(x => x.TagViews)
+            .Where(x => x.CategoryId == categoryId)
             .Where(x => x.IsDeleted == includeDeletedRows)
             .OrderByDescending(x => x.CreatedAt)
             .Skip(pageIndex)
             .Take(pageSize)
             .ToListAsync();
     }
-    public async Task<List<ArticleView>> GetByCategoryIdAsync(Guid categoryId, int pageIndex, int pageSize, bool includeDeletedRows = false)
+    public async Task<List<ArticleView>> GetByTagIdsAsync(List<Guid> tagIds, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
     {
         return await viewsDbContext.ArticleViews
             .AsNoTracking()
-            .Include(x => x.Tags)
-            .Where(x=>x.CategoryId == categoryId)
+            .Include(x => x.TagViews)
+            .Where(x => x.TagViews.Any(t => tagIds.Contains(t.TagId)))
             .Where(x => x.IsDeleted == includeDeletedRows)
             .OrderByDescending(x => x.CreatedAt)
             .Skip(pageIndex)
             .Take(pageSize)
             .ToListAsync();
     }
-    public async Task<List<ArticleView>> GetByTagIdsAsync(List<Guid> tagIds, int pageIndex, int pageSize, bool includeDeletedRows = false)
+    public async Task<List<ArticleView>> GetByAuthorIdAsync(Guid authorId, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
     {
         return await viewsDbContext.ArticleViews
             .AsNoTracking()
-            .Include(x => x.Tags)
-            .Where(x => x.Tags.Any(t => tagIds.Contains(t.TagId)))
+            .Include(x => x.TagViews)
+            .Where(x => x.AuthorId == authorId)
             .Where(x => x.IsDeleted == includeDeletedRows)
             .OrderByDescending(x => x.CreatedAt)
             .Skip(pageIndex)
             .Take(pageSize)
             .ToListAsync();
     }
-    public async Task<List<ArticleView>> GetByAuthorIdAsync(Guid authorId, int pageIndex, int pageSize, bool includeDeletedRows = false)
+    public async Task<List<ArticleView>> GetBySearchAsync(string search, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
     {
         return await viewsDbContext.ArticleViews
             .AsNoTracking()
-            .Include(x => x.Tags)
-            .Where(x=>x.AuthorId == authorId)
-            .Where(x => x.IsDeleted == includeDeletedRows)
-            .OrderByDescending(x => x.CreatedAt)
-            .Skip(pageIndex)
-            .Take(pageSize)
-            .ToListAsync();
-    }
-    public async Task<List<ArticleView>> GetBySearchAsync(string search, int pageIndex, int pageSize, bool includeDeletedRows = false)
-    {
-        return await viewsDbContext.ArticleViews
-            .AsNoTracking()
-            .Include(x => x.Tags)
-            .Where(x=>x.Title.Contains(search) || x.Content.Contains(search))
+            .Include(x => x.TagViews)
+            .Where(x => x.Title.Contains(search) || x.Content.Contains(search))
             .Where(x => x.IsDeleted == includeDeletedRows)
             .OrderByDescending(x => x.CreatedAt)
             .Skip(pageIndex)

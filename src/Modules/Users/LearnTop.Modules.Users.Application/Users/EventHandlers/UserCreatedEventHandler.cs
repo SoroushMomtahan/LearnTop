@@ -19,9 +19,7 @@ public class UserCreatedEventHandler
         UserView userView = new()
         {
             Firstname = notification.User.Firstname,
-            Lastname = notification.User.Lastname,
-            Email = notification.User.Email,
-            Password = notification.User.Password
+            Lastname = notification.User.Lastname
         };
         await userViewRepository.AddAsync(userView);
         await userViewRepository.SaveChangesAsync(cancellationToken);

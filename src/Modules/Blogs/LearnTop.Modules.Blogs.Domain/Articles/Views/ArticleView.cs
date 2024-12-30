@@ -10,6 +10,5 @@ public class ArticleView : EntityView
     public string Content { get; set; }
     public string Status { get; set; }
     public bool IsDeleted { get; set; }
-    private readonly List<ArticleTagView> _tagViews = [];
-    public IReadOnlyList<ArticleTagView> Tags => [.. _tagViews];
+    public List<ArticleTagView> TagViews { get; set; }
 }

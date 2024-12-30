@@ -1,11 +1,12 @@
 ﻿using LearnTop.Modules.Blogs.Domain.Articles.Events;
-using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
 using LearnTop.Modules.Blogs.Domain.Articles.Views;
 using LearnTop.Shared.Application.Messaging;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.EventHandlers;
 
-internal sealed class ArticleCreatedEventHandler(IArticleViewRepository articleViewRepository) : IDomainEventHandler<ArticleCreatedEvent> 
+internal sealed class ArticleCreatedEventHandler(
+    IArticleViewRepository articleViewRepository)
+    : IDomainEventHandler<ArticleCreatedEvent>
 {
 
     public async Task Handle(ArticleCreatedEvent notification, CancellationToken cancellationToken)
@@ -21,6 +22,7 @@ internal sealed class ArticleCreatedEventHandler(IArticleViewRepository articleV
             IsDeleted = notification.Article.IsDeleted,
             CreatedAt = notification.Article.CreatedAt,
             DeletedAt = notification.Article.DeletedAt,
+            UpdatedAt = notification.Article.UpdatedAt,
         };
         await articleViewRepository.AddAsync(articleView);
         await articleViewRepository.SaveChangesAsync(cancellationToken);

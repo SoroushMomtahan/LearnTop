@@ -86,7 +86,7 @@ namespace LearnTop.Modules.Blogs.Infrastructure.ReadDb.Migrations
             modelBuilder.Entity("LearnTop.Modules.Blogs.Domain.Articles.Views.ArticleTagView", b =>
                 {
                     b.HasOne("LearnTop.Modules.Blogs.Domain.Articles.Views.ArticleView", "ArticleView")
-                        .WithMany("Tags")
+                        .WithMany("TagViews")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -96,7 +96,7 @@ namespace LearnTop.Modules.Blogs.Infrastructure.ReadDb.Migrations
 
             modelBuilder.Entity("LearnTop.Modules.Blogs.Domain.Articles.Views.ArticleView", b =>
                 {
-                    b.Navigation("Tags");
+                    b.Navigation("TagViews");
                 });
 #pragma warning restore 612, 618
         }

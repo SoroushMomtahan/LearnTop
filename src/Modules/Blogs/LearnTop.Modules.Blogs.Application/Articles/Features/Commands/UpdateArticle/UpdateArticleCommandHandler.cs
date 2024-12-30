@@ -15,17 +15,16 @@ internal sealed class UpdateArticleCommandHandler
 
     public async Task<Result<UpdateArticleResponse>> Handle(UpdateArticleCommand request, CancellationToken cancellationToken)
     {
-        Article? blog = await articleRepository.GetByIdAsync(request.ArticleId);
-        if (blog is null)
+        Article? article = await articleRepository.GetByIdAsync(request.ArticleId);
+        if (article is null)
         {
             return Result.Failure<UpdateArticleResponse>(ArticleErrors.NotFound(request.ArticleId));
         }
-        blog.Update(
+        article.Update(
             request.Title,
             request.Content
             );
-        articleRepository.Update(blog);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return new UpdateArticleResponse(blog.Id);
+        return new UpdateArticleResponse(article.Id);
     }
 }

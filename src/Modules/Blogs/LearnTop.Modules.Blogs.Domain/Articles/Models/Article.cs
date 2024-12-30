@@ -60,31 +60,25 @@ public class Article : Aggregate
         IsDeleted = true;
         AddDomainEvent(new ArticleUpdatedEvent(this));
     }
-    public void Delete()
+    public void AddTag(Guid tagId)
     {
-        IsDeleted = true;
-        DeletedAt = DateTime.Now;
-        AddDomainEvent(new ArticleDeletedEvent(this));
-    }
-    public void AddTag(ArticleTag articleTag)
-    {
-        bool isExist = _tags.Exists(t=>t.TagId == articleTag.TagId && t.ArticleId == articleTag.ArticleId);
+        bool isExist = _tags.Exists(t=>t.TagId == tagId && t.ArticleId == Id);
         if (isExist)
         {
             return;
         }
-        _tags.Add(articleTag);
-        AddDomainEvent(new TagAddedEvent(articleTag));
+        _tags.Add(new(tagId, Id));
+        AddDomainEvent(new ArticleUpdatedEvent(this));
     }
-    public Result RemoveTag(ArticleTag articleTag)
+    public Result RemoveTag(Guid tagId)
     {
-        bool isExist = _tags.Exists(t=>t.TagId == articleTag.TagId && t.ArticleId == articleTag.ArticleId);
-        if (!isExist)
+        ArticleTag? articleTag = _tags.Find(t=>t.TagId == tagId && t.ArticleId == Id);
+        if (articleTag is null)
         {
-            return Result.Failure(ArticleErrors.TagNotFound(articleTag.TagId));
+            return Result.Failure(ArticleErrors.TagNotFound(tagId));
         }
         _tags.Remove(articleTag);
-        AddDomainEvent(new TagRemovedEvent(articleTag));
+        AddDomainEvent(new ArticleUpdatedEvent(this));
         return Result.Success();
     }
 }

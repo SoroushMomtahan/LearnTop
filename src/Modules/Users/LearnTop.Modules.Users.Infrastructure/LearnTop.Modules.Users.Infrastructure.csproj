@@ -10,6 +10,8 @@
     <Folder Include="Database\ReadDb\Migrations\" />
     <Folder Include="Database\WriteDb\Configurations\" />
     <Folder Include="Database\WriteDb\Migrations\" />
-    <Folder Include="Identity\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
   </ItemGroup>
 </Project>
