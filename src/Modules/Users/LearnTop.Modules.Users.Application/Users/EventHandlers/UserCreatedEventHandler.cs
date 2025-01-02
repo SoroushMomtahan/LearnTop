@@ -8,20 +8,13 @@ using LearnTop.Shared.Application.Messaging;
 namespace LearnTop.Modules.Users.Application.Users.EventHandlers;
 
 public class UserCreatedEventHandler
-    (IUserViewRepository userViewRepository)
     : IDomainEventHandler<UserCreatedEvent>
 {
 
-    public async Task Handle(
+    public Task Handle(
         UserCreatedEvent notification,
         CancellationToken cancellationToken)
     {
-        UserView userView = new()
-        {
-            Firstname = notification.User.Firstname,
-            Lastname = notification.User.Lastname
-        };
-        await userViewRepository.AddAsync(userView);
-        await userViewRepository.SaveChangesAsync(cancellationToken);
+        return Task.CompletedTask;
     }
 }

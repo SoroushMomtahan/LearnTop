@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LearnTop.Modules.Blogs.Domain.Articles.Errors;
+using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Commands.DeleteArticle;
 
@@ -9,6 +10,6 @@ public class DeleteArticleValidation : AbstractValidator<DeleteArticleCommand>
     {
         RuleFor(x => x.ArticleId)
             .NotEmpty()
-            .WithMessage(ArticleErrors.Empty("شناسه بلاگ").Description);
+            .WithMessage(Error.Empty("شناسه بلاگ").Description);
     }
 }

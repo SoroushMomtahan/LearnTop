@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LearnTop.Modules.Blogs.Domain.Articles.Errors;
+using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Commands.CreateArticle;
 
@@ -23,10 +24,10 @@ internal sealed class CreateArticleValidation : AbstractValidator<CreateArticleC
 
         RuleFor(x => x.AuthorId)
             .NotEmpty()
-            .WithMessage(ArticleErrors.Empty("شناسه نویسنده").Description);
+            .WithMessage(Error.Empty("شناسه نویسنده").Description);
 
         RuleFor(x => x.CategoryId)
             .NotEmpty()
-            .WithMessage(ArticleErrors.Empty("شناسه دسته بندی").Description);
+            .WithMessage(Error.Empty("شناسه دسته بندی").Description);
     }
 }

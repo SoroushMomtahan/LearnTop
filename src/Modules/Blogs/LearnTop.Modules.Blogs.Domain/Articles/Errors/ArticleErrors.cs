@@ -4,14 +4,6 @@ namespace LearnTop.Modules.Blogs.Domain.Articles.Errors;
 
 public static class ArticleErrors
 {
-    public static Error Empty(string name)
-    {
-        return new(
-            "Articles.NotEmpty",
-            $"فیلد {name} نمی تواند خلی باشد.",
-            ErrorType.Validation
-            );
-    }
     public static Error NotFound(Guid blogId)
     {
         return new(

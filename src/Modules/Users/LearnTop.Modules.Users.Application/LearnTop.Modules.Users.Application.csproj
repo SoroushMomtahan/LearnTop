@@ -5,9 +5,7 @@
       <ProjectReference Include="..\LearnTop.Modules.Users.IntegrationEvents\LearnTop.Modules.Users.IntegrationEvents.csproj" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Abstractions\Identity\" />
       <Folder Include="Users\Features\" />
-      <Folder Include="Users\Features\Queries\" />
     </ItemGroup>
 
 </Project>

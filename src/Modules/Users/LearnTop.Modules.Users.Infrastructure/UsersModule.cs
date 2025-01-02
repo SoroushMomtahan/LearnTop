@@ -1,14 +1,16 @@
 ﻿using LearnTop.Modules.Users.Application.Abstractions.Data;
+using LearnTop.Modules.Users.Application.Authentication;
 using LearnTop.Modules.Users.Domain.Users.Repositories;
-using LearnTop.Modules.Users.Infrastructure.Database.ReadDb;
-using LearnTop.Modules.Users.Infrastructure.Database.ReadDb.Repository;
-using LearnTop.Modules.Users.Infrastructure.Database.WriteDb;
-using LearnTop.Modules.Users.Infrastructure.Database.WriteDb.Repositories;
+using LearnTop.Modules.Users.Infrastructure.Authentication;
 using LearnTop.Modules.Users.Infrastructure.PublicApi;
+using LearnTop.Modules.Users.Infrastructure.Users.Repositories;
+using LearnTop.Modules.Users.Infrastructure.WriteDb;
 using LearnTop.Modules.Users.Presentation;
 using LearnTop.Modules.Users.PublicApi;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using LearnTop.Shared.Presentation.Endpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,17 +27,31 @@ public static class UsersModule
         services.AddEndpoints(AssemblyReference.UsersEndpointAssembly);
         return services;
     }
-    private static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IUsersApi, UsersApi>();
-
-        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<UsersDbContext>());
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IUserViewRepository, UserViewRepository>();
-        services.AddDbContext<UsersViewDbContext>(builder =>
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddIdentityInfrastructure();
+        services.AddWriteDb(configuration);
+    }
+    private static void AddIdentityInfrastructure(this IServiceCollection services)
+    {
+        
+        
+        services.AddIdentityApiEndpoints<IdentityUser>()
+            .AddEntityFrameworkStores<UsersDbContext>()
+            .AddDefaultTokenProviders();
+        
+        services.Configure<DataProtectionTokenProviderOptions>(options =>
         {
-            builder.UseSqlServer(configuration.GetConnectionString("ReadDb"));
+            options.TokenLifespan = TimeSpan.FromMinutes(10); // Set the token lifespan to 3 hours
         });
+
+    }
+    private static void AddWriteDb(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IUnitOfWork>(sp=>sp.GetRequiredService<UsersDbContext>());
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddDbContext<UsersDbContext>((sp, options) =>
         {
             string connectionString = configuration.GetConnectionString("WriteDb");
@@ -43,6 +59,5 @@ public static class UsersModule
                 .UseSqlServer(connectionString)
                 .AddInterceptors(sp.GetRequiredService<PublishDomainEventsInterceptor>());
         });
-        return services;
     }
 }

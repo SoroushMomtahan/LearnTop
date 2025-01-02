@@ -1,17 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
-    <ProjectReference Include="..\LearnTop.Modules.Users.Domain\LearnTop.Modules.Users.Domain.csproj" />
-    <ProjectReference Include="..\LearnTop.Modules.Users.Presentation\LearnTop.Modules.Users.Presentation.csproj" />
-    <ProjectReference Include="..\LearnTop.Modules.Users.PublicApi\LearnTop.Modules.Users.PublicApi.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\ReadDb\Migrations\" />
-    <Folder Include="Database\WriteDb\Configurations\" />
-    <Folder Include="Database\WriteDb\Migrations\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0" />
-  </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj"/>
+        <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj"/>
+        <ProjectReference Include="..\LearnTop.Modules.Users.Domain\LearnTop.Modules.Users.Domain.csproj"/>
+        <ProjectReference Include="..\LearnTop.Modules.Users.Presentation\LearnTop.Modules.Users.Presentation.csproj"/>
+        <ProjectReference Include="..\LearnTop.Modules.Users.PublicApi\LearnTop.Modules.Users.PublicApi.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.0"/>
+    </ItemGroup>
 </Project>

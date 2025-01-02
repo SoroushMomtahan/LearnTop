@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using LearnTop.Modules.Blogs.Domain.Articles.Errors;
+using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Commands.RemoveArticleTag;
 
@@ -9,10 +10,10 @@ internal sealed class RemoveArticleTagValidation : AbstractValidator<RemoveArtic
     {
         RuleFor(x => x.ArticleId)
             .NotEmpty()
-            .WithMessage(ArticleErrors.Empty("شناسه بلاگ").Description);
+            .WithMessage(Error.Empty("شناسه بلاگ").Description);
 
         RuleFor(x => x.TagId)
             .NotEmpty()
-            .WithMessage(ArticleErrors.Empty("شناسه تگ").Description);
+            .WithMessage(Error.Empty("شناسه تگ").Description);
     }
 }

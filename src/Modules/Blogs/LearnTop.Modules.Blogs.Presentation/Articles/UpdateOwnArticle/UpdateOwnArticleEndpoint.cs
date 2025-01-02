@@ -3,6 +3,7 @@ using LearnTop.Modules.Blogs.Application.Articles.Features.Commands.UpdateArticl
 using LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewById;
 using LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewsByAuthorId;
 using LearnTop.Modules.Blogs.Domain.Articles.Views;
+using Serilog;
 
 namespace LearnTop.Modules.Blogs.Presentation.Articles.UpdateOwnArticle;
 
@@ -11,19 +12,27 @@ internal sealed class UpdateOwnArticleEndpoint : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/Articles/Own", async (
-            UpdateArticleCommand command, 
-            ClaimsPrincipal claimsPrincipal,
-            ISender sender) =>
-        {
-            Result<GetArticleViewByIdResponse> foundedArticleResult = await sender.Send(new GetArticleViewByIdQuery(command.ArticleId));
-            if (foundedArticleResult.IsFailure)
+        app.MapPut("/OwnArticle", async (
+                UpdateArticleCommand command,
+                ClaimsPrincipal user,
+                ISender sender) =>
             {
-                return ApiResults.Problem(foundedArticleResult);
-            }
-            Result<UpdateArticleResponse> result = await sender.Send(command);
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .WithTags(Tags.Articles);
+                string? userId = user.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
+                
+                Result<GetArticleViewByIdResponse> foundedArticleResult =
+                    await sender.Send(new GetArticleViewByIdQuery(command.ArticleId));
+                if (foundedArticleResult.IsFailure)
+                {
+                    return ApiResults.Problem(foundedArticleResult);
+                }
+                if (userId is null || foundedArticleResult.Value.ArticleView.AuthorId != Guid.Parse(userId))
+                {
+                    return Results.Unauthorized();
+                }
+                Result<UpdateArticleResponse> result = await sender.Send(command);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .WithTags(Tags.Articles)
+            .RequireAuthorization();
     }
 }
