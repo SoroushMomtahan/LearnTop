@@ -1,4 +1,5 @@
 ﻿using LearnTop.Shared.Application.Exceptions;
+using LearnTop.Shared.Domain;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
@@ -17,6 +18,10 @@ internal sealed class ExceptionHandlingPipelineBehavior<TRequest, TResponse>(
         try
         {
             return await next();
+        }
+        catch (Exception exception) when (exception is DomainValidationException domainException)
+        {
+            throw domainException;
         }
         catch (Exception exception)
         {

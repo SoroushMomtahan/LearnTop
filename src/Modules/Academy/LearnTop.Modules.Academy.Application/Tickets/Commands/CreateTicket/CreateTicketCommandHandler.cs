@@ -17,13 +17,13 @@ internal sealed class CreateTicketCommandHandler
     public async Task<Result<CreateTicketResponse>> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
     {
         Guid userId = request.CreateTicketDto.UserId;
-        bool isExist = await usersApi.IsExist(userId);
+        bool isExist = await usersApi.IsExistAsync(userId);
         if (!isExist)
         {
             return Result.Failure<CreateTicketResponse>(TicketErrors.UserNotFound(userId));
         }
         Result<Ticket> result = Ticket.CreateTicket(
-            request.CreateTicketDto.UserId,
+            userId,
             request.CreateTicketDto.Title,
             request.CreateTicketDto.Content,
             request.CreateTicketDto.Priority,

@@ -4,7 +4,7 @@ namespace LearnTop.Modules.Users.Domain.Users.Errors;
 
 public static class UserErrors
 {
-    public static Error NotFound(string userId)
+    public static Error NotFound(Guid userId)
     {
         return new("Users.NotFound", $"کاربری با شناسه {userId} یافت نشد.", ErrorType.NotFound);
     }

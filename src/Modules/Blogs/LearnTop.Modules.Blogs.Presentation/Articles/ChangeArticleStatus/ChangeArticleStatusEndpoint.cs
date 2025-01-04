@@ -12,6 +12,7 @@ internal sealed class ChangeArticleStatusEndpoint : IEndpoint
             Result<ChangeArticleStatusResponse> result = await sender.Send(command);
             return result.Match(Results.Ok, ApiResults.Problem);
         })
-        .WithTags(Tags.Articles);
+        .WithTags(Tags.Articles)
+        .RequireAuthorization();
     }
 }

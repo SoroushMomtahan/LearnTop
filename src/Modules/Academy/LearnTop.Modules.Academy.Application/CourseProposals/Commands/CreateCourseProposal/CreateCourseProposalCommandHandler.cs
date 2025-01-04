@@ -20,7 +20,7 @@ public class CreateCourseProposalCommandHandler(
     public async Task<Result<CreateCourseProposalResponse>> Handle(CreateCourseProposalCommand request,
         CancellationToken cancellationToken)
     {
-        bool isExist = await usersApi.IsExist(request.TeacherId);
+        bool isExist = await usersApi.IsExistAsync(request.TeacherId);
         if (!isExist)
         {
             return Result.Failure<CreateCourseProposalResponse>(CourseProposalErrors.TeacherNotFound(request.TeacherId));

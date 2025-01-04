@@ -4,11 +4,11 @@ namespace LearnTop.Modules.Blogs.Domain.Articles.Errors;
 
 public static class ArticleErrors
 {
-    public static Error NotFound(Guid blogId)
+    public static Error NotFound(Guid articleId)
     {
         return new(
             "Articles.NotFound",
-            $"مقاله ای با شناسه {blogId} یافت نشد.",
+            $"مقاله ای با شناسه {articleId} یافت نشد.",
             ErrorType.NotFound
             );
     }
@@ -43,6 +43,14 @@ public static class ArticleErrors
             "Articles.StatusIsNotInRange",
             "وضعیت وارد شده نادرست است.",
             ErrorType.Validation
+            );
+    }
+    public static Error AuthorNotFound(Guid authorId)
+    {
+        return new(
+            "Articles.AuthorNotFound",
+            $"نویسنده ای با شناسه {authorId} یافت نشد.",
+            ErrorType.NotFound
             );
     }
 }

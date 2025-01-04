@@ -19,7 +19,7 @@ internal sealed class DeleteArticleEndpoint : IEndpoint
                 Result<DeleteArticleResponse> result = await sender.Send(command);
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .RequireAuthorization()
-            .WithTags(Tags.Articles);
+            .WithTags(Tags.Articles)
+            .RequireAuthorization();
     }
 }

@@ -9,11 +9,11 @@ public record Title : ValueObject<string>
     {
         if (value.Length < 3 || string.IsNullOrWhiteSpace(value))
         {
-            throw new DomainException(ArticleErrors.TitleIsLessThan3Characters());
+            throw new DomainValidationException(ArticleErrors.TitleIsLessThan3Characters());
         }
         if (value.Length > 100)
         {
-            throw new DomainException(ArticleErrors.TitleIsGreaterThan100Characters());
+            throw new DomainValidationException(ArticleErrors.TitleIsGreaterThan100Characters());
         }
     }
     public static implicit operator Title(string value) => new(value);

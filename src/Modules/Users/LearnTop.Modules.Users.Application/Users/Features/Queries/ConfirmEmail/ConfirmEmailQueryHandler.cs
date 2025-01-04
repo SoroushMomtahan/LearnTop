@@ -12,7 +12,7 @@ internal sealed class ConfirmEmailQueryHandler
 
     public async Task<Result<ConfirmEmailResponse>> Handle(ConfirmEmailQuery request, CancellationToken cancellationToken)
     {
-        IdentityUser identityUser = await userManager.FindByIdAsync(request.UserId);
+        IdentityUser identityUser = await userManager.FindByIdAsync(request.UserId.ToString());
         if (identityUser is null)
         {
             return Result.Failure<ConfirmEmailResponse>(UserErrors.NotFound(request.UserId));
@@ -23,6 +23,6 @@ internal sealed class ConfirmEmailQueryHandler
             Error[] errors = identityResult.Errors.Select(e => Error.Problem(e.Code, e.Description)).ToArray();
             return Result.Failure<ConfirmEmailResponse>(new ValidationError(errors));
         }
-        return new ConfirmEmailResponse(request.UserId);
+        return new ConfirmEmailResponse(request.UserId.ToString());
     }
 }

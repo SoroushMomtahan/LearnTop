@@ -26,7 +26,7 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
             case ValidationException validationException:
                 problemDetails.Extensions.Add("ValidationErrors", validationException.Errors);
                 break;
-            case DomainException domainException:
+            case DomainValidationException domainException:
                 problemDetails.Extensions.Add("DomainException", 
                     new
                     {

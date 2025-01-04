@@ -2,5 +2,5 @@
 
 namespace LearnTop.Modules.Users.Application.Users.Features.Queries.ConfirmEmail;
 
-public record ConfirmEmailQuery(string UserId, string EmailAddress, string Code)
+public record ConfirmEmailQuery(Guid UserId, string EmailAddress, string Code)
     : IQuery<ConfirmEmailResponse>;

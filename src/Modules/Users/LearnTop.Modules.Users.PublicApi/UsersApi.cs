@@ -2,5 +2,5 @@
 
 public interface IUsersApi
 {
-    Task<bool> IsExist(Guid id);
+    Task<bool> IsExistAsync(Guid id);
 }

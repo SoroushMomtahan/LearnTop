@@ -9,7 +9,7 @@ public record Content : ValueObject<string>
     {
         if (value.Length < 3 || string.IsNullOrWhiteSpace(value))
         {
-            throw new DomainException(ArticleErrors.ContentIsLessThan3Characters());
+            throw new DomainValidationException(ArticleErrors.ContentIsLessThan3Characters());
         }
     }
     public static implicit operator Content(string value) => new(value);

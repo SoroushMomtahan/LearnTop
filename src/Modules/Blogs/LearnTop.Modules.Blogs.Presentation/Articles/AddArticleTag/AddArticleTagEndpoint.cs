@@ -14,6 +14,7 @@ internal sealed class AddArticleTagEndpoint : IEndpoint
                 Result<AddArticleTagResponse> result = await sender.Send(articleTagCommand);
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
-            .WithTags(Tags.Articles);
+            .WithTags(Tags.Articles)
+            .RequireAuthorization();
     }
 }
