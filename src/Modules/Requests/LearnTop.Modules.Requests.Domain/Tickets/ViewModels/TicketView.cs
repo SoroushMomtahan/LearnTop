@@ -1,6 +1,6 @@
 ﻿using LearnTop.Shared.Domain;
 
-namespace LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
+namespace LearnTop.Modules.Requests.Domain.Tickets.ViewModels;
 
 public class TicketView : EntityView
 {

@@ -1,14 +1,13 @@
 ﻿using LearnTop.Shared.Domain;
 
-namespace LearnTop.Modules.Academy.Domain.Tickets.Models;
+namespace LearnTop.Modules.Requests.Domain.Tickets.Models;
 
 public sealed class ReplyTicket : Entity
 {
     public Guid UserId { get; private set; }
     public Guid TicketId { get; private set; }
     public string Content { get; private set; }
-
-    public byte[] Version { get; set; }
+    
 
     private ReplyTicket(Guid userId, Guid ticketId, string content)
     {
@@ -25,5 +24,6 @@ public sealed class ReplyTicket : Entity
     public void Edit(string content)
     {
         Content = content;
+        UpdatedAt = DateTime.UtcNow;
     }
 }

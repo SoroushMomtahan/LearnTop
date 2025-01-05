@@ -1,24 +1,23 @@
-﻿using LearnTop.Modules.Academy.Domain.Tickets.Enums;
-using LearnTop.Modules.Academy.Domain.Tickets.Errors;
-using LearnTop.Modules.Academy.Domain.Tickets.Events;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.Enums;
+using LearnTop.Modules.Requests.Domain.Tickets.Errors;
+using LearnTop.Modules.Requests.Domain.Tickets.Events;
 using LearnTop.Shared.Domain;
 
-namespace LearnTop.Modules.Academy.Domain.Tickets.Models;
+namespace LearnTop.Modules.Requests.Domain.Tickets.Models;
 
 public class Ticket : Aggregate
 {
     public Guid UserId { get; private set; }
     public string Title { get; private set; }
     public string Content { get; private set; }
+    public bool IsDeleted { get; private set; }
     public TicketStatus Status { get; private set; }
     public TicketPriority Priority { get; private set; }
     public TicketSection Section { get; private set; }
 
     private readonly List<ReplyTicket> _replyTickets = [];
-    public IReadOnlyCollection<ReplyTicket> ReplyTickets => [.. _replyTickets];
-
-    public byte[] Version { get; private set; }
-
+    public IReadOnlyList<ReplyTicket> ReplyTickets => [.. _replyTickets];
+    
     private Ticket() { }
 
     private Ticket(
@@ -57,8 +56,9 @@ public class Ticket : Aggregate
         return ticket;
     }
 
-    public Result Edit(string title, string content, TicketPriority priority,
-        TicketSection section)
+    public Result Update(
+        string title, 
+        string content)
     {
         if (title.Length < 3)
         {
@@ -71,36 +71,45 @@ public class Ticket : Aggregate
 
         Title = title;
         Content = content;
-        Priority = priority;
-        Section = section;
         UpdatedAt = DateTime.Now;
-        AddDomainEvent(new TicketEditedEvent(this));
+        AddDomainEvent(new TicketUpdatedEvent(this));
         return Result.Success();
     }
-
-    public void AddReplyTicket(ReplyTicket replyTicket)
+    public void ChangeStatus(TicketStatus status)
     {
+        Status = status;
+        AddDomainEvent(new TicketUpdatedEvent(this));
+    }
+    public void SoftDelete()
+    {
+        IsDeleted = true;
+        DeletedAt = DateTime.Now;
+        AddDomainEvent(new TicketUpdatedEvent(this));
+    }
+    public Result AddReplyTicket(ReplyTicket replyTicket)
+    {
+        bool exists = _replyTickets.Exists(x=>x.Id == replyTicket.Id);
+        if (exists)
+        {
+            return Result.Failure(TicketErrors.ReplyTicketAlreadyExist(replyTicket.Id));
+        }
         if (replyTicket.UserId != UserId)
         {
             Status = TicketStatus.Answered;
         }
         _replyTickets.Add(replyTicket);
-        AddDomainEvent(new ReplyTicketCreatedEvent(replyTicket));
+        AddDomainEvent(new TicketUpdatedEvent(this));
+        return Result.Success();
     }
-
-    public void ChangeStatus(TicketStatus status)
-    {
-        Status = status;
-    }
-
     public Result RemoveReplyTicket(ReplyTicket replyTicket)
     {
         bool isReplyTicketExist = _replyTickets.Any(r => r.Id == replyTicket.Id);
         if (!isReplyTicketExist)
         {
-            return Result.Failure(ReplyTicketErrors.NotFound(replyTicket.Id));
+            return Result.Failure(TicketErrors.ReplyTicketNotFound(replyTicket.Id));
         }
         _replyTickets.Remove(replyTicket);
+        AddDomainEvent(new TicketUpdatedEvent(this));
         return Result.Success();
     }
 }
