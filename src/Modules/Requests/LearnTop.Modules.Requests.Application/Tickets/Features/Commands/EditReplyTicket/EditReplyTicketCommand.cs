@@ -1,6 +1,9 @@
-﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.EditReplyTicket;
+﻿using LearnTop.Shared.Application.Cqrs;
 
-public class EditReplyTicketCommand
-{
-    
-}
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.EditReplyTicket;
+
+public sealed record EditReplyTicketCommand(
+    Guid TicketId, 
+    Guid ReplyTicketId,
+    string Content)
+    : ICommand<EditReplyTicketResponse>;

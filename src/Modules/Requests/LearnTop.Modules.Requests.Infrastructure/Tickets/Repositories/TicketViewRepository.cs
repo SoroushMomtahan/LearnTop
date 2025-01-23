@@ -1,39 +1,106 @@
-﻿using LearnTop.Modules.Academy.Domain.Tickets.Repositories.Views;
-using LearnTop.Modules.Academy.Domain.Tickets.ViewModels;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.Enums;
+using LearnTop.Modules.Requests.Domain.Tickets.Repositories.Views;
+using LearnTop.Modules.Requests.Domain.Tickets.ViewModels;
+using LearnTop.Modules.Requests.Infrastructure.ReadDb;
+using LearnTop.Modules.Requests.Infrastructure.WriteDb;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnTop.Modules.Academy.Infrastructure.Database.ReadDb.Repositories.Tickets;
+namespace LearnTop.Modules.Requests.Infrastructure.Tickets.Repositories;
 
-public class TicketViewRepository(
-    AcademyViewDbContext academyViewDbContext) : ITicketViewRepository
+internal sealed class TicketViewRepository(
+    RequestsViewDbContext requestsViewDbContext)
+    : ITicketViewRepository
 {
-    public List<TicketView> FindAll(int pageIndex, int pageSize)
-    {
-        return
-        [
-            .. academyViewDbContext.TicketViews.AsNoTracking()
-                .Skip(pageIndex)
-                .Take(pageSize)
-        ];
-    }
 
+    public async Task<List<TicketView>> GetAsync(int pageIndex, int pageSize, bool includeDeletedRows = false)
+    {
+        return await requestsViewDbContext.TicketViews
+            .AsNoTracking()
+            .Include(x => x.ReplyTicketViews)
+            .AsNoTracking()
+            .Skip(pageIndex)
+            .Take(pageSize)
+            .Where(x => x.IsDeleted == includeDeletedRows)
+            .ToListAsync();
+    }
+    public async Task<TicketView> GetAsync(Guid ticketId)
+    {
+        return await requestsViewDbContext.TicketViews.FindAsync(ticketId);
+    }
+    public async Task<List<TicketView>> GetBySearchAsync(string searchString, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
+    {
+        return await requestsViewDbContext.TicketViews
+            .AsNoTracking()
+            .Include(x => x.ReplyTicketViews)
+            .AsNoTracking()
+            .Skip(pageIndex)
+            .Take(pageSize)
+            .Where(x => x.IsDeleted == includeDeletedRows)
+            .Where(x=>x.Title.Contains(searchString) || x.Content.Contains(searchString))
+            .ToListAsync();
+    }
+    public async Task<List<TicketView>> GetByStatusAsync(TicketStatus status, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
+    {
+        return await requestsViewDbContext.TicketViews
+            .AsNoTracking()
+            .Include(x => x.ReplyTicketViews)
+            .AsNoTracking()
+            .Skip(pageIndex)
+            .Take(pageSize)
+            .Where(x => x.IsDeleted == includeDeletedRows)
+            .Where(x=>x.Status.Equals(status))
+            .ToListAsync();
+    }
+    public async Task<List<TicketView>> GetByPriorityAsync(TicketPriority priority, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
+    {
+        return await requestsViewDbContext.TicketViews
+            .AsNoTracking()
+            .Include(x => x.ReplyTicketViews)
+            .AsNoTracking()
+            .Skip(pageIndex)
+            .Take(pageSize)
+            .Where(x => x.IsDeleted == includeDeletedRows)
+            .Where(x=>x.Status.Equals(priority))
+            .ToListAsync();
+    }
+    public async Task<List<TicketView>> GetBySectionAsync(TicketSection section, int pageIndex, int pageSize,
+        bool includeDeletedRows = false)
+    {
+        return await requestsViewDbContext.TicketViews
+            .AsNoTracking()
+            .Include(x => x.ReplyTicketViews)
+            .AsNoTracking()
+            .Skip(pageIndex)
+            .Take(pageSize)
+            .Where(x => x.IsDeleted == includeDeletedRows)
+            .Where(x=>x.Status.Equals(section))
+            .ToListAsync();
+    }
+    public Task<long> GetTotalCountAsync()
+    {
+        return requestsViewDbContext.TicketViews.LongCountAsync();
+    }
     public async Task AddAsync(TicketView ticketView)
     {
-        await academyViewDbContext.TicketViews.AddAsync(ticketView);
+        await requestsViewDbContext.TicketViews.AddAsync(ticketView);
     }
-    public async Task AddReplyTicketViewAsync(ReplyTicketView replyTicketView)
+    public async Task AddAsync(ReplyTicketView replyTicketView)
     {
-        await academyViewDbContext.ReplyTicketViews.AddAsync(replyTicketView);
+        await requestsViewDbContext.ReplyTicketViews.AddAsync(replyTicketView);
     }
-
-    public Task UpdateAsync(TicketView ticketView)
+    public void Update(TicketView ticketView)
     {
-        academyViewDbContext.TicketViews.Update(ticketView);
-        return Task.CompletedTask;
+        requestsViewDbContext.Entry(ticketView).State = EntityState.Modified;
     }
-
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public void Delete(TicketView ticketView)
     {
-        return academyViewDbContext.SaveChangesAsync(cancellationToken);
+        requestsViewDbContext.TicketViews.Remove(ticketView);
+    }
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        return await requestsViewDbContext.SaveChangesAsync(cancellationToken);
     }
 }

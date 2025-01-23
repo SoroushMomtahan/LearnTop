@@ -5,6 +5,7 @@
     <ProjectReference Include="..\LearnTop.Modules.Academy.Presentation\LearnTop.Modules.Academy.Presentation.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Database\ReadDb\Configurations\" />
     <Folder Include="Database\WriteDb\Migrations\" />
   </ItemGroup>
 </Project>

@@ -17,7 +17,7 @@ public class Ticket : Aggregate
 
     private readonly List<ReplyTicket> _replyTickets = [];
     public IReadOnlyList<ReplyTicket> ReplyTickets => [.. _replyTickets];
-    
+
     private Ticket() { }
 
     private Ticket(
@@ -56,9 +56,11 @@ public class Ticket : Aggregate
         return ticket;
     }
 
-    public Result Update(
+    public Result Edit(
         string title, 
-        string content)
+        string content,
+        TicketPriority priority,
+        TicketSection section)
     {
         if (title.Length < 3)
         {
@@ -71,6 +73,8 @@ public class Ticket : Aggregate
 
         Title = title;
         Content = content;
+        Priority = priority;
+        Section = section;
         UpdatedAt = DateTime.Now;
         AddDomainEvent(new TicketUpdatedEvent(this));
         return Result.Success();
@@ -78,37 +82,57 @@ public class Ticket : Aggregate
     public void ChangeStatus(TicketStatus status)
     {
         Status = status;
+        UpdatedAt = DateTime.Now;
         AddDomainEvent(new TicketUpdatedEvent(this));
     }
     public void SoftDelete()
     {
         IsDeleted = true;
+        UpdatedAt = DateTime.Now;
         DeletedAt = DateTime.Now;
         AddDomainEvent(new TicketUpdatedEvent(this));
     }
-    public Result AddReplyTicket(ReplyTicket replyTicket)
+    public Result<ReplyTicket> AddReplyTicket(Guid userId, string content)
     {
-        bool exists = _replyTickets.Exists(x=>x.Id == replyTicket.Id);
-        if (exists)
+        Result<ReplyTicket> replyTicketResult = ReplyTicket.Create(userId, content);
+        if (replyTicketResult.IsFailure)
         {
-            return Result.Failure(TicketErrors.ReplyTicketAlreadyExist(replyTicket.Id));
+            return Result.Failure<ReplyTicket>(replyTicketResult.Error);
         }
-        if (replyTicket.UserId != UserId)
+        if (userId != UserId)
         {
             Status = TicketStatus.Answered;
         }
-        _replyTickets.Add(replyTicket);
+        _replyTickets.Add(replyTicketResult.Value);
+        UpdatedAt = DateTime.Now;
+        AddDomainEvent(new TicketUpdatedEvent(this));
+        return replyTicketResult.Value;
+    }
+    public Result RemoveReplyTicket(Guid replyTicketId)
+    {
+        ReplyTicket replyTicket = _replyTickets.Find(r => r.Id == replyTicketId);
+        if (replyTicket is null)
+        {
+            return Result.Failure(TicketErrors.ReplyTicketNotFound(replyTicketId));
+        }
+        _replyTickets.Remove(replyTicket);
+        UpdatedAt = DateTime.Now;
         AddDomainEvent(new TicketUpdatedEvent(this));
         return Result.Success();
     }
-    public Result RemoveReplyTicket(ReplyTicket replyTicket)
+    public Result EditReplyTicket(Guid replyTicketId, string content)
     {
-        bool isReplyTicketExist = _replyTickets.Any(r => r.Id == replyTicket.Id);
-        if (!isReplyTicketExist)
+        ReplyTicket? replyTicket = _replyTickets.Find(x => x.Id == replyTicketId);
+        if (replyTicket is null)
         {
-            return Result.Failure(TicketErrors.ReplyTicketNotFound(replyTicket.Id));
+            return Result.Failure(TicketErrors.ReplyTicketNotFound(replyTicketId));
         }
-        _replyTickets.Remove(replyTicket);
+        Result result = replyTicket.Edit(content);
+        if (result.IsFailure)
+        {
+            return Result.Failure(result.Error);
+        }
+        UpdatedAt = DateTime.Now;
         AddDomainEvent(new TicketUpdatedEvent(this));
         return Result.Success();
     }

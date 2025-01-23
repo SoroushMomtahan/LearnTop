@@ -1,3 +1,3 @@
-namespace LearnTop.Modules.Academy.Application.Tickets.Commands.CreateTicket;
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.CreateTicket;
 
-public sealed record CreateTicketResponse(Guid Id);
+public sealed record CreateTicketResponse(Guid TicketId);

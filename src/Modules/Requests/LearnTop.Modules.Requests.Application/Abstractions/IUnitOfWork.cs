@@ -1,4 +1,4 @@
-﻿namespace LearnTop.Modules.Requests.Application.Tickets.Abstractions;
+﻿namespace LearnTop.Modules.Requests.Application.Abstractions;
 
 public interface IUnitOfWork
 {

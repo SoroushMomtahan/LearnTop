@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LearnTop.Modules.Blogs.Infrastructure.WriteDb;
 
-public sealed class BlogsDbContext(DbContextOptions<BlogsDbContext> options) : DbContext(options), IUnitOfWork
+public sealed class BlogsDbContext(DbContextOptions<BlogsDbContext> options) 
+    : DbContext(options), IUnitOfWork
 {
     internal DbSet<Article> Articles => Set<Article>();
     internal DbSet<ArticleTag> Tags => Set<ArticleTag>();

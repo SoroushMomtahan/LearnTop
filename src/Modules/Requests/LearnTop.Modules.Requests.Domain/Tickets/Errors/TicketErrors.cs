@@ -20,13 +20,31 @@ public static class TicketErrors
     public static readonly Error TitleLessThan3Character = Error.Validation(
         "Ticket.TitleLessThan3Character",
         "عنوان نمی تواند کمتر از 3 کاراکتر باشد.");
+    public static readonly Error TitleMoreThan50Character = Error.Validation(
+        "Ticket.TitleMoreThan50Character",
+        "عنوان نمی تواند کمتر از 50 کاراکتر باشد.");
 
     public static readonly Error ContentLessThan3Character = Error.Validation(
         "Ticket.ContentLessThan3Character",
         "محتوای تیکت نمی تواند کمتر از 3 کاراکتر باشد.");
+    public static readonly Error PriorityOutOfRange = Error.Validation(
+        "Ticket.PriorityOutOfRange",
+        "مقدار وارد شده برای فیلد اولویت خارج از بازه مجاز است.");
+    public static readonly Error SectionOutOfRange = Error.Validation(
+        "Ticket.SectionOutOfRange",
+        "مقدار وارد شده برای فیلد بخش خارج از بازه مجاز است.");
+    public static readonly Error StatusOutOfRange = Error.Validation(
+        "Ticket.StatusOutOfRange",
+        "مقدار وارد شده برای فیلد وضعیت خارج از بازه مجاز است.");
     public static Error ReplyTicketAlreadyExist(Guid replyTicketId)
     {
         return Error.Conflict(
             "Tickets.ReplyTicketAlreadyExist", $"پاسخ تیکت با شناسه {replyTicketId} از قبل وجود دارد.");
+    }
+    public static Error ConcurrencyConflict()
+    {
+        return Error.Conflict(
+            "Tickets.ConcurrencyConflict",
+            "مشکل همزمانی رخ داد.");
     }
 }

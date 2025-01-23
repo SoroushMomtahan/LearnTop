@@ -1,34 +1,46 @@
-﻿using LearnTop.Modules.Academy.Application.Abstractions.Data;
-using LearnTop.Modules.Academy.Domain.Tickets.Errors;
-using LearnTop.Modules.Academy.Domain.Tickets.Models;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+﻿using LearnTop.Modules.Requests.Application.Abstractions;
+using LearnTop.Modules.Requests.Domain.Tickets.Errors;
+using LearnTop.Modules.Requests.Domain.Tickets.Models;
+using LearnTop.Modules.Requests.Domain.Tickets.Repositories;
+using LearnTop.Modules.Users.PublicApi;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace LearnTop.Modules.Academy.Application.Tickets.Commands.AddReplyTicket;
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.AddReplyTicket;
 
 internal sealed class AddReplyTicketCommandHandler(
     ITicketRepository ticketRepository,
-    IUnitOfWork unitOfWork
-    ) : ICommandHandler<AddReplyTicketCommand, AddReplyTicketResponse>
+    IUnitOfWork unitOfWork,
+    IUsersApi usersApi) : ICommandHandler<AddReplyTicketCommand, AddReplyTicketResponse>
 {
 
     public async Task<Result<AddReplyTicketResponse>> Handle(AddReplyTicketCommand request, CancellationToken cancellationToken)
     {
-        Result<ReplyTicket> result = ReplyTicket.CreateReplyTicket(request.UserId, request.TicketId, request.Content);
-        if (result.IsFailure)
+        bool isUserExist = await usersApi.IsExistAsync(request.UserId);
+        if (!isUserExist)
         {
-            return Result.Failure<AddReplyTicketResponse>(result.Error);
+            return Result.Failure<AddReplyTicketResponse>(TicketErrors.UserNotFound(request.UserId));
         }
-        Ticket? ticket = await ticketRepository.GetByIdAsync(result.Value.TicketId, cancellationToken);
+
+        Ticket? ticket = await ticketRepository.GetByIdAsync(request.TicketId, cancellationToken);
         if (ticket is null)
         {
-            return Result.Failure<AddReplyTicketResponse>(TicketErrors.NotFound(result.Value.TicketId));
+            return Result.Failure<AddReplyTicketResponse>(TicketErrors.TicketNotFound(request.TicketId));
         }
-        await ticketRepository.AddReplyTicketAsync(result.Value);
-        ticket.AddReplyTicket(result.Value);
+        
+        Result<ReplyTicket> replyTicketResult = ticket.AddReplyTicket(request.UserId, request.Content);
+        if (replyTicketResult.IsFailure)
+        {
+            return Result.Failure<AddReplyTicketResponse>(replyTicketResult.Error);
+        }
+        
+        await ticketRepository.AddAsync(replyTicketResult.Value);
+        
         await unitOfWork.SaveChangesAsync(cancellationToken);
-
-        return new AddReplyTicketResponse(result.Value.Id);
+        
+        return new AddReplyTicketResponse(request.TicketId);
     }
 }

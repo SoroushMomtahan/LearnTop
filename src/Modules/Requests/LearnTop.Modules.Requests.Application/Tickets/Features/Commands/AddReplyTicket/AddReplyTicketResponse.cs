@@ -1,3 +1,3 @@
-﻿namespace LearnTop.Modules.Academy.Application.Tickets.Commands.AddReplyTicket;
+﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.AddReplyTicket;
 
-public sealed record AddReplyTicketResponse(Guid Id);
+public sealed record AddReplyTicketResponse(Guid TicketId);

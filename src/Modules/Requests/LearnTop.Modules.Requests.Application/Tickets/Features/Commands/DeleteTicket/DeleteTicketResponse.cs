@@ -1,6 +1,3 @@
 ﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.DeleteTicket;
 
-public class DeleteTicketResponse
-{
-    
-}
+public sealed record DeleteTicketResponse(Guid TicketId);

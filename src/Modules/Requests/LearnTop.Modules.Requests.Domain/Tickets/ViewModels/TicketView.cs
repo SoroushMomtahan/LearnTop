@@ -10,5 +10,6 @@ public class TicketView : EntityView
     public string Status { get; set; }
     public string Priority { get; set; }
     public string Section { get; set; }
-    public List<ReplyTicketView> ReplyTicketView { get; set; }
+    public bool IsDeleted { get; set; }
+    public List<ReplyTicketView> ReplyTicketViews { get; set; }
 }

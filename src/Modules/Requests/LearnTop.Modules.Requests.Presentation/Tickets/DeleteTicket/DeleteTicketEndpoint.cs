@@ -5,6 +5,7 @@ using LearnTop.Shared.Presentation.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
 namespace LearnTop.Modules.Requests.Presentation.Tickets.DeleteTicket;
@@ -14,7 +15,7 @@ internal sealed class DeleteTicketEndpoint : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapDelete("/Tickets", async (DeleteTicketCommand command, ISender sender) =>
+        app.MapDelete("/Tickets", async ([AsParameters] DeleteTicketCommand command, ISender sender) =>
         {
             Result<DeleteTicketResponse> result = await sender.Send(command);
             return result.Match(Results.Ok, ApiResults.Problem);

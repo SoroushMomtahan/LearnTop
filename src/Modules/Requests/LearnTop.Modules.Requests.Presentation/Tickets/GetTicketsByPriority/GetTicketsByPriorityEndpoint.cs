@@ -17,12 +17,13 @@ internal sealed class GetTicketsByPriorityEndpoint : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/Tickets/ByPriority/{priority}", async (
+        app.MapGet("/Tickets/ByPriority", async (
+                string priority,
                 [AsParameters] PaginationRequest request,
                 ISender sender) =>
             {
                 Result<GetTicketsByPriorityResponse> result = await sender
-                    .Send(new GetTicketsByPriorityQuery(request, TicketPriority.High));
+                    .Send(new GetTicketsByPriorityQuery(request, Enum.Parse<TicketPriority>(priority)));
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
             .WithTags(Tags.Tickets);

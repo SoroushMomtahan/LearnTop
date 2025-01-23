@@ -2,7 +2,7 @@
 
 namespace LearnTop.Modules.Requests.Presentation;
 
-public static class EndpointAssemblyReference
+public static class AssemblyReference
 {
-    public static readonly Assembly RequestsEndpointAssembly = typeof(EndpointAssemblyReference).Assembly;
+    public static readonly Assembly RequestsEndpointAssembly = typeof(AssemblyReference).Assembly;
 }

@@ -1,6 +1,7 @@
-﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Queries.GetTicketsByStatus;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.Enums;
+using LearnTop.Modules.Requests.Domain.Tickets.ViewModels;
+using LearnTop.Shared.Application.Pagination;
 
-public class GetTicketsByStatusResponse
-{
-    
-}
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Queries.GetTicketsByStatus;
+
+public record GetTicketsByStatusResponse(PaginatedResult<TicketView> PaginatedTicketViews);

@@ -12,6 +12,9 @@ public class User : Aggregate
     public Lastname Lastname { get; private set; }
     public Guid IdentityUser { get; private set; }
 
+    #pragma warning disable S125
+    // public DateTime LastLoginDate { get; private set; }
+
     private User() { }
 
     public static Result<User> Create(string firstname, string lastname, Guid identityUser)

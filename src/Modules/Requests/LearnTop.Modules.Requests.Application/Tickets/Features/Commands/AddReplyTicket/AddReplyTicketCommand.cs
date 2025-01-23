@@ -1,6 +1,6 @@
 ﻿using LearnTop.Shared.Application.Cqrs;
 
-namespace LearnTop.Modules.Academy.Application.Tickets.Commands.AddReplyTicket;
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.AddReplyTicket;
 
 public sealed record AddReplyTicketCommand(
     Guid UserId,

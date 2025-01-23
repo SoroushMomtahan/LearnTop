@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Requests.Application\LearnTop.Modules.Requests.Application.csproj" />
+    </ItemGroup>
+
+</Project>

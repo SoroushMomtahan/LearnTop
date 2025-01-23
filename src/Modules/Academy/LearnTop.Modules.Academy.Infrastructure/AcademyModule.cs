@@ -2,18 +2,14 @@
 using LearnTop.Modules.Academy.Domain.Academy.Repositories;
 using LearnTop.Modules.Academy.Domain.Academy.Repositories.Views;
 using LearnTop.Modules.Academy.Domain.CourseProposals.Repositories;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories.Views;
 using LearnTop.Modules.Academy.Infrastructure.Database.ReadDb;
 using LearnTop.Modules.Academy.Infrastructure.Database.ReadDb.Repositories.Tickets;
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb;
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.Academy;
 using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.CourseProposals;
-using LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.Tickets;
 using LearnTop.Modules.Academy.Presentation;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using LearnTop.Shared.Presentation.Endpoints;
-using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,15 +51,12 @@ public static class AcademyModule
     }
     private static void AddRepositories(this IServiceCollection services)
     {
-        services.AddScoped<ITicketRepository, TicketRepository>();
 
         services.AddScoped<ICourseProposalRepository, CourseProposalRepository>();
 
         services.AddScoped<ISkillRepository, SkillRepository>();
 
         services.AddScoped<IBannerRepository, BannerRepository>();
-
-        services.AddScoped<ITicketViewRepository, TicketViewRepository>();
 
         services.AddScoped<IBannerViewRepository, BannerViewRepository>();
     }

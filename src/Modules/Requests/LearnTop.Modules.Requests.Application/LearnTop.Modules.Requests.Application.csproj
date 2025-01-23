@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
+      <ProjectReference Include="..\..\Users\LearnTop.Modules.Users.PublicApi\LearnTop.Modules.Users.PublicApi.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Requests.Domain\LearnTop.Modules.Requests.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    </ItemGroup>
+
+</Project>

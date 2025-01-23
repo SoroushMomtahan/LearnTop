@@ -1,3 +1,5 @@
-﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.DeleteTicket;
+﻿using LearnTop.Shared.Application.Cqrs;
 
-public record DeleteTicketCommand();
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.DeleteTicket;
+
+public record DeleteTicketCommand(Guid TicketId, bool IsSoftDelete) : ICommand<DeleteTicketResponse>;

@@ -25,6 +25,11 @@ public static class UsersModule
     {
         services.AddInfrastructure(configuration);
         services.AddEndpoints(AssemblyReference.UsersEndpointAssembly);
+        services.AddAuthorizationBuilder()
+            .AddPolicy("User", policy =>
+            {
+                policy.RequireAuthenticatedUser();
+            });
         return services;
     }
     private static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
@@ -44,7 +49,7 @@ public static class UsersModule
         
         services.Configure<DataProtectionTokenProviderOptions>(options =>
         {
-            options.TokenLifespan = TimeSpan.FromMinutes(10); // Set the token lifespan to 3 hours
+            options.TokenLifespan = TimeSpan.FromMinutes(10); // Set the email token lifespan to 3 hours
         });
 
     }

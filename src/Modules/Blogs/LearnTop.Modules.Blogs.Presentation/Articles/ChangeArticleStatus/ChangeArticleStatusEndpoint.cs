@@ -7,7 +7,7 @@ internal sealed class ChangeArticleStatusEndpoint : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("Articles/Status", async (ChangeArticleStatusCommand command, ISender sender) =>
+        app.MapPatch("Articles/Status", async (ChangeArticleStatusCommand command, ISender sender) =>
         {
             Result<ChangeArticleStatusResponse> result = await sender.Send(command);
             return result.Match(Results.Ok, ApiResults.Problem);

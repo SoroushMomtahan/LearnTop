@@ -1,6 +1,6 @@
-﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Queries.GetTicketsByPriority;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.ViewModels;
+using LearnTop.Shared.Application.Pagination;
 
-public class GetTicketsByPriorityResponse
-{
-    
-}
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Queries.GetTicketsByPriority;
+
+public record GetTicketsByPriorityResponse(PaginatedResult<TicketView> PaginatedTicketViews);

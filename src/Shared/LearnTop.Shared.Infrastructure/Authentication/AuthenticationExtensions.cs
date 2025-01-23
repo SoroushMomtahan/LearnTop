@@ -9,11 +9,7 @@ internal static class AuthenticationExtensions
     internal static IServiceCollection AddAuthenticationInternal(this IServiceCollection services)
     {
         services.AddAuthorization();
-        services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer();
         services.ConfigureOptions<JwtOptionsSetup>();
         services.ConfigureOptions<JwtBearerOptionsSetup>();

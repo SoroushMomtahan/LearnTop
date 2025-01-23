@@ -1,6 +1,14 @@
-﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.EditReplyTicket;
+﻿using FluentValidation;
+using LearnTop.Modules.Requests.Domain.Tickets.Errors;
 
-public class EditReplyTicketCommandHandler
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.EditReplyTicket;
+
+internal sealed class EditReplyTicketValidation : AbstractValidator<EditReplyTicketCommand>
 {
-    
+    public EditReplyTicketValidation()
+    {
+        RuleFor(x => x.Content)
+            .MinimumLength(3)
+            .WithMessage(TicketErrors.ContentLessThan3Character.Description);
+    }
 }

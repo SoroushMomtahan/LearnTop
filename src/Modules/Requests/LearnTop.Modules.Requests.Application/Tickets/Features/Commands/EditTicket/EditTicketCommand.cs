@@ -1,7 +1,7 @@
-﻿using LearnTop.Modules.Academy.Domain.Tickets.Enums;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.Enums;
 using LearnTop.Shared.Application.Cqrs;
 
-namespace LearnTop.Modules.Academy.Application.Tickets.Commands.EditTicket;
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.EditTicket;
 
 public record EditTicketCommand(
     Guid Id,

@@ -5,13 +5,16 @@ namespace LearnTop.Modules.Requests.Domain.Tickets.Repositories.Views;
 
 public interface ITicketViewRepository
 {
-    List<TicketView> Get(int pageIndex, int pageSize, bool includeDeletedRows = false);
-    List<TicketView> Get(Guid ticketId, int pageIndex, int pageSize, bool includeDeletedRows = false);
-    List<TicketView> GetBySearch(string searchString, int pageIndex, int pageSize, bool includeDeletedRows = false);
-    List<TicketView> GetByStatus(TicketStatus status, int pageIndex, int pageSize, bool includeDeletedRows = false);
-    List<TicketView> GetByStatus(TicketPriority priority, int pageIndex, int pageSize, bool includeDeletedRows = false);
-    List<TicketView> GetByStatus(TicketSection section, int pageIndex, int pageSize, bool includeDeletedRows = false);
+    Task<List<TicketView>> GetAsync(int pageIndex, int pageSize, bool includeDeletedRows = false);
+    Task<TicketView> GetAsync(Guid ticketId);
+    Task<List<TicketView>> GetBySearchAsync(string searchString, int pageIndex, int pageSize, bool includeDeletedRows = false);
+    Task<List<TicketView>> GetByStatusAsync(TicketStatus status, int pageIndex, int pageSize, bool includeDeletedRows = false);
+    Task<List<TicketView>> GetByPriorityAsync(TicketPriority priority, int pageIndex, int pageSize, bool includeDeletedRows = false);
+    Task<List<TicketView>> GetBySectionAsync(TicketSection section, int pageIndex, int pageSize, bool includeDeletedRows = false);
+    Task<long> GetTotalCountAsync();
     Task AddAsync(TicketView ticketView);
-    void Delete(Guid ticketId);
+    Task AddAsync(ReplyTicketView replyTicketView);
+    void Update(TicketView ticketView);
+    void Delete(TicketView ticketView);
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

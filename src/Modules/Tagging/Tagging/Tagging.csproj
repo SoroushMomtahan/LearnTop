@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Domain\LearnTop.Shared.Domain.csproj" />
+      <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\ReadDb\Migrations\" />
+      <Folder Include="Data\WriteDb\Migrations\" />
+    </ItemGroup>
+
+</Project>

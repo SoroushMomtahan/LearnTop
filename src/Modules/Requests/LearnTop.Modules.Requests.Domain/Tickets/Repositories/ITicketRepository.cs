@@ -6,5 +6,6 @@ public interface ITicketRepository
 {
     Task<Ticket?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
     Task AddAsync(Ticket ticket);
-    void Delete(Guid id);
+    void Delete(Ticket ticket);
+    Task AddAsync(ReplyTicket replyTicket);
 }

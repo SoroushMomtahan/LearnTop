@@ -1,6 +1,6 @@
 ﻿namespace LearnTop.Modules.Requests.Presentation;
 
-public class Tags
+public static class Tags
 {
-    
+    internal const string Tickets = "Tickets";
 }

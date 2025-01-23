@@ -1,4 +1,4 @@
-﻿using LearnTop.Modules.Requests.Application.Tickets.Abstractions;
+﻿using LearnTop.Modules.Requests.Application.Abstractions;
 using LearnTop.Modules.Requests.Domain.Tickets.Errors;
 using LearnTop.Modules.Requests.Domain.Tickets.Models;
 using LearnTop.Modules.Requests.Domain.Tickets.Repositories;
@@ -7,7 +7,7 @@ using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.EditReplyTicket;
 
-internal sealed class EditReplyTicketValidation(
+internal sealed class EditReplyTicketCommandHandler(
     ITicketRepository ticketRepository,
     IUnitOfWork unitOfWork)
     : ICommandHandler<EditReplyTicketCommand, EditReplyTicketResponse>
@@ -22,6 +22,14 @@ internal sealed class EditReplyTicketValidation(
         {
             return Result.Failure<EditReplyTicketResponse>(TicketErrors.TicketNotFound(request.TicketId));
         }
-        ticket.EditReplyTicket(request.ReplyTicketId, )
+        
+        Result validationResult = ticket.EditReplyTicket(request.ReplyTicketId, request.Content);
+        if (validationResult.IsFailure)
+        {
+            return Result.Failure<EditReplyTicketResponse>(validationResult.Error);
+        }
+        
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+        return new EditReplyTicketResponse(ticket.Id, request.ReplyTicketId);
     }
 }

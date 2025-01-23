@@ -1,29 +1,38 @@
-﻿using LearnTop.Shared.Domain;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.Errors;
+using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Requests.Domain.Tickets.Models;
 
-public sealed class ReplyTicket : Entity
+public class ReplyTicket : Entity
 {
     public Guid UserId { get; private set; }
     public Guid TicketId { get; private set; }
     public string Content { get; private set; }
     
+    private ReplyTicket() { }
 
-    private ReplyTicket(Guid userId, Guid ticketId, string content)
+    public static Result<ReplyTicket> Create(Guid userId, string content)
     {
-        UserId = userId;
-        Content = content;
-        TicketId = ticketId;
+        if (content.Length < 3)
+        {
+            return Result.Failure<ReplyTicket>(TicketErrors.ContentLessThan3Character);
+        }
+        ReplyTicket replyTicket = new()
+        {
+            UserId = userId,
+            Content = content,
+        };
+        return replyTicket;
     }
 
-    public static Result<ReplyTicket> CreateReplyTicket(Guid userId, Guid ticketId, string content)
+    public Result Edit(string content)
     {
-        return new ReplyTicket(userId, ticketId, content);
-    }
-
-    public void Edit(string content)
-    {
+        if (content.Length < 3)
+        {
+            return Result.Failure(TicketErrors.TicketNotFound(Id));
+        }
         Content = content;
         UpdatedAt = DateTime.UtcNow;
+        return Result.Success();
     }
 }

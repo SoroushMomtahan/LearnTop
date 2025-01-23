@@ -1,12 +1,12 @@
-﻿using LearnTop.Modules.Academy.Application.Abstractions.Data;
-using LearnTop.Modules.Academy.Domain.Tickets.Errors;
-using LearnTop.Modules.Academy.Domain.Tickets.Models;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+﻿using LearnTop.Modules.Requests.Application.Abstractions;
+using LearnTop.Modules.Requests.Domain.Tickets.Errors;
+using LearnTop.Modules.Requests.Domain.Tickets.Models;
+using LearnTop.Modules.Requests.Domain.Tickets.Repositories;
 using LearnTop.Modules.Users.PublicApi;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;
 
-namespace LearnTop.Modules.Academy.Application.Tickets.Commands.CreateTicket;
+namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.CreateTicket;
 
 internal sealed class CreateTicketCommandHandler
     (ITicketRepository ticketRepository,
@@ -16,7 +16,7 @@ internal sealed class CreateTicketCommandHandler
 {
     public async Task<Result<CreateTicketResponse>> Handle(CreateTicketCommand request, CancellationToken cancellationToken)
     {
-        Guid userId = request.CreateTicketDto.UserId;
+        Guid userId = request.UserId;
         bool isExist = await usersApi.IsExistAsync(userId);
         if (!isExist)
         {
@@ -24,17 +24,17 @@ internal sealed class CreateTicketCommandHandler
         }
         Result<Ticket> result = Ticket.CreateTicket(
             userId,
-            request.CreateTicketDto.Title,
-            request.CreateTicketDto.Content,
-            request.CreateTicketDto.Priority,
-            request.CreateTicketDto.Section
+            request.Title,
+            request.Content,
+            request.Priority,
+            request.Section
             );
-        if (!result.IsSuccess)
+        if (result.IsFailure)
         {
             return Result.Failure<CreateTicketResponse>(result.Error);
         }
         await ticketRepository.AddAsync(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return Result.Success(new CreateTicketResponse(result.Value.Id));
+        return new CreateTicketResponse(result.Value.Id);
     }
 }

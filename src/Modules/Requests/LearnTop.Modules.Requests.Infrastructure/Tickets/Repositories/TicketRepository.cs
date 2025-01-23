@@ -1,29 +1,38 @@
-﻿using LearnTop.Modules.Academy.Domain.Tickets.Models;
-using LearnTop.Modules.Academy.Domain.Tickets.Repositories;
+﻿using System.Data.Common;
+using LearnTop.Modules.Requests.Domain.Tickets.Models;
+using LearnTop.Modules.Requests.Domain.Tickets.Repositories;
+using LearnTop.Modules.Requests.Infrastructure.WriteDb;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Serilog;
 
-namespace LearnTop.Modules.Academy.Infrastructure.Database.WriteDb.Repositories.Tickets;
+namespace LearnTop.Modules.Requests.Infrastructure.Tickets.Repositories;
 
-public class TicketRepository(
-    AcademyDbContext dbContext
-    )
+internal sealed class TicketRepository(
+    RequestsDbContext requestsDbContext)
     : ITicketRepository
 {
+
     public async Task<Ticket?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await dbContext.Tickets.SingleOrDefaultAsync(c => c.Id == id, cancellationToken);
+        Ticket? ticket = await requestsDbContext.Tickets
+            .AsTracking()
+            .Include(x => x.ReplyTickets)
+            .AsTracking()
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return ticket;
     }
     public async Task AddAsync(Ticket ticket)
     {
-        await dbContext.Tickets.AddAsync(ticket);
+        await requestsDbContext.Tickets.AddAsync(ticket);
+        await requestsDbContext.ReplyTickets.AddRangeAsync(ticket.ReplyTickets);
     }
-    public async Task AddReplyTicketAsync(ReplyTicket replyTicket)
+    public async Task AddAsync(ReplyTicket replyTicket)
     {
-        await dbContext.ReplyTickets.AddAsync(replyTicket);
+        await requestsDbContext.ReplyTickets.AddAsync(replyTicket);
     }
-
-    public void Update(Ticket ticket)
+    public void Delete(Ticket ticket)
     {
-        dbContext.Tickets.Update(ticket);
+        requestsDbContext.Entry(ticket).State = EntityState.Deleted;
     }
 }

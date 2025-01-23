@@ -1,6 +1,14 @@
-﻿namespace LearnTop.Modules.Requests.Infrastructure.Tickets.Configurations;
+﻿using LearnTop.Modules.Requests.Domain.Tickets.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class ReplyTicketConfiguration
+namespace LearnTop.Modules.Requests.Infrastructure.Tickets.Configurations;
+
+internal sealed class ReplyTicketConfiguration : IEntityTypeConfiguration<ReplyTicket>
 {
-    
+
+    public void Configure(EntityTypeBuilder<ReplyTicket> builder)
+    {
+        builder.HasKey(x => x.Id);
+    }
 }

@@ -1,6 +1,3 @@
 ﻿namespace LearnTop.Modules.Requests.Application.Tickets.Features.Commands.ChangeTicketStatus;
 
-public class ChangeTicketStatusResponse
-{
-    
-}
+public record ChangeTicketStatusResponse(Guid TicketId);
