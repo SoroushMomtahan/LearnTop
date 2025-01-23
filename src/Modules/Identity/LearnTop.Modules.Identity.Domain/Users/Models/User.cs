@@ -10,6 +10,7 @@ public class User : Aggregate
     public Phone Phone { get; private set; }
     public Email Email { get; private set; }
     public string PasswordHash { get; private set; }
+    public Guid RefreshToken { get; private set; }
     public DateTime LastLoginDate { get; private set; }
     public bool IsBlocked { get; private set; }
 
@@ -69,5 +70,13 @@ public class User : Aggregate
     public void SetPhoneNumberVerified(bool verified)
     {
         Phone.PhoneNumberVerified = verified;
+    }
+    public void ResetPassword(string newPasswordHash)
+    {
+        PasswordHash = newPasswordHash;
+    }
+    public void SetRefreshToken(Guid refreshToken)
+    {
+        RefreshToken = refreshToken;
     }
 }
