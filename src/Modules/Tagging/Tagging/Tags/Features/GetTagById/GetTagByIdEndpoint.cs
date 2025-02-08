@@ -14,9 +14,10 @@ internal sealed class GetTagByIdEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("/Tags", async ([AsParameters] GetTagByIdQuery query, ISender sender) =>
-        {
-            Result<GetTagByIdResponse> result = await sender.Send(query);
-            return result.Match(Results.Ok, ApiResults.Problem); 
-        });
+            {
+                Result<GetTagByIdResponse> result = await sender.Send(query);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .WithTags(EndpointTags.Tag);
     }
 }

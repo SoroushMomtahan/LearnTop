@@ -2,7 +2,7 @@
 
 namespace Tagging.Tags.Models;
 
-internal sealed class Tag : Aggregate
+public sealed class Tag : Aggregate
 {
     public string Title { get; private set; }
     public string Description { get; private set; }

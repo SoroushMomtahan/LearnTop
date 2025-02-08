@@ -47,6 +47,13 @@
       - ./.files:/opt/keycloak/data/import
     ports:
       - "18080:8080"
+        
+  learntop.papercut:
+    image: "changemakerstudiosus/papercut-smtp:latest"
+    container_name: LearnTop.PaperCut
+    ports:
+      - "8080:80"
+      - "25:25"
 
 volumes:
   sqlserver-data:

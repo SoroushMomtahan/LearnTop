@@ -15,4 +15,24 @@ public static class UserErrors
             "Users.WasBlocked",
             "اکانت شما مسدود می باشد.",
             ErrorType.Validation);
+    
+    public static readonly Error NotFound =
+        new(
+            "Users.NotFound",
+            "کاربری یافت نشد.",
+            ErrorType.NotFound);
+    public static readonly Error Expired = new(
+        "Users.Expired",
+        "کد وارد شده منقضی شده است",
+        ErrorType.Validation
+        );
+    public static readonly Error NotValidCode = new(
+        "Users.NotValidCode",
+        "کد وارد شده معتبر نیست",
+        ErrorType.Validation
+        );
+    public static readonly Error AlreadyVerified = new(
+        "Users.AlreadyVerified",
+        "شما قبلا احراز هویت شده اید",
+        ErrorType.Validation);
 }

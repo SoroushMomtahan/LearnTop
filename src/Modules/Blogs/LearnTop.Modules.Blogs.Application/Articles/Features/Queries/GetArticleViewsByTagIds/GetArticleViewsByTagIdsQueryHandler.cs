@@ -15,11 +15,10 @@ internal sealed class GetArticleViewsByTagIdsQueryHandler(IArticleViewRepository
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await articleViewRepository.GetTotalCountAsync();
         
         List<ArticleView> articleViews = await articleViewRepository
-            .GetByTagIdsAsync(request.TagIds, pageIndex, pageSize, includeDeletedRows);
+            .GetByTagIdsAsync(request.TagIds, pageIndex, pageSize);
         
         PaginatedResult<ArticleView> paginatedViews = 
             new(pageIndex, pageSize, totalCount, articleViews);

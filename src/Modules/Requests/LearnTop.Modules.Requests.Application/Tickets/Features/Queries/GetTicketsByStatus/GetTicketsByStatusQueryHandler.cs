@@ -16,11 +16,10 @@ internal sealed class GetTicketsByStatusQueryHandler(
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await ticketViewRepository.GetTotalCountAsync();
         
         List<TicketView> ticketViews = await ticketViewRepository
-            .GetByStatusAsync(request.Status, pageIndex, pageSize, includeDeletedRows);
+            .GetByStatusAsync(request.Status, pageIndex, pageSize);
         
         PaginatedResult<TicketView> pagedTicketViews = 
             new(pageIndex, pageSize, totalCount, ticketViews);

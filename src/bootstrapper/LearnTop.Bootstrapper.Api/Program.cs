@@ -2,12 +2,12 @@ using LearnTop.Bootstrapper.Api.Extensions;
 using LearnTop.Bootstrapper.Api.Middlewares;
 using LearnTop.Modules.Academy.Infrastructure;
 using LearnTop.Modules.Blogs.Infrastructure;
+using LearnTop.Modules.Identity.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
 using LearnTop.Modules.Users.Infrastructure;
 using LearnTop.Shared.Application;
 using LearnTop.Shared.Infrastructure;
 using LearnTop.Shared.Presentation.Endpoints;
-using Microsoft.OpenApi.Models;
 using Serilog;
 using Tagging;
 
@@ -16,21 +16,30 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-    c.AddSecurityDefinition("Bearer",
-        new OpenApiSecurityScheme
-        {
-            In = ParameterLocation.Header, 
-            Description = "Please enter token", 
-            Name = "Authorization",
-            Type = SecuritySchemeType.Http, 
-            BearerFormat = "JWT", 
-            Scheme = "Bearer"
-        });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    c.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
+
+    // Add JWT Authentication to Swagger
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme."
+    });
+
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
-            new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } },
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
             []
         }
     });
@@ -49,7 +58,8 @@ builder.Services
         LearnTop.Modules.Users.Application.AssemblyReference.UsersAssembly,
         LearnTop.Modules.Blogs.Application.AssemblyReference.BlogsAssembly,
         LearnTop.Modules.Requests.Application.AssemblyReference.RequestsAssembly,
-        Tagging.AssemblyReference.TaggingAssembly)
+        Tagging.AssemblyReference.TaggingAssembly,
+        LearnTop.Modules.Identity.Application.AssemblyReference.IdentityAssembly)
     
     .AddInfrastructureConfiguration(
         builder.Configuration.GetConnectionString("Cache")!);
@@ -59,7 +69,8 @@ builder.Services
     .AddUsersModule(builder.Configuration)
     .AddBlogsModule(builder.Configuration)
     .AddRequestsModule(builder.Configuration)
-    .AddTaggingModule(builder.Configuration);
+    .AddTaggingModule(builder.Configuration)
+    .AddIdentityModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
@@ -68,18 +79,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseHsts();
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.MapEndpoints();
 
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
-
-app.UseAuthentication();
-
-app.UseAuthorization();
 
 app.Run();

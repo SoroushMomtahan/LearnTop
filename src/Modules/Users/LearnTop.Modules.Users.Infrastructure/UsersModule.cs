@@ -41,8 +41,6 @@ public static class UsersModule
     }
     private static void AddIdentityInfrastructure(this IServiceCollection services)
     {
-        
-        
         services.AddIdentityApiEndpoints<IdentityUser>()
             .AddEntityFrameworkStores<UsersDbContext>()
             .AddDefaultTokenProviders();

@@ -17,6 +17,8 @@ internal sealed class DeleteTagEndpoint : IEndpoint
         {
             Result<DeleteTagResponse> result = await sender.Send(command);
             return result.Match(Results.Ok, ApiResults.Problem);
-        });
+        })
+        .WithTags(EndpointTags.Tag)
+        .RequireAuthorization(Permissions.DeleteTag);
     }
 }

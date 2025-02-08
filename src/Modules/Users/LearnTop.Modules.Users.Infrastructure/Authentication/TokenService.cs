@@ -13,7 +13,7 @@ internal sealed class TokenService(IOptions<JwtOptions> options) : ITokenService
 {
     private JwtOptions Options { get; } = options.Value;
 
-    public string GenerateAccessTokenAsync(IdentityUser identityUser)
+    public string GenerateAccessToken(IdentityUser identityUser)
     {
         Claim[] claims =
         [
@@ -36,7 +36,7 @@ internal sealed class TokenService(IOptions<JwtOptions> options) : ITokenService
         string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         return tokenString;
     }
-    public string GenerateRefreshTokenAsync(IdentityUser identityUser)
+    public string GenerateRefreshToken(IdentityUser identityUser)
     {
         Claim[] claims =
         [

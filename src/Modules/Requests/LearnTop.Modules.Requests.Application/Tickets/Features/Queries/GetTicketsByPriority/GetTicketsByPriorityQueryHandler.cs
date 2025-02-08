@@ -16,11 +16,10 @@ internal sealed class GetTicketsByPriorityQueryHandler(
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await ticketViewRepository.GetTotalCountAsync();
         
         List<TicketView> ticketViews = await ticketViewRepository
-            .GetByPriorityAsync(request.Priority, pageIndex, pageSize, includeDeletedRows);
+            .GetByPriorityAsync(request.Priority, pageIndex, pageSize);
         PaginatedResult<TicketView> paginatedTicketViews = new
             (
             pageIndex,

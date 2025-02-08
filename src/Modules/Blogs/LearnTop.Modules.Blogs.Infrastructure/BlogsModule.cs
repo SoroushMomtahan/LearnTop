@@ -8,6 +8,7 @@ using LearnTop.Modules.Blogs.Infrastructure.ReadDb;
 using LearnTop.Modules.Blogs.Infrastructure.WriteDb;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using LearnTop.Shared.Presentation.Endpoints;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,12 @@ public static class BlogsModule
         services.AddEndpoints(AssemblyReference.BlogsEndpointsAssembly);
         return services;
     }
+#pragma warning disable S125
+    // public static void ConfigureConsumer(IRegistrationConfigurator registrationConfigurator)
+    // {
+    //     registrationConfigurator.AddConsumer<UserRegisteredIntegrationConsumer>();
+    // }
+#pragma warning restore S125
     private static void AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration)

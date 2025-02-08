@@ -35,8 +35,8 @@ internal sealed class SignInQueryHandler(
         {
             throw new LearnTopException(nameof(SignInQueryHandler));
         }
-        string accessToken = tokenService.GenerateAccessTokenAsync(identityUser);
-        string refreshToken = tokenService.GenerateRefreshTokenAsync(identityUser);
+        string accessToken = tokenService.GenerateAccessToken(identityUser);
+        string refreshToken = tokenService.GenerateRefreshToken(identityUser);
         
         return new SignInResponse(accessToken, refreshToken);
     }

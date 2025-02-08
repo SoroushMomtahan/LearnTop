@@ -18,6 +18,7 @@ public sealed class CreateTagEndpoint : IEndpoint
             Result<CreateTagResponse> result = await sender.Send(createTagCommand);
             return result.Match(Results.Ok, ApiResults.Problem);
         })
-        .WithTags(EndpointTags.Tag);
+        .WithTags(EndpointTags.Tag)
+        .RequireAuthorization(Permissions.WriteTags);
     }
 }

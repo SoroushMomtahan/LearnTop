@@ -15,11 +15,10 @@ internal sealed class GetTicketsBySearchQueryHandler(
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await ticketViewRepository.GetTotalCountAsync();
         
         List<TicketView> ticketViews = await ticketViewRepository
-            .GetBySearchAsync(request.SearchString, pageIndex, pageSize, includeDeletedRows);
+            .GetBySearchAsync(request.SearchString, pageIndex, pageSize);
         PaginatedResult<TicketView> paginatedTicketViews = new
             (
             pageIndex,

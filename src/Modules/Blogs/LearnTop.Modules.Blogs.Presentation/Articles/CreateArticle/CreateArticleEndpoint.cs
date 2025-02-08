@@ -15,6 +15,6 @@ internal sealed class CreateArticleEndpoint : IEndpoint
                 return result.Match(Results.Ok, ApiResults.Problem);
             })
             .WithTags(Tags.Articles)
-            .RequireAuthorization();
+            .RequireAuthorization(Permissions.WriteArticles);
     }
 }

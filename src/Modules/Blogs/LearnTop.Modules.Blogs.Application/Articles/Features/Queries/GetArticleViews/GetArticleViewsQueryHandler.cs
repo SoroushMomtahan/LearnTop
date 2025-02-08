@@ -14,9 +14,8 @@ internal sealed class GetArticleViewsQueryHandler(IArticleViewRepository article
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await articleViewRepository.GetTotalCountAsync();
-        List<ArticleView> articleViews = await articleViewRepository.GetAllAsync(pageIndex, pageSize, includeDeletedRows);
+        List<ArticleView> articleViews = await articleViewRepository.GetAllAsync(pageIndex, pageSize);
         PaginatedResult<ArticleView> articleViewsPaginated = new
             (
             pageIndex,

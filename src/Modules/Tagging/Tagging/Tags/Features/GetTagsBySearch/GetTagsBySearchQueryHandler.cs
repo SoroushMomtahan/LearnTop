@@ -15,12 +15,10 @@ internal sealed class GetTagsBySearchQueryHandler(TaggingViewDbContext taggingVi
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        bool includeDeletedRows = request.PaginationRequest.IncludeDeletedRows;
         long totalCount = await taggingViewDbContext.TagViews.LongCountAsync(cancellationToken);
         
         List<TagView> tagViews = await taggingViewDbContext.TagViews
             .AsNoTracking()
-            .Where(x => includeDeletedRows || x.IsDeleted)
             .Where(x=>x.Title.Contains(request.SearchQuery))
             .Skip(request.PaginationRequest.PageIndex)
             .Take(request.PaginationRequest.PageSize)

@@ -14,10 +14,10 @@ internal sealed class UpdateTagEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPut("/Tags", async (UpdateTagCommand command, ISender sender) =>
-        {
-            Result<UpdateTagResponse> result = await sender.Send(command);
-            return result.Match(Results.Ok, ApiResults.Problem);
-        })
-        .WithTags(EndpointTags.Tag);
+            {
+                Result<UpdateTagResponse> result = await sender.Send(command);
+                return result.Match(Results.Ok, ApiResults.Problem);
+            })
+            .WithTags(EndpointTags.Tag);
     }
 }
