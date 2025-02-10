@@ -6,8 +6,12 @@ using LearnTop.Modules.Identity.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
 using LearnTop.Modules.Users.Infrastructure;
 using LearnTop.Shared.Application;
+using LearnTop.Shared.Application.Services;
+using LearnTop.Shared.Domain;
 using LearnTop.Shared.Infrastructure;
 using LearnTop.Shared.Presentation.Endpoints;
+using Microsoft.AspNetCore.Antiforgery;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Tagging;
 
@@ -44,7 +48,6 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -54,7 +57,7 @@ builder.Configuration.AddConfigurationFiles("academy", "Users");
 
 builder.Services
     .AddApplicationConfiguration
-        (LearnTop.Modules.Academy.Application.AssemblyReference.AcademyAssembly,
+        (LearnTop.Modules.Information.Application.AssemblyReference.AcademyAssembly,
         LearnTop.Modules.Users.Application.AssemblyReference.UsersAssembly,
         LearnTop.Modules.Blogs.Application.AssemblyReference.BlogsAssembly,
         LearnTop.Modules.Requests.Application.AssemblyReference.RequestsAssembly,
@@ -65,7 +68,7 @@ builder.Services
         builder.Configuration.GetConnectionString("Cache")!);
 
 builder.Services
-    .AddAcademyModule(builder.Configuration)
+    .AddInformationModule(builder.Configuration)
     .AddUsersModule(builder.Configuration)
     .AddBlogsModule(builder.Configuration)
     .AddRequestsModule(builder.Configuration)
@@ -83,7 +86,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthentication();
 
 app.UseAuthorization();

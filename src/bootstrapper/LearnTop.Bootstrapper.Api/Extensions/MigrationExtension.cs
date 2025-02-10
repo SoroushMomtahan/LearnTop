@@ -1,4 +1,5 @@
-﻿using LearnTop.Modules.Blogs.Infrastructure.WriteDb;
+﻿using LearnTop.Modules.Academy.Infrastructure.Data.WriteDb;
+using LearnTop.Modules.Blogs.Infrastructure.WriteDb;
 using LearnTop.Modules.Identity.Infrastructure.Data.WriteDb;
 using LearnTop.Modules.Requests.Infrastructure.WriteDb;
 using LearnTop.Modules.Users.Infrastructure.WriteDb;
@@ -16,6 +17,7 @@ internal static class MigrationExtension
         ApplyMigration<IdentityDbContext>(scope);
         ApplyMigration<RequestsDbContext>(scope);
         ApplyMigration<UsersDbContext>(scope);
+        ApplyMigration<InformationDbContext>(scope);
     }
 
     private static void ApplyMigration<TDbContext>(IServiceScope scope)

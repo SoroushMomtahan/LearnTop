@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <RootNamespace>LearnTop.Modules.Academy.Presentation</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Domain\LearnTop.Shared.Domain.csproj" />
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Presentation\LearnTop.Shared.Presentation.csproj" />
+      <ProjectReference Include="..\..\Users\LearnTop.Modules.Users.IntegrationEvents\LearnTop.Modules.Users.IntegrationEvents.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Information.Application\LearnTop.Modules.Information.Application.csproj" />
+    </ItemGroup>
+</Project>

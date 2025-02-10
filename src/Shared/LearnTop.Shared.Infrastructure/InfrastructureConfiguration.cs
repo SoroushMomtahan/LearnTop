@@ -3,6 +3,7 @@ using LearnTop.Shared.Application.EventBus;
 using LearnTop.Shared.Infrastructure.Authentication;
 using LearnTop.Shared.Infrastructure.Authorization;
 using LearnTop.Shared.Infrastructure.Caching;
+using LearnTop.Shared.Infrastructure.Files;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using MassTransit;
 using MassTransit.Configuration;
@@ -23,6 +24,7 @@ public static class InfrastructureConfiguration
     {
         services.AddAuthenticationInternal();
         services.AddAuthorizationInternal();
+        services.AddFileServices();
         
         services.TryAddSingleton<ICacheService, CacheService>();
 

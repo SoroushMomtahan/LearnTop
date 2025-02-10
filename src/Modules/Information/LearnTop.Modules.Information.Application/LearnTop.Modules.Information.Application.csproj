@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
+      <ProjectReference Include="..\..\Users\LearnTop.Modules.Users.PublicApi\LearnTop.Modules.Users.PublicApi.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Information.Domain\LearnTop.Modules.Information.Domain.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Abstractions\" />
+      <Folder Include="Banners\Features\" />
+    </ItemGroup>
+</Project>

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>LearnTop.Modules.Academy.Infrastructure</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Information.Application\LearnTop.Modules.Information.Application.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Information.Presentation\LearnTop.Modules.Information.Presentation.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\WriteDb\Migrations\" />
+  </ItemGroup>
+</Project>
