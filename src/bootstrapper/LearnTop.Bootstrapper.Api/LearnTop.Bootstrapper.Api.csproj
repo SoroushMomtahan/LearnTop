@@ -36,6 +36,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Modules\Blogs\LearnTop.Modules.Blogs.Application\LearnTop.Modules.Blogs.Application.csproj" />
       <ProjectReference Include="..\..\Modules\Blogs\LearnTop.Modules.Blogs.Infrastructure\LearnTop.Modules.Blogs.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Commenting\LearnTop.Modules.Commenting.Infrastructure\LearnTop.Modules.Commenting.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Modules\Identity\LearnTop.Modules.Identity.Infrastructure\LearnTop.Modules.Identity.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Modules\Information\LearnTop.Modules.Information.Infrastructure\LearnTop.Modules.Information.Infrastructure.csproj" />
       <ProjectReference Include="..\..\Modules\Requests\LearnTop.Modules.Requests.Infrastructure\LearnTop.Modules.Requests.Infrastructure.csproj" />

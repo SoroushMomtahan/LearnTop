@@ -2,6 +2,7 @@ using LearnTop.Bootstrapper.Api.Extensions;
 using LearnTop.Bootstrapper.Api.Middlewares;
 using LearnTop.Modules.Academy.Infrastructure;
 using LearnTop.Modules.Blogs.Infrastructure;
+using LearnTop.Modules.Commenting.Infrastructure;
 using LearnTop.Modules.Identity.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
 using LearnTop.Modules.Users.Infrastructure;
@@ -62,7 +63,8 @@ builder.Services
         LearnTop.Modules.Blogs.Application.AssemblyReference.BlogsAssembly,
         LearnTop.Modules.Requests.Application.AssemblyReference.RequestsAssembly,
         Tagging.AssemblyReference.TaggingAssembly,
-        LearnTop.Modules.Identity.Application.AssemblyReference.IdentityAssembly)
+        LearnTop.Modules.Identity.Application.AssemblyReference.IdentityAssembly,
+        LearnTop.Modules.Commenting.Application.AssemblyReference.CommentingAssembly)
     
     .AddInfrastructureConfiguration(
         builder.Configuration.GetConnectionString("Cache")!);
@@ -73,7 +75,8 @@ builder.Services
     .AddBlogsModule(builder.Configuration)
     .AddRequestsModule(builder.Configuration)
     .AddTaggingModule(builder.Configuration)
-    .AddIdentityModule(builder.Configuration);
+    .AddIdentityModule(builder.Configuration)
+    .AddCommentingModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
@@ -84,7 +87,6 @@ if (app.Environment.IsDevelopment())
     app.UseHsts();
     app.ApplyMigrations();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();

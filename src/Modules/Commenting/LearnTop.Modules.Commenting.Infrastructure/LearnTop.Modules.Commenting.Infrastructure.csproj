@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <Folder Include="Data\WriteDb\Migrations\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Commenting.Application\LearnTop.Modules.Commenting.Application.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Commenting.Presentation\LearnTop.Modules.Commenting.Presentation.csproj" />
+    </ItemGroup>
+
+</Project>

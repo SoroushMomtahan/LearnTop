@@ -1,0 +1,7 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Identity\LearnTop.Modules.Identity.PublicApi\LearnTop.Modules.Identity.PublicApi.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Commenting.Domain\LearnTop.Modules.Commenting.Domain.csproj" />
+  </ItemGroup>
+</Project>

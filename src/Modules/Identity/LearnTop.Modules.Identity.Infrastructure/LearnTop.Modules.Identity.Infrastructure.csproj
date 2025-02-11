@@ -3,6 +3,7 @@
       <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
       <ProjectReference Include="..\LearnTop.Modules.Identity.Application\LearnTop.Modules.Identity.Application.csproj" />
       <ProjectReference Include="..\LearnTop.Modules.Identity.Presentation\LearnTop.Modules.Identity.Presentation.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Identity.PublicApi\LearnTop.Modules.Identity.PublicApi.csproj" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Data\WriteDb\Migrations\" />

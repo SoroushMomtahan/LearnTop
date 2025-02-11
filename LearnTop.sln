@@ -97,6 +97,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commenting", "Commenting", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Commenting.Domain", "src\Modules\Commenting\LearnTop.Modules.Commenting.Domain\LearnTop.Modules.Commenting.Domain.csproj", "{31584809-F4B2-452C-BE2C-01E724D4ACA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Commenting.Application", "src\Modules\Commenting\LearnTop.Modules.Commenting.Application\LearnTop.Modules.Commenting.Application.csproj", "{147D376C-8AB3-4853-9BCC-8CEE431CC250}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Identity.PublicApi", "src\Modules\Identity\LearnTop.Modules.Identity.PublicApi\LearnTop.Modules.Identity.PublicApi.csproj", "{FDA64BA7-2AA4-4B9D-8231-6BED67983075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Commenting.Infrastructure", "src\Modules\Commenting\LearnTop.Modules.Commenting.Infrastructure\LearnTop.Modules.Commenting.Infrastructure.csproj", "{283CD968-1B32-42F7-B185-B008ACA2F994}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Commenting.Presentation", "src\Modules\Commenting\LearnTop.Modules.Commenting.Presentation\LearnTop.Modules.Commenting.Presentation.csproj", "{93269B57-0C38-4EE7-855B-E4CB150488F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +155,10 @@ Global
 		{483B825B-5EE4-4BAE-BE36-7C3B9A28A5D3} = {6E1D4EA5-48BA-4EA8-B545-798E0FF2252B}
 		{C46E7DD0-7ED8-454F-B1D1-BC233753ED8A} = {FDCAB880-0066-461F-80C1-B27F3B3704BD}
 		{31584809-F4B2-452C-BE2C-01E724D4ACA3} = {C46E7DD0-7ED8-454F-B1D1-BC233753ED8A}
+		{147D376C-8AB3-4853-9BCC-8CEE431CC250} = {C46E7DD0-7ED8-454F-B1D1-BC233753ED8A}
+		{FDA64BA7-2AA4-4B9D-8231-6BED67983075} = {8C64A15F-52A3-4D87-A855-252E14765FE9}
+		{283CD968-1B32-42F7-B185-B008ACA2F994} = {C46E7DD0-7ED8-454F-B1D1-BC233753ED8A}
+		{93269B57-0C38-4EE7-855B-E4CB150488F3} = {C46E7DD0-7ED8-454F-B1D1-BC233753ED8A}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{038BBE57-BF63-409A-8C75-AC49A45D74B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -277,5 +289,21 @@ Global
 		{31584809-F4B2-452C-BE2C-01E724D4ACA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31584809-F4B2-452C-BE2C-01E724D4ACA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31584809-F4B2-452C-BE2C-01E724D4ACA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{147D376C-8AB3-4853-9BCC-8CEE431CC250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{147D376C-8AB3-4853-9BCC-8CEE431CC250}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{147D376C-8AB3-4853-9BCC-8CEE431CC250}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{147D376C-8AB3-4853-9BCC-8CEE431CC250}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA64BA7-2AA4-4B9D-8231-6BED67983075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA64BA7-2AA4-4B9D-8231-6BED67983075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA64BA7-2AA4-4B9D-8231-6BED67983075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA64BA7-2AA4-4B9D-8231-6BED67983075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{283CD968-1B32-42F7-B185-B008ACA2F994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{283CD968-1B32-42F7-B185-B008ACA2F994}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{283CD968-1B32-42F7-B185-B008ACA2F994}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{283CD968-1B32-42F7-B185-B008ACA2F994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93269B57-0C38-4EE7-855B-E4CB150488F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93269B57-0C38-4EE7-855B-E4CB150488F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93269B57-0C38-4EE7-855B-E4CB150488F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93269B57-0C38-4EE7-855B-E4CB150488F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

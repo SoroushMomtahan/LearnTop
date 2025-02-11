@@ -4,7 +4,8 @@ namespace LearnTop.Modules.Commenting.Domain.Comments.Repositories;
 
 public interface ICommentRepository
 {
-    Task<List<Comment>> GetAsync();
-    Task<Comment> GetAsync(Guid id);
-    Task<Comment> CreateAsync(Comment comment);
+    Task<List<Comment>> GetAsync(CancellationToken cancellationToken = default);
+    Task<Comment?> GetAsync(Guid id, CancellationToken cancellationToken = default);
+    Task CreateAsync(Comment comment, CancellationToken cancellationToken = default);
+    void Delete(Comment comment);
 }

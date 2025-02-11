@@ -4,10 +4,12 @@ using LearnTop.Modules.Identity.Domain.Roles.Repositories;
 using LearnTop.Modules.Identity.Domain.Users.Repositories;
 using LearnTop.Modules.Identity.Infrastructure.Authorization;
 using LearnTop.Modules.Identity.Infrastructure.Data.WriteDb;
+using LearnTop.Modules.Identity.Infrastructure.PublicApi;
 using LearnTop.Modules.Identity.Infrastructure.Roles.Repositories;
 using LearnTop.Modules.Identity.Infrastructure.Users.Repositories;
 using LearnTop.Modules.Identity.Infrastructure.Users.Services;
 using LearnTop.Modules.Identity.Presentation;
+using LearnTop.Modules.Identity.PublicApi;
 using LearnTop.Shared.Application.Authorization;
 using LearnTop.Shared.Infrastructure.Authorization;
 using LearnTop.Shared.Infrastructure.Interceptors;
@@ -33,6 +35,7 @@ public static class IdentityModule
         services.AddScoped<IPasswordHasher, PasswordHasher>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IPermissionService, PermissionService>();
+        services.AddScoped<IUserApi, UserApi>();
     }
     private static void AddWriteDb(this IServiceCollection services, IConfiguration configuration)
     {
