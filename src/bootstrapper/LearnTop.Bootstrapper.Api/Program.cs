@@ -2,6 +2,7 @@ using LearnTop.Bootstrapper.Api.Extensions;
 using LearnTop.Bootstrapper.Api.Middlewares;
 using LearnTop.Modules.Academy.Infrastructure;
 using LearnTop.Modules.Blogs.Infrastructure;
+using LearnTop.Modules.Categories.Infrastructure;
 using LearnTop.Modules.Commenting.Infrastructure;
 using LearnTop.Modules.Identity.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
@@ -58,13 +59,14 @@ builder.Configuration.AddConfigurationFiles("academy", "Users");
 
 builder.Services
     .AddApplicationConfiguration
-        (LearnTop.Modules.Information.Application.AssemblyReference.AcademyAssembly,
-        LearnTop.Modules.Users.Application.AssemblyReference.UsersAssembly,
-        LearnTop.Modules.Blogs.Application.AssemblyReference.BlogsAssembly,
-        LearnTop.Modules.Requests.Application.AssemblyReference.RequestsAssembly,
-        Tagging.AssemblyReference.TaggingAssembly,
-        LearnTop.Modules.Identity.Application.AssemblyReference.IdentityAssembly,
-        LearnTop.Modules.Commenting.Application.AssemblyReference.CommentingAssembly)
+        (LearnTop.Modules.Information.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Users.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Blogs.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Requests.Application.AssemblyReference.Assembly,
+        Tagging.AssemblyReference.Assembly,
+        LearnTop.Modules.Identity.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Commenting.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Categories.Application.AssemblyReference.Assembly)
     
     .AddInfrastructureConfiguration(
         builder.Configuration.GetConnectionString("Cache")!);
@@ -76,7 +78,8 @@ builder.Services
     .AddRequestsModule(builder.Configuration)
     .AddTaggingModule(builder.Configuration)
     .AddIdentityModule(builder.Configuration)
-    .AddCommentingModule(builder.Configuration);
+    .AddCommentingModule(builder.Configuration)
+    .AddCategoriesModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 

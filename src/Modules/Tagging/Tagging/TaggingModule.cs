@@ -12,7 +12,7 @@ public static class TaggingModule
 {
     public static IServiceCollection AddTaggingModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddEndpoints(AssemblyReference.TaggingAssembly);
+        services.AddEndpoints(AssemblyReference.Assembly);
         services.AddDbContext<TaggingDbContext>((sp, option) =>
         {
             string connectionString = configuration.GetConnectionString("WriteDb");

@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Categories.Application\LearnTop.Modules.Categories.Application.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Categories.Presentation\LearnTop.Modules.Categories.Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\WriteDb\Migrations\" />
+    </ItemGroup>
+
+</Project>

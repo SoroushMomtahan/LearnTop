@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace LearnTop.Modules.Identity.Application;
+namespace LearnTop.Modules.Categories.Application;
 
 public static class AssemblyReference
 {

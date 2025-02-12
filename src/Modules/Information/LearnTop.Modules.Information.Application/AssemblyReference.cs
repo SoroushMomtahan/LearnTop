@@ -4,5 +4,5 @@ namespace LearnTop.Modules.Information.Application;
 
 public static class AssemblyReference
 {
-    public static readonly Assembly AcademyAssembly = typeof(AssemblyReference).Assembly;
+    public static readonly Assembly Assembly = typeof(AssemblyReference).Assembly;
 }
