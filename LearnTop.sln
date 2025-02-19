@@ -115,6 +115,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Categories
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Categories.Presentation", "src\Modules\Categories\LearnTop.Modules.Categories.Presentation\LearnTop.Modules.Categories.Presentation.csproj", "{9239EF34-A41B-4B4D-90A2-7897511209BB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discounts", "Discounts", "{2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Discounts.Domain", "src\Modules\Discounts\LearnTop.Modules.Discounts.Domain\LearnTop.Modules.Discounts.Domain.csproj", "{76DF0982-9609-4E1A-9C03-1D540D5E2A62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Discounts.Application", "src\Modules\Discounts\LearnTop.Modules.Discounts.Application\LearnTop.Modules.Discounts.Application.csproj", "{691D0A99-E5FC-40BB-8D80-36940B6BE49B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Discounts.Infrastructure", "src\Modules\Discounts\LearnTop.Modules.Discounts.Infrastructure\LearnTop.Modules.Discounts.Infrastructure.csproj", "{1540EF9A-31FA-454E-A1A9-044245DC9624}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Discounts.Presentation", "src\Modules\Discounts\LearnTop.Modules.Discounts.Presentation\LearnTop.Modules.Discounts.Presentation.csproj", "{8C15BE51-D59F-4B5F-9930-E6120C6933EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +184,11 @@ Global
 		{303E0DCB-05A5-4159-B13F-916C21E3BA77} = {8E94A41F-CC79-4FFC-A5B8-9FE954CE41A1}
 		{E3DA022E-9A85-436C-B59D-CB2B0F4CA396} = {8E94A41F-CC79-4FFC-A5B8-9FE954CE41A1}
 		{9239EF34-A41B-4B4D-90A2-7897511209BB} = {8E94A41F-CC79-4FFC-A5B8-9FE954CE41A1}
+		{2D2F5AAD-1B30-4BD1-9436-B510189EB8AB} = {FDCAB880-0066-461F-80C1-B27F3B3704BD}
+		{76DF0982-9609-4E1A-9C03-1D540D5E2A62} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
+		{691D0A99-E5FC-40BB-8D80-36940B6BE49B} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
+		{1540EF9A-31FA-454E-A1A9-044245DC9624} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
+		{8C15BE51-D59F-4B5F-9930-E6120C6933EF} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{038BBE57-BF63-409A-8C75-AC49A45D74B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -336,5 +351,21 @@ Global
 		{9239EF34-A41B-4B4D-90A2-7897511209BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9239EF34-A41B-4B4D-90A2-7897511209BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9239EF34-A41B-4B4D-90A2-7897511209BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76DF0982-9609-4E1A-9C03-1D540D5E2A62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76DF0982-9609-4E1A-9C03-1D540D5E2A62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76DF0982-9609-4E1A-9C03-1D540D5E2A62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76DF0982-9609-4E1A-9C03-1D540D5E2A62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{691D0A99-E5FC-40BB-8D80-36940B6BE49B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{691D0A99-E5FC-40BB-8D80-36940B6BE49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{691D0A99-E5FC-40BB-8D80-36940B6BE49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{691D0A99-E5FC-40BB-8D80-36940B6BE49B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1540EF9A-31FA-454E-A1A9-044245DC9624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1540EF9A-31FA-454E-A1A9-044245DC9624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1540EF9A-31FA-454E-A1A9-044245DC9624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1540EF9A-31FA-454E-A1A9-044245DC9624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
