@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <Folder Include="Data\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Ordering.Application\LearnTop.Modules.Ordering.Application.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Ordering.Presentation\LearnTop.Modules.Ordering.Presentation.csproj" />
+    </ItemGroup>
+
+</Project>

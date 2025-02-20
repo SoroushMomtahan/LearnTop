@@ -125,6 +125,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Discounts.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Discounts.Presentation", "src\Modules\Discounts\LearnTop.Modules.Discounts.Presentation\LearnTop.Modules.Discounts.Presentation.csproj", "{8C15BE51-D59F-4B5F-9930-E6120C6933EF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{8D759BF9-9E5B-462B-9091-2C9F0A7705DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Ordering.Domain", "src\Modules\Ordering\LearnTop.Modules.Ordering.Domain\LearnTop.Modules.Ordering.Domain.csproj", "{1ACAE9C6-2C71-43BF-BADF-0F33C7664913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Ordering.Application", "src\Modules\Ordering\LearnTop.Modules.Ordering.Application\LearnTop.Modules.Ordering.Application.csproj", "{20274357-971E-4A38-9E21-FA3B24BC603F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Ordering.Infrastructure", "src\Modules\Ordering\LearnTop.Modules.Ordering.Infrastructure\LearnTop.Modules.Ordering.Infrastructure.csproj", "{068A14CF-D373-4F82-ACBB-0DD4043D2FC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnTop.Modules.Ordering.Presentation", "src\Modules\Ordering\LearnTop.Modules.Ordering.Presentation\LearnTop.Modules.Ordering.Presentation.csproj", "{670EEC41-0BCF-4BBB-9AAC-83E269ED13D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -189,6 +199,11 @@ Global
 		{691D0A99-E5FC-40BB-8D80-36940B6BE49B} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
 		{1540EF9A-31FA-454E-A1A9-044245DC9624} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
 		{8C15BE51-D59F-4B5F-9930-E6120C6933EF} = {2D2F5AAD-1B30-4BD1-9436-B510189EB8AB}
+		{8D759BF9-9E5B-462B-9091-2C9F0A7705DD} = {FDCAB880-0066-461F-80C1-B27F3B3704BD}
+		{1ACAE9C6-2C71-43BF-BADF-0F33C7664913} = {8D759BF9-9E5B-462B-9091-2C9F0A7705DD}
+		{20274357-971E-4A38-9E21-FA3B24BC603F} = {8D759BF9-9E5B-462B-9091-2C9F0A7705DD}
+		{068A14CF-D373-4F82-ACBB-0DD4043D2FC9} = {8D759BF9-9E5B-462B-9091-2C9F0A7705DD}
+		{670EEC41-0BCF-4BBB-9AAC-83E269ED13D8} = {8D759BF9-9E5B-462B-9091-2C9F0A7705DD}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{038BBE57-BF63-409A-8C75-AC49A45D74B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -367,5 +382,21 @@ Global
 		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C15BE51-D59F-4B5F-9930-E6120C6933EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ACAE9C6-2C71-43BF-BADF-0F33C7664913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ACAE9C6-2C71-43BF-BADF-0F33C7664913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ACAE9C6-2C71-43BF-BADF-0F33C7664913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ACAE9C6-2C71-43BF-BADF-0F33C7664913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20274357-971E-4A38-9E21-FA3B24BC603F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20274357-971E-4A38-9E21-FA3B24BC603F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20274357-971E-4A38-9E21-FA3B24BC603F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20274357-971E-4A38-9E21-FA3B24BC603F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{068A14CF-D373-4F82-ACBB-0DD4043D2FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068A14CF-D373-4F82-ACBB-0DD4043D2FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068A14CF-D373-4F82-ACBB-0DD4043D2FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068A14CF-D373-4F82-ACBB-0DD4043D2FC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{670EEC41-0BCF-4BBB-9AAC-83E269ED13D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{670EEC41-0BCF-4BBB-9AAC-83E269ED13D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{670EEC41-0BCF-4BBB-9AAC-83E269ED13D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{670EEC41-0BCF-4BBB-9AAC-83E269ED13D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

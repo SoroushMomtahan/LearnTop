@@ -11,8 +11,8 @@ public class Discount : Aggregate
     public bool ForAllUsers { get; private set; }
     private readonly List<CourseDiscount> _courseDiscounts = [];
     private readonly List<UserDiscount> _userDiscounts = [];
-    public IReadOnlyList<CourseDiscount> CourseDiscounts => _courseDiscounts;
-    public IReadOnlyList<UserDiscount> UserDiscounts => _userDiscounts;
+    public IReadOnlyList<CourseDiscount> CourseDiscounts => [.. _courseDiscounts];
+    public IReadOnlyList<UserDiscount> UserDiscounts => [.. _userDiscounts];
     
     private Discount() { }
 

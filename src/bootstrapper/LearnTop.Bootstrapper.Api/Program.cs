@@ -6,6 +6,7 @@ using LearnTop.Modules.Categories.Infrastructure;
 using LearnTop.Modules.Commenting.Infrastructure;
 using LearnTop.Modules.Discounts.Infrastructure;
 using LearnTop.Modules.Identity.Infrastructure;
+using LearnTop.Modules.Ordering.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
 using LearnTop.Modules.Users.Infrastructure;
 using LearnTop.Shared.Application;
@@ -68,7 +69,8 @@ builder.Services
         LearnTop.Modules.Identity.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Commenting.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Categories.Application.AssemblyReference.Assembly,
-        LearnTop.Modules.Discounts.Application.AssemblyReference.Assembly)
+        LearnTop.Modules.Discounts.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Ordering.Application.AssemblyReference.Assembly)
     
     .AddInfrastructureConfiguration(
         builder.Configuration.GetConnectionString("Cache")!);
@@ -82,7 +84,8 @@ builder.Services
     .AddIdentityModule(builder.Configuration)
     .AddCommentingModule(builder.Configuration)
     .AddCategoriesModule(builder.Configuration)
-    .AddDiscountsModule(builder.Configuration);
+    .AddDiscountsModule(builder.Configuration)
+    .AddOrderingModule();
 
 WebApplication app = builder.Build();
 
