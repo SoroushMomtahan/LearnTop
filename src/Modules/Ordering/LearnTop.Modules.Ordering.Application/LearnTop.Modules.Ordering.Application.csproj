@@ -11,4 +11,8 @@
       <ProjectReference Include="..\LearnTop.Modules.Ordering.Domain\LearnTop.Modules.Ordering.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Orders\Features\Queries\" />
+    </ItemGroup>
+
 </Project>

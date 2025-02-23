@@ -4,18 +4,13 @@ using LearnTop.Modules.Academy.Infrastructure;
 using LearnTop.Modules.Blogs.Infrastructure;
 using LearnTop.Modules.Categories.Infrastructure;
 using LearnTop.Modules.Commenting.Infrastructure;
-using LearnTop.Modules.Discounts.Infrastructure;
 using LearnTop.Modules.Identity.Infrastructure;
 using LearnTop.Modules.Ordering.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
 using LearnTop.Modules.Users.Infrastructure;
 using LearnTop.Shared.Application;
-using LearnTop.Shared.Application.Services;
-using LearnTop.Shared.Domain;
 using LearnTop.Shared.Infrastructure;
 using LearnTop.Shared.Presentation.Endpoints;
-using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Tagging;
 
@@ -69,7 +64,6 @@ builder.Services
         LearnTop.Modules.Identity.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Commenting.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Categories.Application.AssemblyReference.Assembly,
-        LearnTop.Modules.Discounts.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Ordering.Application.AssemblyReference.Assembly)
     
     .AddInfrastructureConfiguration(
@@ -84,8 +78,7 @@ builder.Services
     .AddIdentityModule(builder.Configuration)
     .AddCommentingModule(builder.Configuration)
     .AddCategoriesModule(builder.Configuration)
-    .AddDiscountsModule(builder.Configuration)
-    .AddOrderingModule();
+    .AddOrderingModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
