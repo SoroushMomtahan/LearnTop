@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
-namespace LearnTop.Modules.Academy.Presentation.Banners.Endpoints;
+namespace LearnTop.Modules.Academy.Presentation.Banners.Endpoints.CreateBanner;
 
 public class CreateBannerEndpoint : IEndpoint
 {

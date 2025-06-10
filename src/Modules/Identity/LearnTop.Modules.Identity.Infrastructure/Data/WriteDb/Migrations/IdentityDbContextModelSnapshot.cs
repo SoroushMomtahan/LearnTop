@@ -48,28 +48,28 @@ namespace LearnTop.Modules.Identity.Infrastructure.Data.WriteDb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c370d992-a181-4d86-a8c3-3c516102880a"),
+                            Id = new Guid("f6a8f6b4-425d-4ad2-ae1e-61d86f7e6ca7"),
                             Application = "Articles",
                             Description = "خواندن مقالات",
                             Type = "Read-Deleted"
                         },
                         new
                         {
-                            Id = new Guid("0aae8209-417a-4aa9-87ea-1eae29f17a1c"),
+                            Id = new Guid("bdd0241e-9096-4537-bb1a-2c63bba10572"),
                             Application = "Articles",
                             Description = "ایجاد مقالات",
                             Type = "Write"
                         },
                         new
                         {
-                            Id = new Guid("d93d26f9-7c2f-4f98-bae1-c27a0f2ecfda"),
+                            Id = new Guid("f8f8e9f4-4a7e-4518-85a9-1d8fdf7ed618"),
                             Application = "Tags",
                             Description = "ایجاد تگ های جدید",
                             Type = "Write"
                         },
                         new
                         {
-                            Id = new Guid("eb10266b-07cd-41ff-b7f1-f4afc1f5c538"),
+                            Id = new Guid("9bedba52-4bd4-45de-91da-f778ce90d684"),
                             Application = "Tags",
                             Description = "حذف تگ ها",
                             Type = "Delete"
@@ -105,21 +105,21 @@ namespace LearnTop.Modules.Identity.Infrastructure.Data.WriteDb.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("80649c43-91b5-406e-8059-3eefadff94b5"),
-                            CreatedAt = new DateTime(2025, 2, 8, 17, 34, 45, 739, DateTimeKind.Local).AddTicks(4358),
+                            Id = new Guid("8a59652a-308c-43eb-a420-d0adb1ca1cb2"),
+                            CreatedAt = new DateTime(2025, 4, 25, 18, 57, 6, 75, DateTimeKind.Local).AddTicks(2786),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
                             Name = "User",
-                            UpdatedAt = new DateTime(2025, 2, 8, 17, 34, 45, 739, DateTimeKind.Local).AddTicks(4359)
+                            UpdatedAt = new DateTime(2025, 4, 25, 18, 57, 6, 75, DateTimeKind.Local).AddTicks(2786)
                         },
                         new
                         {
-                            Id = new Guid("11c6e82a-5a4b-48ed-a3da-c62f50e85812"),
-                            CreatedAt = new DateTime(2025, 2, 8, 17, 34, 45, 738, DateTimeKind.Local).AddTicks(6778),
+                            Id = new Guid("34cdc888-239c-42c3-b4d6-2a40f79ebf72"),
+                            CreatedAt = new DateTime(2025, 4, 25, 18, 57, 6, 74, DateTimeKind.Local).AddTicks(5332),
                             DeletedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsActive = false,
                             Name = "Admin",
-                            UpdatedAt = new DateTime(2025, 2, 8, 17, 34, 45, 739, DateTimeKind.Local).AddTicks(4319)
+                            UpdatedAt = new DateTime(2025, 4, 25, 18, 57, 6, 75, DateTimeKind.Local).AddTicks(2747)
                         });
                 });
 
@@ -198,6 +198,9 @@ namespace LearnTop.Modules.Identity.Infrastructure.Data.WriteDb.Migrations
 
                     b.Property<DateTime>("DeletedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsBlocked")
                         .HasColumnType("bit");

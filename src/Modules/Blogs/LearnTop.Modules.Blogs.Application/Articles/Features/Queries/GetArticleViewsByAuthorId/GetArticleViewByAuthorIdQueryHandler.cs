@@ -1,5 +1,5 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
+﻿using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Application.Pagination;
 using LearnTop.Shared.Domain;
@@ -19,7 +19,7 @@ internal sealed class GetArticleViewByAuthorIdQueryHandler(IArticleViewRepositor
         List<ArticleView> articleViews = await articleViewRepository
             .GetByAuthorIdAsync(request.AuthorId, pageIndex, pageSize);
         
-        PaginatedResult<ArticleView> paginatedViews = 
+        PaginatedResult<ArticleView> paginatedViews =
             new(pageIndex, pageSize, totalCount, articleViews);
         
         return new GetArticleViewByAuthorIdResponse(paginatedViews);

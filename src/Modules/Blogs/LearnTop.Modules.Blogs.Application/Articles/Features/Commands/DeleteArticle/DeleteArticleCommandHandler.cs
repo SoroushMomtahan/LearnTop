@@ -1,8 +1,9 @@
 ﻿using LearnTop.Modules.Blogs.Application.Abstractions.Data;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
 using LearnTop.Modules.Blogs.Domain.Articles.Errors;
 using LearnTop.Modules.Blogs.Domain.Articles.Models;
 using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Application.Exceptions;
 using LearnTop.Shared.Domain;

@@ -8,6 +8,6 @@
     <ProjectReference Include="..\LearnTop.Modules.Information.Presentation\LearnTop.Modules.Information.Presentation.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\WriteDb\Migrations\" />
+    <Folder Include="Banners\Configurations\" />
   </ItemGroup>
 </Project>

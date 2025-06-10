@@ -1,12 +1,11 @@
 ﻿using LearnTop.Modules.Information.Domain.Banners.Errors;
 using LearnTop.Modules.Information.Domain.Banners.Events;
 using LearnTop.Shared.Domain;
-using File = LearnTop.Shared.Domain.Files.Models.File;
-
 namespace LearnTop.Modules.Information.Domain.Banners.Models;
 
-public class Banner : File
+public class Banner : Aggregate
 {
+    public Guid ImageFileId { get; private set; }
     public string? Title { get; private set; }
     public string? Description { get; private set; }
     public DateTime StartAt { get; private set; }
@@ -14,37 +13,28 @@ public class Banner : File
 
     private Banner() {}
 
-    public Banner(string extension, string[] validFormats, int maxFileSizeByMb, string preFileName = "")
-        : base(extension, validFormats, maxFileSizeByMb, preFileName)
+    public static Result<Banner> Create(string? title, string? description, DateTime startAt, DateTime endAt)
     {
-        AddDomainEvent(new BannerCreatedEvent(Id));
-    }
-    public Result AddTitle(string title)
-    {
-        if (title.Length < 3)
+        if (title is not null && title.Length < 3)
         {
-            return Result.Failure(BannerErrors.TitleLessThan3Character());
+            return Result.Failure<Banner>(BannerErrors.TitleLessThan3Character());
         }
-        Title = title;
-        return Result.Success();
-    }
-    public Result AddDescription(string description)
-    {
-        if (description.Length < 3)
+        if (description is not null && description.Length < 3)
         {
-            return Result.Failure(BannerErrors.DescriptionLessThan3Character);
+            return Result.Failure<Banner>(BannerErrors.DescriptionLessThan3Character);
         }
-        Description = description;
-        return Result.Success();
-    }
-    public Result SetBannerLifetime(DateTime startAt, DateTime endAt)
-    {
         if (startAt.CompareTo(endAt) != -1)
         {
-            return Result.Failure(BannerErrors.StartTimeBiggerThanEndTime);
+            return Result.Failure<Banner>(BannerErrors.StartTimeBiggerThanEndTime);
         }
-        StartAt = startAt;
-        EndAt = endAt;
-        return Result.Success();
+        Banner banner = new()
+        {
+            Title = title,
+            Description = description,
+            StartAt = startAt,
+            EndAt = endAt
+        };
+        banner.AddDomainEvent(new BannerCreatedEvent(banner.Id));
+        return banner;
     }
 }

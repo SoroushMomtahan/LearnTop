@@ -33,6 +33,13 @@ public static class ArticleErrors
             "محتوا نمی تواند کمتر از 3 کاراکتر باشد.",
             ErrorType.Validation);
     }
+    public static Error ShortContentOutOfRange()
+    {
+        return new(
+            "Articles.ShortContentOutOfRange",
+            "محتوا نمی تواند کمتر از 3 کاراکتر و بیشتر از 100 کاراکتر باشد.",
+            ErrorType.Validation);
+    }
     public static Error TagNotFound(Guid tagId)
     {
         return new("Articles.TagNotFound", $"تگی با شناسه {tagId} یافت نشد.", ErrorType.NotFound);

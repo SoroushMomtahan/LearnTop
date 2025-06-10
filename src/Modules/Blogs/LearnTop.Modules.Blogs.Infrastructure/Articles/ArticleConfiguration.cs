@@ -28,11 +28,14 @@ internal sealed class ArticleConfiguration : IEntityTypeConfiguration<Article>
                 .HasColumnName(nameof(Content))
                 .IsRequired();
         });
+        builder.OwnsOne(a => a.ShortContent, shortContent =>
+        {
+            shortContent.Property(a => a.Value)
+                .HasColumnName(nameof(ShortContent))
+                .IsRequired();
+        });
         builder.Property(a => a.Status)
             .IsRequired()
             .HasConversion<string>();
-        builder.HasMany(a => a.Tags)
-            .WithOne()
-            .HasForeignKey(t => t.ArticleId);
     }
 }

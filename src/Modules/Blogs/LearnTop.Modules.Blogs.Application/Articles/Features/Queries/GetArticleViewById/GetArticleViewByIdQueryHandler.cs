@@ -1,6 +1,6 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Errors;
-using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
+﻿using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
+using LearnTop.Modules.Blogs.Domain.Articles.Errors;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;
 
@@ -10,12 +10,13 @@ internal sealed class GetArticleViewByIdQueryHandler(IArticleViewRepository arti
     : IQueryHandler<GetArticleViewByIdQuery, GetArticleViewByIdResponse>
 {
 
-    public async Task<Result<GetArticleViewByIdResponse>> Handle(GetArticleViewByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<GetArticleViewByIdResponse>> Handle(
+        GetArticleViewByIdQuery request, CancellationToken cancellationToken)
     {
         ArticleView? articleView = await articleViewRepository.GetByIdAsync(request.ArticleId);
         
-        return articleView is null 
-            ? Result.Failure<GetArticleViewByIdResponse>(ArticleErrors.NotFound(request.ArticleId)) 
-            : new GetArticleViewByIdResponse(articleView);
+        return articleView is null ? 
+            Result.Failure<GetArticleViewByIdResponse>(ArticleErrors.NotFound(request.ArticleId)) :
+            new GetArticleViewByIdResponse(articleView);
     }
 }

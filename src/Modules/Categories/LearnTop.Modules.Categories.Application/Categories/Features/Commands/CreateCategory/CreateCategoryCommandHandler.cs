@@ -16,7 +16,13 @@ internal sealed class CreateCategoryCommandHandler(
         CreateCategoryCommand request, 
         CancellationToken cancellationToken)
     {
-        Result<Category> categoryResult = Category.Create(request.Name, request.Description);
+        Result<Category> categoryResult = Category.Create(
+            request.Name,
+            request.Order,
+            request.Description, 
+            request.LightImage,
+            request.DarkImage,
+            request.Icon);
         if (categoryResult.IsFailure)
         {
             return Result.Failure<CreateCategoryResponse>(categoryResult.Error);

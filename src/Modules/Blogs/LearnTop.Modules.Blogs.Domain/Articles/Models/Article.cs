@@ -10,24 +10,34 @@ public class Article : Aggregate
 {
     public Guid AuthorId { get; private set; }
     public Guid CategoryId { get; private set; }
+    public string CoverName { get; private set; }
     public Title Title { get; private set; }
     public Content Content { get; private set; }
+    public ShortContent ShortContent { get; private set; }
     public Status Status { get; private set; }
     public bool IsDeleted { get; private set; }
-    private readonly List<ArticleTag> _tags = [];
-    public IReadOnlyList<ArticleTag> Tags => [.. _tags];
+    private readonly List<Guid> _tagIds = [];
+    public IReadOnlyList<Guid> TagIds => [.. _tagIds];
     
     private Article() { }
 
-    public static Result<Article> Create(Guid authorId, Guid categoryId, string title, string content)
+    public static Result<Article> Create(
+        Guid authorId, 
+        Guid categoryId, 
+        string coverName,
+        string title, 
+        string shortContent, 
+        string content)
     {
         Article article = new()
         {
             AuthorId = authorId,
             CategoryId = categoryId,
+            CoverName = coverName,
             Title = title,
             Content = content,
-            Status = Status.Confirming
+            Status = Status.Confirming,
+            ShortContent = shortContent,
         };
         article.AddDomainEvent(new ArticleCreatedEvent(article));
         return article;
@@ -62,22 +72,22 @@ public class Article : Aggregate
     }
     public void AddTag(Guid tagId)
     {
-        bool isExist = _tags.Exists(t=>t.TagId == tagId && t.ArticleId == Id);
+        bool isExist = _tagIds.Contains(tagId);
         if (isExist)
         {
             return;
         }
-        _tags.Add(new(tagId, Id));
+        _tagIds.Add(tagId);
         AddDomainEvent(new ArticleUpdatedEvent(this));
     }
     public Result RemoveTag(Guid tagId)
     {
-        ArticleTag? articleTag = _tags.Find(t=>t.TagId == tagId && t.ArticleId == Id);
-        if (articleTag is null)
+        bool isExist = _tagIds.Contains(tagId);
+        if (!isExist)
         {
             return Result.Failure(ArticleErrors.TagNotFound(tagId));
         }
-        _tags.Remove(articleTag);
+        _tagIds.Remove(tagId);
         AddDomainEvent(new ArticleUpdatedEvent(this));
         return Result.Success();
     }

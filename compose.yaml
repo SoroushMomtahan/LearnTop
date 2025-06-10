@@ -29,7 +29,7 @@
   
   learntop.redis:
     image: redis:latest
-    container_name: LearnTop.Redis
+    container_name: LearnTop.Redis.Backend
     restart: always
     ports:
       - "6379:6379"

@@ -23,8 +23,4 @@ internal sealed class BannerRepository(
             .Where(b => b.Id == id)
             .SingleOrDefaultAsync(cancellationToken);
     }
-    public async Task<BannerSetting?> GetSettingsAsync(CancellationToken cancellationToken = default)
-    {
-        return await informationDbContext.BannerSettings.FirstOrDefaultAsync(cancellationToken);
-    }
 }

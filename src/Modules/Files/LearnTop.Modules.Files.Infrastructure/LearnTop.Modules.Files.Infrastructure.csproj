@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\shared\LearnTop.Shared.Infrastructure\LearnTop.Shared.Infrastructure.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Files.Application\LearnTop.Modules.Files.Application.csproj" />
+      <ProjectReference Include="..\LearnTop.Modules.Files.Presentation\LearnTop.Modules.Files.Presentation.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\Migrations\" />
+    </ItemGroup>
+
+</Project>

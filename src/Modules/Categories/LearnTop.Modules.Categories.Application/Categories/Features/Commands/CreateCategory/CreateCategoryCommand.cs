@@ -4,6 +4,10 @@ namespace LearnTop.Modules.Categories.Application.Categories.Features.Commands.C
 
 public record CreateCategoryCommand(
     string Name,
-    string? Description
+    int Order,
+    string? Description,
+    string? LightImage,
+    string? DarkImage,
+    string? Icon
     )
     : ICommand<CreateCategoryResponse>;

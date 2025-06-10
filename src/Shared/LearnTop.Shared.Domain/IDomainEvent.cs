@@ -8,9 +8,9 @@ public interface IDomainEvent : INotification
     /// <summary>
     /// شناسه هر رخداد
     /// </summary>
-    public Guid Id { get; }
+    Guid Id { get; }
     /// <summary>
     /// تاریخ وقوع هر رخداد
     /// </summary>
-    public DateTime OccuredOn { get; }
+    DateTime OccuredOn { get; }
 }

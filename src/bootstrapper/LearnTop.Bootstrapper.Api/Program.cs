@@ -4,6 +4,7 @@ using LearnTop.Modules.Academy.Infrastructure;
 using LearnTop.Modules.Blogs.Infrastructure;
 using LearnTop.Modules.Categories.Infrastructure;
 using LearnTop.Modules.Commenting.Infrastructure;
+using LearnTop.Modules.Files.Infrastructure;
 using LearnTop.Modules.Identity.Infrastructure;
 using LearnTop.Modules.Ordering.Infrastructure;
 using LearnTop.Modules.Requests.Infrastructure;
@@ -47,6 +48,16 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policyBuilder =>
+        {
+            policyBuilder.WithOrigins("https://localhost:7014")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
@@ -64,9 +75,11 @@ builder.Services
         LearnTop.Modules.Identity.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Commenting.Application.AssemblyReference.Assembly,
         LearnTop.Modules.Categories.Application.AssemblyReference.Assembly,
-        LearnTop.Modules.Ordering.Application.AssemblyReference.Assembly)
+        LearnTop.Modules.Ordering.Application.AssemblyReference.Assembly,
+        LearnTop.Modules.Files.Application.AssemblyReference.Assembly)
     
     .AddInfrastructureConfiguration(
+        [BlogsModule.ConfigureConsumer],
         builder.Configuration.GetConnectionString("Cache")!);
 
 builder.Services
@@ -78,7 +91,8 @@ builder.Services
     .AddIdentityModule(builder.Configuration)
     .AddCommentingModule(builder.Configuration)
     .AddCategoriesModule(builder.Configuration)
-    .AddOrderingModule(builder.Configuration);
+    .AddOrderingModule(builder.Configuration)
+    .AddFilesModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
@@ -92,11 +106,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
-
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 
 app.MapEndpoints();
-
+app.MapGet("/Test", () =>
+{
+    return Results.Ok("Hello World!");
+});
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();

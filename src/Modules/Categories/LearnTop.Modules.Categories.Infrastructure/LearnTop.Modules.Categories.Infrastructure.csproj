@@ -12,8 +12,4 @@
       <ProjectReference Include="..\LearnTop.Modules.Categories.Presentation\LearnTop.Modules.Categories.Presentation.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data\WriteDb\Migrations\" />
-    </ItemGroup>
-
 </Project>

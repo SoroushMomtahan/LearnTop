@@ -1,5 +1,5 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
+﻿using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Application.Pagination;
 using LearnTop.Shared.Domain;
@@ -18,7 +18,7 @@ internal sealed class GetArticleViewsBySearchQueryHandler(IArticleViewRepository
         long totalCount = await articleViewRepository.GetTotalCountAsync();
         List<ArticleView> articleViews = 
             await articleViewRepository.GetBySearchAsync(
-                request.SearchString,
+                request.SearchString ?? string.Empty,
                 pageIndex,
                 pageSize);
         

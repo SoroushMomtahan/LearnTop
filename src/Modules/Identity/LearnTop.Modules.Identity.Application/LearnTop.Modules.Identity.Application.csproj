@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Application\LearnTop.Shared.Application.csproj" />
     <ProjectReference Include="..\LearnTop.Modules.Identity.Domain\LearnTop.Modules.Identity.Domain.csproj" />
+    <ProjectReference Include="..\LearnTop.Modules.Identity.IntegrationEvent\LearnTop.Modules.Identity.IntegrationEvent.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Roles\Features\Queries\" />

@@ -10,11 +10,11 @@ internal sealed class GetArticleViewsBySearchEndpoint : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("/Articles/BySearch", async (
-            string search,
+            string? searchString,
             [AsParameters] PaginationRequest paginationRequest, 
             ISender sender) =>
         {
-            Result<GetArticleViewsBySearchResponse> result = await sender.Send(new GetArticleViewsBySearchQuery(paginationRequest, search));
+            Result<GetArticleViewsBySearchResponse> result = await sender.Send(new GetArticleViewsBySearchQuery(paginationRequest, searchString));
             return result.Match(Results.Ok, ApiResults.Problem);
         })
         .WithTags(Tags.Articles);

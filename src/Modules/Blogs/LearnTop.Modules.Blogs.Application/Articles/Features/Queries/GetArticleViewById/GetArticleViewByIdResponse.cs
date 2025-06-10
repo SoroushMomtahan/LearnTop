@@ -1,5 +1,4 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Views;
-using LearnTop.Shared.Application.Pagination;
+﻿using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewById;
 

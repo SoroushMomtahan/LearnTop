@@ -1,5 +1,5 @@
 ﻿using LearnTop.Modules.Academy.Infrastructure.Data.WriteDb;
-using LearnTop.Modules.Blogs.Infrastructure.WriteDb;
+using LearnTop.Modules.Blogs.Infrastructure.Data.WriteDb;
 using LearnTop.Modules.Identity.Infrastructure.Data.WriteDb;
 using LearnTop.Modules.Requests.Infrastructure.WriteDb;
 using LearnTop.Modules.Users.Infrastructure.WriteDb;

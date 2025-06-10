@@ -19,6 +19,13 @@ internal sealed class CategoryRepository(CategoriesDbContext categoriesDbContext
             .Include(c => c.ChildCategories)
             .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
+    public Task<List<Category>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        return categoriesDbContext.Categories.Include(c => c.ParentCategories)
+            .Include(c => c.ChildCategories)
+            .OrderBy(x=>x.Order)
+            .ToListAsync(cancellationToken);
+    }
     public async Task<Category?> GetAsync(string name, CancellationToken cancellationToken = default)
     {
         return await categoriesDbContext.Categories

@@ -1,9 +1,6 @@
 ﻿using System.Security.Claims;
 using LearnTop.Modules.Blogs.Application.Articles.Features.Commands.UpdateArticle;
 using LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewById;
-using LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewsByAuthorId;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
-using Serilog;
 
 namespace LearnTop.Modules.Blogs.Presentation.Articles.UpdateOwnArticle;
 
@@ -25,7 +22,7 @@ internal sealed class UpdateOwnArticleEndpoint : IEndpoint
                 {
                     return ApiResults.Problem(foundedArticleResult);
                 }
-                if (userId is null || foundedArticleResult.Value.ArticleView.AuthorId != Guid.Parse(userId))
+                if (userId is null || foundedArticleResult.Value.ArticleView.AuthorView.Id != Guid.Parse(userId))
                 {
                     return Results.Unauthorized();
                 }

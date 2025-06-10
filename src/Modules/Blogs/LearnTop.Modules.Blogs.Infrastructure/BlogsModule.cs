@@ -1,11 +1,15 @@
 ﻿using LearnTop.Modules.Blogs.Application;
 using LearnTop.Modules.Blogs.Application.Abstractions.Data;
+using LearnTop.Modules.Blogs.Application.Snapshots.UserSnapshots.Services;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
 using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
 using LearnTop.Modules.Blogs.Infrastructure.Articles;
-using LearnTop.Modules.Blogs.Infrastructure.ArticleViews;
-using LearnTop.Modules.Blogs.Infrastructure.ReadDb;
-using LearnTop.Modules.Blogs.Infrastructure.WriteDb;
+using LearnTop.Modules.Blogs.Infrastructure.ArticleViews.Repositories;
+using LearnTop.Modules.Blogs.Infrastructure.Data.ReadDb;
+using LearnTop.Modules.Blogs.Infrastructure.Data.SnapshotsDb;
+using LearnTop.Modules.Blogs.Infrastructure.Data.WriteDb;
+using LearnTop.Modules.Blogs.Infrastructure.UserSnapshots.Repositories;
+using LearnTop.Modules.Blogs.Presentation.Snapshots.Users;
 using LearnTop.Shared.Infrastructure.Interceptors;
 using LearnTop.Shared.Presentation.Endpoints;
 using MassTransit;
@@ -26,18 +30,17 @@ public static class BlogsModule
         services.AddEndpoints(AssemblyReference.BlogsEndpointsAssembly);
         return services;
     }
-#pragma warning disable S125
-    // public static void ConfigureConsumer(IRegistrationConfigurator registrationConfigurator)
-    // {
-    //     registrationConfigurator.AddConsumer<UserRegisteredIntegrationConsumer>();
-    // }
-#pragma warning restore S125
+    public static void ConfigureConsumer(IRegistrationConfigurator registrationConfigurator)
+    {
+        registrationConfigurator.AddConsumer<UserCreatedIntegrationEventConsumer>();
+    }
     private static void AddInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration)
     {
         services.AddWriteDb(configuration);
         services.AddReadDb(configuration);
+        services.AddSnapshotDb(configuration);
     }
     private static void AddWriteDb(this IServiceCollection services, IConfiguration configuration)
     {
@@ -55,11 +58,20 @@ public static class BlogsModule
     private static void AddReadDb(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IArticleViewRepository, ArticleViewRepository>();
-        services.AddScoped<IArticleTagViewRepository, ArticleTagViewRepository>();
-        services.AddDbContext<BlogViewsDbContext>(option =>
+        services.AddDbContext<BlogsViewsDbContext>(option =>
         {
             string connectionString = configuration.GetConnectionString("ReadDb");
             option.UseSqlServer(connectionString);
+        });
+    }
+    private static void AddSnapshotDb(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<IUserSnapshotRepository, UserSnapshotsRepository>();
+        
+        services.AddDbContext<BlogsSnapshotsDbContext>(builder =>
+        {
+            string connectionString = configuration.GetConnectionString("SnapshotsDb");
+            builder.UseSqlServer(connectionString);
         });
     }
 }

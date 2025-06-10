@@ -1,5 +1,6 @@
 ﻿using LearnTop.Modules.Identity.Domain.Roles.Models;
 using LearnTop.Modules.Identity.Domain.Users.Errors;
+using LearnTop.Modules.Identity.Domain.Users.Events;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Identity.Domain.Users.Models;
@@ -7,6 +8,7 @@ namespace LearnTop.Modules.Identity.Domain.Users.Models;
 public class User : Aggregate
 {
     public string Username { get; private set; }
+    public string? DisplayName { get; private set; }
     public Mobile Mobile { get; private set; }
     public Email Email { get; private set; }
     public string PasswordHash { get; private set; }
@@ -27,6 +29,7 @@ public class User : Aggregate
             Email = Email.Create(email),
             PasswordHash = passwordHash
         };
+        user.AddDomainEvent(new UserCreatedEvent(user));
         return user;
     }
     public static Result<User> SignUpWithMobileNumber(string mobileNumber, string passwordHash)
@@ -37,6 +40,7 @@ public class User : Aggregate
             Mobile = Mobile.Create(mobileNumber),
             PasswordHash = passwordHash
         };
+        user.AddDomainEvent(new UserCreatedEvent(user));
         return user;
     }
     public Result SignIn(User user)
@@ -50,14 +54,17 @@ public class User : Aggregate
             return Result.Failure(UserErrors.NotVerified);
         }
         LastLoginDate = DateTime.Now;
+        AddDomainEvent(new UserUpdatedEvent(this));
         return Result.Success();
     }
     public void ResetPassword(string newPasswordHash)
     {
         PasswordHash = newPasswordHash;
+        AddDomainEvent(new UserUpdatedEvent(this));
     }
     public void SetRefreshToken(Guid refreshToken)
     {
         RefreshToken = refreshToken;
+        AddDomainEvent(new UserUpdatedEvent(this));
     }
 }

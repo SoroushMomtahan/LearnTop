@@ -1,14 +1,17 @@
-﻿using LearnTop.Modules.Blogs.Domain.Articles.Errors;
+﻿using LearnTop.Modules.Blogs.Application.Snapshots.UserSnapshots;
+using LearnTop.Modules.Blogs.Application.Snapshots.UserSnapshots.Services;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
+using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
+using LearnTop.Modules.Blogs.Domain.Articles.Errors;
 using LearnTop.Modules.Blogs.Domain.Articles.Events;
-using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
-using LearnTop.Modules.Blogs.Domain.Articles.Views;
 using LearnTop.Shared.Application.Exceptions;
 using LearnTop.Shared.Application.Messaging;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.EventHandlers;
 
-internal sealed class ArticleUpdatedEventHandler
-    (IArticleViewRepository articleViewRepository) 
+internal sealed class ArticleUpdatedEventHandler(
+    IArticleViewRepository articleViewRepository,
+    IUserSnapshotRepository userSnapshotRepository)
     : IDomainEventHandler<ArticleUpdatedEvent>
 {
 
@@ -20,21 +23,25 @@ internal sealed class ArticleUpdatedEventHandler
         {
             throw new LearnTopException(nameof(ArticleUpdatedEventHandler), ArticleErrors.NotFound(notification.Article.Id));
         }
-        var articleTagViews = notification.Article.Tags
-            .Select(x => 
-                new ArticleTagView
-                {
-                    ArticleId = x.ArticleId, 
-                    TagId = x.TagId,
-                    CreatedAt = x.CreatedAt,
-                    UpdatedAt = x.UpdatedAt,
-                    DeletedAt = x.DeletedAt
-                })
-            .ToList();
-        articleView.TagViews = articleTagViews;
+        
+        UserSnapshot? userSnapshot = await userSnapshotRepository.GetAsync(
+            notification.Article.AuthorId, 
+            cancellationToken);
+        if (userSnapshot is null)
+        {
+            throw new ApplicationException("User snapshot is null");
+        }
+        AuthorView authorView = new()
+        {
+            Id = userSnapshot.UserId,
+            Name = userSnapshot.Username
+        };
+        //Todo: Check CategorySnapshot
+        //Todo: Check TagSnapshot
+        
+        
         articleView.Id = notification.Article.Id;
-        articleView.AuthorId = notification.Article.AuthorId;
-        articleView.CategoryId = notification.Article.CategoryId;
+        articleView.AuthorView = authorView;
         articleView.Title = notification.Article.Title;
         articleView.Content = notification.Article.Content;
         articleView.Status = notification.Article.Status.ToString();
@@ -42,7 +49,6 @@ internal sealed class ArticleUpdatedEventHandler
         articleView.CreatedAt = notification.Article.CreatedAt;
         articleView.UpdatedAt = notification.Article.UpdatedAt;
         articleView.DeletedAt = notification.Article.DeletedAt;
-        articleView.TagViews = articleTagViews;
         
         await articleViewRepository.SaveChangesAsync(cancellationToken);
     }

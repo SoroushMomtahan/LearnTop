@@ -3,13 +3,11 @@ using LearnTop.Modules.Information.Domain.Banners.Errors;
 using LearnTop.Modules.Information.Domain.Banners.Models;
 using LearnTop.Modules.Information.Domain.Banners.Repositories;
 using LearnTop.Shared.Application.Cqrs;
-using LearnTop.Shared.Application.Services;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Information.Application.Banners.Features.Commands.DeleteBanner;
 
 internal sealed class DeleteBannerCommandHandler(
-    IFileService fileService,
     IBannerRepository bannerRepository,
     IUnitOfWork unitOfWork)
     : ICommandHandler<DeleteBannerCommand, DeleteBannerResponse>
@@ -23,11 +21,7 @@ internal sealed class DeleteBannerCommandHandler(
             return Result.Failure<DeleteBannerResponse>(BannerErrors.NotFound);
         }
         
-        Result result = fileService.Delete(banner.Name, banner.Extension);
-        if (result.IsFailure)
-        {
-            return Result.Failure<DeleteBannerResponse>(result.Error);
-        }
+        // Todo: Delete Banner Image File
         
         bannerRepository.Delete(banner);
         await unitOfWork.SaveChangesAsync(cancellationToken);
