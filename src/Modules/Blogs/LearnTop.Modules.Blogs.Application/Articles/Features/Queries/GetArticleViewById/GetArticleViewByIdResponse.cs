@@ -1,4 +1,4 @@
-﻿using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
+﻿using LearnTop.Modules.Blogs.Application.Articles.Views;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewById;
 

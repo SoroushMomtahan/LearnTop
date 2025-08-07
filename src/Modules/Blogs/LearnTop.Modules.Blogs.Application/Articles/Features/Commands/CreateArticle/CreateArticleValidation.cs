@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using LearnTop.Modules.Blogs.Domain.Articles.Errors;
+using LearnTop.Modules.Blogs.Domain.Aggregates.Articles.Errors;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Commands.CreateArticle;

@@ -1,12 +1,12 @@
-﻿using LearnTop.Modules.Blogs.Application.Views.ArticleViews;
-using LearnTop.Modules.Blogs.Application.Views.ArticleViews.Repositories;
+﻿using LearnTop.Modules.Blogs.Application.Articles.Services;
+using LearnTop.Modules.Blogs.Application.Articles.Views;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Application.Pagination;
 using LearnTop.Shared.Domain;
 
 namespace LearnTop.Modules.Blogs.Application.Articles.Features.Queries.GetArticleViewsByTagIds;
 
-internal sealed class GetArticleViewsByTagIdsQueryHandler(IArticleViewRepository articleViewRepository)
+internal sealed class GetArticleViewsByTagIdsQueryHandler(IArticleQueryService articleQueryService)
     : IQueryHandler<GetArticleViewsByTagIdsQuery, GetArticleViewsByTagIdsResponse>
 {
 
@@ -15,9 +15,9 @@ internal sealed class GetArticleViewsByTagIdsQueryHandler(IArticleViewRepository
     {
         int pageIndex = request.PaginationRequest.PageIndex;
         int pageSize = request.PaginationRequest.PageSize;
-        long totalCount = await articleViewRepository.GetTotalCountAsync();
+        long totalCount = await articleQueryService.GetTotalCountAsync();
         
-        List<ArticleView> articleViews = await articleViewRepository
+        List<ArticleView> articleViews = await articleQueryService
             .GetByTagIdsAsync(request.TagIds, pageIndex, pageSize);
         
         PaginatedResult<ArticleView> paginatedViews = 

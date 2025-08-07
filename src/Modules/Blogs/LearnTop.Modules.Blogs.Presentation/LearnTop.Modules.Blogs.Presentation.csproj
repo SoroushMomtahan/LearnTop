@@ -4,4 +4,7 @@
     <ProjectReference Include="..\..\Identity\LearnTop.Modules.Identity.IntegrationEvent\LearnTop.Modules.Identity.IntegrationEvent.csproj" />
     <ProjectReference Include="..\LearnTop.Modules.Blogs.Application\LearnTop.Modules.Blogs.Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Articles\Endpoints\" />
+  </ItemGroup>
 </Project>

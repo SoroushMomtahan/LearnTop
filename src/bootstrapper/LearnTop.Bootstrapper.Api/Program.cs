@@ -1,3 +1,4 @@
+using LearnTop.Bootstrapper.Api;
 using LearnTop.Bootstrapper.Api.Extensions;
 using LearnTop.Bootstrapper.Api.Middlewares;
 using LearnTop.Modules.Academy.Infrastructure;
@@ -12,12 +13,18 @@ using LearnTop.Modules.Users.Infrastructure;
 using LearnTop.Shared.Application;
 using LearnTop.Shared.Infrastructure;
 using LearnTop.Shared.Presentation.Endpoints;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Serilog;
 using Tagging;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true;
+});
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "My API", Version = "v1" });
@@ -54,6 +61,15 @@ builder.Services.AddCors(options =>
         policyBuilder =>
         {
             policyBuilder.WithOrigins("https://localhost:7014")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            policyBuilder.WithOrigins("https://localhost:7070")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            policyBuilder.WithOrigins("http://localhost:5158")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+            policyBuilder.WithOrigins("https://localhost:5173")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
@@ -110,12 +126,22 @@ app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 
 app.MapEndpoints();
-app.MapGet("/Test", () =>
+IQueryable<Person> persons = Person.GeneratePeople(1000);
+app.MapGet("/Person", ([FromQuery] int index = 0, [FromQuery] int count = 10, [FromQuery] string search = "") =>
 {
-    return Results.Ok("Hello World!");
+    long thecount = persons.Count(x => x.FirstName.Contains(search, StringComparison.CurrentCultureIgnoreCase));
+    IQueryable<Person> result = persons.Where(x=>x.FirstName.Contains(search, StringComparison.CurrentCultureIgnoreCase)).Skip(index).Take(count);
+    return Results.Ok(new
+    {
+        Persons = result,
+        Total = thecount,
+    });
 });
-app.UseSerilogRequestLogging();
 
+
+
+app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 app.Run();

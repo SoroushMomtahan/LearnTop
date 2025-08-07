@@ -16,29 +16,30 @@ internal sealed class AddImageFileEndpoint : IEndpoint
 
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapPost("/ImageFile", async (IFormFile image, ISender sender) =>
-        {
-            Result<GetImageFileSettingsQuery.Response> imageSettingResult = await sender.Send(
-                new GetImageFileSettingsQuery());
-            if (imageSettingResult.IsFailure)
+        app.MapPost("/ImageFile/{ownerId:guid}", async (IFormFile file, Guid ownerId, ISender sender) =>
             {
-                return ApiResults.Problem(imageSettingResult);
-            }
-            ImageFileSetting imageFileSetting = imageSettingResult.Value.ImageFileSetting;
+                Result<GetImageFileSettingsQuery.Response> imageSettingResult = await sender.Send(
+                    new GetImageFileSettingsQuery());
+                if (imageSettingResult.IsFailure)
+                {
+                    return ApiResults.Problem(imageSettingResult);
+                }
+                ImageFileSetting imageFileSetting = imageSettingResult.Value.ImageFileSetting;
 
-            AddFileCommand addFileCommand = new(
-                image, 
-                imageFileSetting.ValidFormat, 
-                imageFileSetting.MaxSizeByMb);
-            
-            Result<AddFileCommand.Response> addFileResult = await sender.Send(addFileCommand);
-            if (addFileResult.IsFailure)
-            {
-                return ApiResults.Problem(addFileResult);
-            }
-            return Results.Ok(addFileResult.Value);
-        })
-        .WithTags(Tags.Files)
-        .DisableAntiforgery();
+                AddFileCommand addFileCommand = new(
+                    ownerId,
+                    file,
+                    imageFileSetting.ValidFormat,
+                    imageFileSetting.MaxSizeByMb);
+
+                Result<AddFileCommand.Response> addFileResult = await sender.Send(addFileCommand);
+                if (addFileResult.IsFailure)
+                {
+                    return ApiResults.Problem(addFileResult);
+                }
+                return Results.Ok(addFileResult.Value);
+            })
+            .WithTags(Tags.Files)
+            .DisableAntiforgery();
     }
 }

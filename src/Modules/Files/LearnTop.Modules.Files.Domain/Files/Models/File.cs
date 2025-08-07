@@ -5,6 +5,7 @@ namespace LearnTop.Modules.Files.Domain.Files.Models;
 
 public class File : Aggregate
 {
+    public Guid OwnerId { get; private set; }
     public static int MaxFileSize { get; private set; }
     public static string[] ValidFormats { get; private set; }
     public string Name { get; private set; }
@@ -13,10 +14,11 @@ public class File : Aggregate
     
     private File() { }
 
-    public File(string extension, string[] validFormats, int maxFileSizeByMb, string preFileName)
+    public File(string extension, string[] validFormats, int maxFileSizeByMb, string preFileName, Guid ownerId)
     {
         ValidFormats = validFormats;
         MaxFileSize = maxFileSizeByMb;
+        OwnerId = ownerId;
         
         if (!ValidFormats.Contains(extension))
         {

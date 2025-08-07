@@ -1,7 +1,6 @@
 ﻿using LearnTop.Modules.Blogs.Application.Abstractions.Data;
-using LearnTop.Modules.Blogs.Domain.Articles.Errors;
-using LearnTop.Modules.Blogs.Domain.Articles.Models;
-using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
+using LearnTop.Modules.Blogs.Domain.Aggregates.Articles.Models;
+using LearnTop.Modules.Blogs.Domain.Aggregates.Articles.Repositories;
 using LearnTop.Modules.Identity.PublicApi;
 using LearnTop.Modules.Users.PublicApi;
 using LearnTop.Shared.Application.Cqrs;
@@ -11,21 +10,23 @@ namespace LearnTop.Modules.Blogs.Application.Articles.Features.Commands.CreateAr
 
 internal sealed class CreateArticleCommandHandler
     (IArticleRepository articleRepository,
-    IUnitOfWork unitOfWork,
-    IUserApi usersApi) 
+    IUnitOfWork unitOfWork) 
     : ICommandHandler<CreateArticleCommand, CreateArticleResponse>
 {
 
     public async Task<Result<CreateArticleResponse>> Handle(CreateArticleCommand request, CancellationToken cancellationToken)
     {
-        GetUserResponse user = await usersApi.GetAsync(request.AuthorId);
-        if (user is null)
-        {
-            return Result.Failure<CreateArticleResponse>(ArticleErrors.AuthorNotFound(request.AuthorId));
-        }
+#pragma warning disable S125
+        // GetUserResponse user = await usersApi.GetAsync(request.AuthorId);
+        // if (user is null)
+        // {
+        //     return Result.Failure<CreateArticleResponse>(ArticleErrors.AuthorNotFound(request.AuthorId));
+        // }
+#pragma warning disable S125
         // TODO: Find Category With CategoryId
         
-        Result<Article> result = Article.Create(
+        
+        Result<Article> result = Article.CreatePublic(
             request.AuthorId,
             request.CategoryId,
             request.CoverName,
@@ -40,6 +41,9 @@ internal sealed class CreateArticleCommandHandler
         
         await articleRepository.CreateAsync(result.Value);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return new CreateArticleResponse(result.Value.Id);
+        return Result.Success<CreateArticleResponse>(new(result.Value.Id));
+
+        
+        // throw new NotImplementedException();
     }
 }

@@ -30,6 +30,10 @@ public class FileService(IOptions<FileOptions> options) : IFileService
     {
         string fileExtension = Path.GetExtension(file.FileName);
         string pathName = Path.Combine($"{options.Value.RootPath}/{folderName}", fileName + fileExtension);
+        if (!Directory.Exists($"{options.Value.RootPath}/{folderName}"))
+        {
+            Directory.CreateDirectory(pathName);
+        }
         await using var fileStream = new FileStream(pathName, FileMode.Create);
         await using var memoryStream = new MemoryStream();
         await file.CopyToAsync(fileStream);

@@ -2,4 +2,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\Shared\LearnTop.Shared.Domain\LearnTop.Shared.Domain.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Aggregates\" />
+    </ItemGroup>
 </Project>

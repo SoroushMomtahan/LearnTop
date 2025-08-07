@@ -1,7 +1,7 @@
 ﻿using LearnTop.Modules.Blogs.Application.Abstractions.Data;
-using LearnTop.Modules.Blogs.Domain.Articles.Errors;
-using LearnTop.Modules.Blogs.Domain.Articles.Models;
-using LearnTop.Modules.Blogs.Domain.Articles.Repositories;
+using LearnTop.Modules.Blogs.Domain.Aggregates.Articles.Errors;
+using LearnTop.Modules.Blogs.Domain.Aggregates.Articles.Models;
+using LearnTop.Modules.Blogs.Domain.Aggregates.Articles.Repositories;
 using LearnTop.Shared.Application.Cqrs;
 using LearnTop.Shared.Domain;
 

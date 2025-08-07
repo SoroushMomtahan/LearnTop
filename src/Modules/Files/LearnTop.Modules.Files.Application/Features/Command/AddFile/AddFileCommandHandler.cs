@@ -27,7 +27,8 @@ internal sealed class AddFileCommandHandler(
             extension,
             request.ValidFormats, 
             request.MaxFileSizeByMb,
-            string.Empty);
+            string.Empty,
+            request.OwnerId);
 
         await fileService.SaveAsync(request.File, file.Name);
         

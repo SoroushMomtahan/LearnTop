@@ -45,11 +45,15 @@ public class Ticket : Aggregate
     {
         if (title.Length < 3)
         {
-            return Result.ValidationFailure<Ticket>(TicketErrors.TitleLessThan3Character);
+#pragma warning disable S125
+            // return Result.ValidationFailure1<Ticket>(TicketErrors.TitleLessThan3Character);
+#pragma warning disable S125
         }
         if (content.Length < 3)
         {
-            return Result.ValidationFailure<Ticket>(TicketErrors.ContentLessThan3Character);
+#pragma warning disable S125
+            // return Result.ValidationFailure1<Ticket>(TicketErrors.ContentLessThan3Character);
+#pragma warning disable S125
         }
         var ticket = new Ticket(userId, title, content, TicketStatus.Open, priority, section);
         ticket.AddDomainEvent(new TicketCreatedEvent(ticket));
@@ -64,11 +68,15 @@ public class Ticket : Aggregate
     {
         if (title.Length < 3)
         {
-            return Result.ValidationFailure<Ticket>(TicketErrors.TitleLessThan3Character);
+#pragma warning disable S125
+            // return Result.ValidationFailure1<Ticket>(TicketErrors.TitleLessThan3Character);
+#pragma warning disable S125
         }
         if (content.Length < 3)
         {
-            return Result.ValidationFailure<Ticket>(TicketErrors.ContentLessThan3Character);
+#pragma warning disable S125
+            // return Result.ValidationFailure1<Ticket>(TicketErrors.ContentLessThan3Character);
+#pragma warning disable S125
         }
 
         Title = title;

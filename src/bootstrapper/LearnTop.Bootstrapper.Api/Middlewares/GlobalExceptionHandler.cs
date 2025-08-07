@@ -19,13 +19,15 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
         {
             Status = StatusCodes.Status500InternalServerError,
             Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
-            Title = "Server failure"
+            Title = "Server.failure"
         };
         switch (exception)
         {
-            case ValidationException validationException:
-                problemDetails.Extensions.Add("ValidationErrors", validationException.Errors);
-                break;
+#pragma warning disable S125
+            // case ValidationException validationException:
+            //     problemDetails.Extensions.Add("ValidationErrors", validationException.Errors);
+            //     break;
+#pragma warning disable S125
             case DomainValidationException domainException:
                 problemDetails.Extensions.Add("DomainException", 
                     new

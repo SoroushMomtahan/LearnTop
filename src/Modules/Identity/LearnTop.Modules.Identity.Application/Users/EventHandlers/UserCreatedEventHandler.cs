@@ -14,7 +14,8 @@ internal sealed class UserCreatedEventHandler(IEventBus eventBus) : IDomainEvent
             notification.Id, 
             notification.OccuredOn,
             notification.User.Id,
-            notification.User.DisplayName ?? ""),
+            notification.User.Username,
+            notification.User.DisplayName),
             cancellationToken);
     }
 }

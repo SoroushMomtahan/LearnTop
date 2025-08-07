@@ -23,14 +23,15 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         {
             return await next();
         }
+
         if (typeof(TResponse).IsGenericType &&
             typeof(TResponse).GetGenericTypeDefinition() == typeof(Result<>))
         {
             Type resultType = typeof(TResponse).GetGenericArguments()[0];
-
+            
             MethodInfo? failureMethod = typeof(Result<>)
                 .MakeGenericType(resultType)
-                .GetMethod(nameof(Result.ValidationFailure));
+                .GetMethod(nameof(Result<object>.ValidationFailure));
 
             if (failureMethod is not null)
             {
@@ -65,9 +66,6 @@ internal sealed class ValidationPipelineBehavior<TRequest, TResponse>(
         return validationFailures;
     }
 
-    private static ValidationError CreateValidationError(ValidationFailure[] validationFailures)
-    {
-        return new(validationFailures.Select(static f => Error.Problem(f.ErrorCode, f.ErrorMessage)).ToArray());
-    }
+    private static ValidationError CreateValidationError(ValidationFailure[] validationFailures) =>
+        new(validationFailures.Select(f => Error.Validation(f.ErrorCode, f.ErrorMessage)).ToArray());
 }
-

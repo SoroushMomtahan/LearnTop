@@ -80,18 +80,7 @@ public class Result
     {
         return new(default, false, error);
     }
-
-    /// <summary>
-    /// متدی برای ایجاد نتیجه شکست
-    /// در سناریویی که شکست ، ناشی از اعتبارسنجی ناموفق بوده است
-    /// </summary>
-    /// <param name="error"></param>
-    /// <typeparam name="TValue"></typeparam>
-    /// <returns></returns>
-    public static Result<TValue> ValidationFailure<TValue>(Error error)
-    {
-        return new(default, false, error);
-    }
+    
 }
 
 /// <summary>
@@ -130,4 +119,9 @@ public class Result<TValue> : Result
     /// <returns></returns>
     public static implicit operator Result<TValue>(TValue? value) =>
         value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
+    
+    public static Result<TValue> ValidationFailure(Error error)
+    {
+        return new(default, false, error);
+    }
 }
